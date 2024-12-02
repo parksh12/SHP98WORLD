@@ -27,6 +27,13 @@
             text-align: center;
         }
 
+        p {
+            font-size: 1em;
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         /* 버튼 스타일 */
         button {
             font-size: 20px;
@@ -49,11 +56,11 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background-color: black; /* 기본 원 색깔을 검정색으로 설정 */
+            background-color: black;
             margin: 10px;
             display: inline-block;
             opacity: 0.7;
-            position: absolute; /* 위치를 절대적으로 설정 */
+            position: absolute;
         }
 
         .container {
@@ -101,6 +108,9 @@
 <h3><a href="https://goodstock18.tistory.com/m/entry/Bookmark-Collection">by.shp98</a></h3>
 <hr>
 
+<!-- 안내 문구 -->
+<p>Click the red circle!</p>
+
 <!-- 게임 시작 버튼 -->
 <button onclick="startCountdown()">Start Game</button>
 
@@ -128,15 +138,14 @@
     let countdownValue = 5;
     let countdownInterval;
     let countdownElement = document.getElementById("countdown");
+    let clickMissed = false;  // 클릭 실패 여부 확인
 
-    // 카운트다운 함수
     function startCountdown() {
-        // 이전 카운트다운이 진행 중이면 멈추기
         if (countdownInterval) {
             clearInterval(countdownInterval);
         }
 
-        countdownValue = 5;  // 카운트다운을 5초로 초기화
+        countdownValue = 5;
         countdownElement.style.display = 'block';
 
         countdownInterval = setInterval(function() {
@@ -150,17 +159,16 @@
         }, 1000);
     }
 
-    // 게임 시작 함수
     function startGame() {
         currentRound = 0;
         clickTimes = [];
+        clickMissed = false;
         document.getElementById("backButton").style.display = 'none';
         document.getElementById("result").innerHTML = '';
         generateCircles();
         showRandomCircle();
     }
 
-    // 원을 생성하는 함수
     function generateCircles() {
         const container = document.getElementById("circleContainer");
         container.innerHTML = '';
@@ -172,7 +180,6 @@
         }
     }
 
-    // 랜덤 원을 표시하는 함수
     function showRandomCircle() {
         if (currentRound >= totalRounds) {
             endGame();
@@ -184,29 +191,27 @@
         const randomCircle = circles[randomIndex];
         let circlePosition = getRandomPosition();
 
-        // 원의 위치 설정
         randomCircle.style.left = circlePosition.x + 'px';
         randomCircle.style.top = circlePosition.y + 'px';
         
-        randomCircle.style.backgroundColor = 'red';  // 원 색깔을 빨간색으로 변경
-        randomCircle.style.opacity = '1';  // 원을 완전히 보이게 함
+        randomCircle.style.backgroundColor = 'red';
+        randomCircle.style.opacity = '1';
 
         startTime = Date.now();
         
-        // 1초 후 원을 원래대로 돌려놓음
         setTimeout(() => {
-            randomCircle.style.backgroundColor = 'black';  // 원 색깔을 검정색으로 변경
-            randomCircle.style.opacity = '0.7';  // 원을 다시 투명하게
+            if (!clickTimes[currentRound]) clickMissed = true;
+            randomCircle.style.backgroundColor = 'black';
+            randomCircle.style.opacity = '0.7';
             currentRound++;
-            showRandomCircle();  // 다음 원을 나타냄
+            showRandomCircle();
         }, 1000);
     }
 
-    // 랜덤 위치를 계산하는 함수
     function getRandomPosition() {
         const container = document.getElementById("circleContainer");
-        const maxX = container.offsetWidth - 80;  // 원의 너비만큼 제외
-        const maxY = container.offsetHeight - 80;  // 원의 높이만큼 제외
+        const maxX = container.offsetWidth - 80;
+        const maxY = container.offsetHeight - 80;
 
         let x = Math.floor(Math.random() * maxX);
         let y = Math.floor(Math.random() * maxY);
@@ -214,43 +219,41 @@
         return { x, y };
     }
 
-    // 클릭 이벤트 핸들러
     function handleClick(event) {
         const reactionTime = (Date.now() - startTime) / 1000;
-        clickTimes.push(reactionTime);
+        clickTimes[currentRound] = reactionTime;
     }
 
-    // 게임 종료 처리 함수
     function endGame() {
-        let totalReactionTime = clickTimes.reduce((sum, time) => sum + time, 0);
-        let averageTime = totalReactionTime / totalRounds;
-
-        // 기준 시간에 따른 티어 부여 (난이도 2배 어려움)
-        let tier = '';
-        if (averageTime <= 0.058) {
-            tier = 'Grand Master';
-        } else if (averageTime <= 0.062) {
-            tier = 'Master';
-        } else if (averageTime <= 0.65) {
-            tier = 'Diamond';
-        } else if (averageTime <= 0.7) {
-            tier = 'Platinum';
-        } else if (averageTime <= 0.75) {
-            tier = 'Gold';
-        } else if (averageTime <= 0.8) {
-            tier = 'Silver';
+        if (clickMissed || clickTimes.length < totalRounds) {
+            document.getElementById('result').innerHTML = `You failed to click the required circles.`;
         } else {
-            tier = 'Bronze';
+            let totalReactionTime = clickTimes.reduce((sum, time) => sum + time, 0);
+            let averageTime = totalReactionTime / totalRounds;
+
+            let tier = '';
+            if (averageTime <= 0.058) {
+                tier = 'Grand Master';
+            } else if (averageTime <= 0.062) {
+                tier = 'Master';
+            } else if (averageTime <= 0.65) {
+                tier = 'Diamond';
+            } else if (averageTime <= 0.7) {
+                tier = 'Platinum';
+            } else if (averageTime <= 0.75) {
+                tier = 'Gold';
+            } else if (averageTime <= 0.8) {
+                tier = 'Silver';
+            } else {
+                tier = 'Bronze';
+            }
+
+            document.getElementById('result').innerHTML = `Your average reaction time: ${averageTime.toFixed(6)}s<br>Your tier: ${tier}`;
         }
 
-        // 게임 결과 표시
-        document.getElementById('result').innerHTML = `Your average reaction time: ${averageTime.toFixed(6)}s<br>Your tier: ${tier}`;
-
-        // 다시 도전하기 버튼 표시
         document.getElementById('backButton').style.display = 'block';
     }
 
-    // 게임 리스타트 함수
     function restartGame() {
         startCountdown();
     }
