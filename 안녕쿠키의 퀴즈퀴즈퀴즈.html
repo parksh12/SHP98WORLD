@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- 기본 메타데이터 및 스타일 -->
+    <meta charset="utf-8">
+    <title>안녕쿠키의 퀴즈 퀴즈 퀴즈</title>
+    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+    
+    <style>
+        /* 전체 레이아웃 설정 */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2em;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* 버튼 스타일 */
+        button {
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 표 스타일 */
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td small {
+            font-size: 0.8em;
+            color: gray;
+        }
+
+        /* 문제 영역 스타일 */
+        #quiz-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #answer {
+            margin-top: 20px;
+        }
+
+        #quiz-button {
+            margin-top: 30px;
+        }
+
+        #answer-feedback {
+            margin-top: 10px;
+        }
+
+        #back-button {
+            display: none;
+            margin-top: 20px;
+        }
+
+        /* 홈 아이콘 스타일 */
+        #home-icon {
+            margin-bottom: 20px;
+        }
+
+        /* 애드센스 광고 스타일 */
+        #adsense {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 홈 아이콘 위치 지정-->
+    <a id="home-icon" href="index.html">
+        <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" width="90px">
+    </a>
+
+    <!-- 페이지 제목 및 부가 설명 -->
+    <h1>안녕쿠키의 퀴즈 퀴즈 퀴즈</h1>
+    <h3><a href="INDEX.HTML">by.shp98</a></h3>
+    <hr>
+
+    <!-- 퀴즈 영역 -->
+    <div id="quiz-container">
+        <div id="quiz-question">퀴즈 문제</div>
+        <input type="text" id="user-answer" placeholder="정답을 입력하세요" />
+        <div id="answer-feedback"></div>
+        <div id="quiz-button">
+            <button onclick="checkAnswer()">정답 확인</button>
+            <button id="next-button" onclick="nextQuestion()">다음 문제</button>
+            <button id="back-button" onclick="previousQuestion()">이전 문제</button>
+        </div>
+    </div>
+
+    <!-- 구글 애드센스 광고 위치 -->
+    <div id="adsense">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
+     crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-5127178209204980"
+             data-ad-slot="6029874300"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <script>
+        // 퀴즈 데이터
+        const quizData = [
+            { question: "서울은 어떤 나라의 수도일까요?", answer: "대한민국" },
+            { question: "파리는 어떤 나라의 수도일까요?", answer: "프랑스" },
+            { question: "자전거의 발명가는 누구일까요?", answer: "카를 폰 드라이스" },
+            { question: "컴퓨터는 무엇을 사용하여 작동할까요?", answer: "전기" },
+            { question: "일본의 수도는 어디일까요?", answer: "도쿄" }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        // 퀴즈 표시
+        function displayQuestion() {
+            document.getElementById("quiz-question").innerText = quizData[currentQuestionIndex].question;
+            document.getElementById("user-answer").value = '';
+            document.getElementById("answer-feedback").innerText = '';
+            document.getElementById("next-button").style.display = 'none';
+            document.getElementById("back-button").style.display = 'none';
+        }
+
+        // 정답 확인
+        function checkAnswer() {
+            const userAnswer = document.getElementById("user-answer").value.trim();
+            const correctAnswer = quizData[currentQuestionIndex].answer;
+
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                document.getElementById("answer-feedback").innerText = "정답입니다!";
+                document.getElementById("next-button").style.display = 'inline-block';
+            } else {
+                document.getElementById("answer-feedback").innerText = `틀렸습니다! 정답은 ${correctAnswer}입니다.`;
+                document.getElementById("next-button").style.display = 'inline-block';
+            }
+
+            if (currentQuestionIndex > 0) {
+                document.getElementById("back-button").style.display = 'inline-block';
+            }
+        }
+
+        // 다음 문제로 이동
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                document.getElementById("answer-feedback").innerText = "모든 문제를 완료했습니다!";
+            }
+        }
+
+        // 이전 문제로 이동
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        // 초기 문제 표시
+        displayQuestion();
+    </script>
+
+</body>
+</html>
