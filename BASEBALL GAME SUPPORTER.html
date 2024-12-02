@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--파비콘 설정-->
+    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랜덤 투구/타격 코스 설정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            flex-direction: column;
+        }
+        h1 {
+            margin: 10px 0;
+        }
+        h1:first-of-type { /* 한글 제목 스타일 */
+            font-size: 24px; /* 크기를 살짝만 줄임 */
+            color: black; /* 검정색 유지 */
+        }
+        h1:last-of-type { /* 영어 제목 스타일 */
+            font-size: 16px; /* 크기를 확 줄임 */
+            color: gray; /* 회색으로 변경 */
+        }
+        #by-shp98 {
+            margin-top: 5px;
+            font-size: 12px;
+            color: blue;
+            text-decoration: none;
+        }
+        #by-shp98:hover {
+            text-decoration: underline;
+        }
+        #game-zone {
+            width: 300px;
+            height: 300px;
+            background-color: lightgray;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            border: 2px solid #000;
+        }
+        #game-zone .cell {
+            border: 1px solid #999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        #game-zone .highlight {
+            background-color: yellow;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 20px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #random-point {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .translation {
+            margin-top: 10px;
+            font-size: 14px;
+            color: black;
+        }
+        .translation-english {
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<!--홈 아이콘 위치 지정--> 
+<a href="index.html"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" width="90px"></a>
+<!--여기까지 복사해서 가져가면 됩니다-->
+
+<h1>랜덤 투구/타격 코스 설정</h1>
+<h1>Random Pitching/Batting Course Selector</h1>
+<a id="by-shp98" href="https://goodstock18.tistory.com/m/entry/Bookmark-Collection" target="_blank">by.shp98</a>
+
+<div id="game-zone">
+    <div class="cell">1</div>
+    <div class="cell">2</div>
+    <div class="cell">3</div>
+    <div class="cell">4</div>
+    <div class="cell">5</div>
+    <div class="cell">6</div>
+    <div class="cell">7</div>
+    <div class="cell">8</div>
+    <div class="cell">9</div>
+</div>
+
+<button onclick="generateRandomPoint()">Click here!</button>
+
+
+
+
+
+<script>
+    function generateRandomPoint() {
+        // 1부터 9까지 스트라이크존의 숫자
+        const strikeZone = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        
+        // 모든 셀에서 강조된 클래스 제거
+        const cells = document.querySelectorAll('#game-zone .cell');
+        cells.forEach(cell => {
+            cell.classList.remove('highlight');
+        });
+
+        // 랜덤으로 스트라이크존 선택
+        const strikeRandom = strikeZone[Math.floor(Math.random() * strikeZone.length)];
+
+        // 랜덤으로 선택된 셀 강조
+        const selectedCell = document.querySelector(`#game-zone .cell:nth-child(${strikeRandom})`);
+        selectedCell.classList.add('highlight');
+
+       
+    }
+</script>
+
+</body>
+</html>

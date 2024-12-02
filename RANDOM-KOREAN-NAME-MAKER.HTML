@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <!--파비콘 설정-->
+    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+    
+    <title> <a href = "https://randomkoreannamemaker.netlify.app/">RANDOM KOREAN NAME MAKER</a></title>
+    <meta charset="utf-8">
+    <!-- 버튼 스타일 시작-->
+    <style>
+        /* 전체 페이지 레이아웃 설정 */
+        body {
+            display: flex;
+            flex-direction: column; /* 세로로 정렬 */
+            justify-content: center; /* 세로 중앙 정렬 */
+            align-items: center; /* 가로 중앙 정렬 */
+            height: 100vh; /* 화면 높이를 100%로 설정 */
+            margin: 0;
+            font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+        }
+
+        h1 {
+            font-size: 2em;
+            text-align: center; /* 제목 중앙 정렬 */
+        }
+
+        h3 {
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        /* 버튼 스타일 */
+        button {
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            margin-top: 20px; /* 버튼과 이름 표시 영역 간격 */
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 표 스타일 */
+        table {
+            border-collapse: collapse;
+            width: 80%; /* 테이블 너비 설정 */
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td small {
+            font-size: 0.8em;
+            color: gray;
+        }
+
+        /* 이름과 발음 영역 스타일 */
+        #nameDisplay {
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        #pronunciationDisplay {
+            font-size: 1.2em;
+            font-style: italic;
+            color: gray;
+        }
+    </style>
+    <!-- 버튼 스타일 끝-->
+</head>
+<body>
+    
+    <!--홈 아이콘 위치 지정--> 
+<a href="index.html"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" width="90px"></a>
+<!--여기까지 복사해서 가져가면 됩니다-->
+
+
+
+    <h1>RANDOM KOREAN NAME MAKER</h1>
+    <h3><a href="https://goodstock18.tistory.com/m/entry/Bookmark-Collection">BY.SHP98</a></h3>
+    <hr>
+
+    <!-- 버튼 -->
+    <button onclick="generateName()">CLICK HERE!</button>
+
+    <!-- 이름과 발음을 표시할 영역 -->
+    <div>
+        <p id="nameDisplay">Name</p>
+        <p id="pronunciationDisplay" style="font-style: italic; color: gray;">Pronunciation</p>
+    </div>
+
+    <!-- JavaScript 코드 -->
+    <script>
+        function generateName() {
+            // 성과 이름 리스트
+            const firstNames = [
+            { name: "김", pronunciation: "Kim" },
+            { name: "이", pronunciation: "Lee" },
+            { name: "박", pronunciation: "Park" },
+            { name: "최", pronunciation: "Choi" },
+            { name: "정", pronunciation: "Jung" },
+            { name: "노", pronunciation: "No" },
+            { name: "장", pronunciation: "Jang" },
+            { name: "류", pronunciation: "Ryu" },
+            { name: "한", pronunciation: "Han" },
+            { name: "오", pronunciation: "Oh" },
+            { name: "안", pronunciation: "Ahn" },
+            { name: "서", pronunciation: "Seo" },
+            { name: "곽", pronunciation: "Gwak" },
+            { name: "강", pronunciation: "Kang" },
+            { name: "임", pronunciation: "Im" }
+            ];
+            const lastNames = [
+            { name: "서준", pronunciation: "Seo-jun" },
+            { name: "도윤", pronunciation: "Do-yoon" },
+            { name: "예준", pronunciation: "Ye-jun" },
+            { name: "하윤", pronunciation: "Ha-yoon" },
+            { name: "지아", pronunciation: "Ji-a" },
+            { name: "지호", pronunciation: "Ji-ho" },
+            { name: "시우", pronunciation: "Si-woo" },
+            { name: "서윤", pronunciation: "Seo-yoon" },
+            { name: "지후", pronunciation: "Ji-hoo" },
+            { name: "민준", pronunciation: "Min-jun" },
+            { name: "주원", pronunciation: "Joo-won" },
+            { name: "민석", pronunciation: "Min-seok" },
+            { name: "수민", pronunciation: "Su-min" },
+            { name: "현우", pronunciation: "Hyun-woo" },
+            { name: "유진", pronunciation: "Yoo-jin" },
+            { name: "태윤", pronunciation: "Tae-yoon" },
+            { name: "유수", pronunciation: "Yoo-su" },
+            { name: "가현", pronunciation: "Ga-hyun" },
+            { name: "지후", pronunciation: "Ji-hoo" },
+            { name: "민지", pronunciation: "Min-ji" },
+            { name: "소연", pronunciation: "So-yeon" },
+            { name: "경민", pronunciation: "Kyoung-min" },
+            { name: "지유", pronunciation: "Ji-yoo" },
+            { name: "지영", pronunciation: "Ji-young" },
+            { name: "태영", pronunciation: "Tae-young" },
+            { name: "성민", pronunciation: "Sung-min" },
+            { name: "지호", pronunciation: "Ji-ho" },
+            { name: "세희", pronunciation: "Se-hee" },
+            { name: "수지", pronunciation: "Su-ji" },
+            { name: "서희", pronunciation: "Seo-hee" },
+            { name: "민재", pronunciation: "Min-jae" },
+            { name: "유나", pronunciation: "Yoo-na" },
+            { name: "진호", pronunciation: "Jin-ho" },
+            { name: "진아", pronunciation: "Jin-a" },
+            { name: "지은", pronunciation: "Ji-eun" },
+            { name: "우진", pronunciation: "Woo-jin" },
+            { name: "민경", pronunciation: "Min-kyung" },
+            { name: "윤수", pronunciation: "Yoon-su" },
+            { name: "현주", pronunciation: "Hyun-ju" },
+            { name: "혜진", pronunciation: "Hye-jin" },
+            { name: "예림", pronunciation: "Ye-rim" },
+            { name: "승우", pronunciation: "Seung-woo" },
+            { name: "소율", pronunciation: "So-yul" },
+            { name: "보미", pronunciation: "Bo-mi" },
+            { name: "채원", pronunciation: "Chae-won" },
+            { name: "정우", pronunciation: "Jung-woo" },
+            { name: "유빈", pronunciation: "Yu-bin" },
+            { name: "선미", pronunciation: "Seon-mi" },
+            { name: "세진", pronunciation: "Se-jin" },
+            { name: "정윤", pronunciation: "Jung-yoon" },
+            { name: "수연", pronunciation: "Su-yeon" },
+            { name: "유정", pronunciation: "Yoo-jeong" },
+            { name: "현서", pronunciation: "Hyun-seo" },
+            { name: "정화", pronunciation: "Jung-hwa" },
+            { name: "정아", pronunciation: "Jung-a" }
+            ];
+
+            // 랜덤 이름 생성
+            const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+
+            // HTML에 이름과 발음 표시
+            document.getElementById("nameDisplay").textContent = randomFirstName.name + randomLastName.name;
+            document.getElementById("pronunciationDisplay").textContent = randomFirstName.pronunciation + " " + randomLastName.pronunciation;
+        }
+    </script>
+
+    <!-- 표 시작-->
+    <h1>2024 Newborn Baby Name Rankings</h1>
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>Boy's Name</th>
+            <th>Girl's Name</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>서준<br><small>(Seo-jun)</small></td>
+            <td>서윤<br><small>(Seo-yoon)</small></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>도윤<br><small>(Do-yoon)</small></td>
+            <td>하윤<br><small>(Ha-yoon)</small></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>예준<br><small>(Ye-jun)</small></td>
+            <td>지아<br><small>(Ji-a)</small></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>시우<br><small>(Si-woo)</small></td>
+            <td>아윤<br><small>(A-yoon)</small></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>지호<br><small>(Ji-ho)</small></td>
+            <td>하린<br><small>(Ha-rin)</small></td>
+        </tr>
+    </table>
+    <!-- 표 끝-->
+
+</body>
+</html>
