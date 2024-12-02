@@ -132,23 +132,24 @@
 <script>
     let gameInterval;
     let currentRound = 0;
-    const totalRounds = 10;  // 게임 진행 횟수
+    const totalRounds = 10; // 게임 진행 횟수
     let clickTimes = [];
     let startTime;
     let countdownValue = 5;
     let countdownInterval;
     let countdownElement = document.getElementById("countdown");
-    let clickMissed = false;  // 클릭 실패 여부 확인
 
+    // 카운트다운 함수
     function startCountdown() {
+        // 이전 카운트다운이 진행 중이면 멈추기
         if (countdownInterval) {
             clearInterval(countdownInterval);
         }
 
-        countdownValue = 5;
+        countdownValue = 5; // 카운트다운 초기화
         countdownElement.style.display = 'block';
 
-        countdownInterval = setInterval(function() {
+        countdownInterval = setInterval(function () {
             countdownElement.textContent = countdownValue;
             countdownValue--;
             if (countdownValue < 0) {
@@ -159,16 +160,17 @@
         }, 1000);
     }
 
+    // 게임 시작 함수
     function startGame() {
         currentRound = 0;
         clickTimes = [];
-        clickMissed = false;
         document.getElementById("backButton").style.display = 'none';
         document.getElementById("result").innerHTML = '';
         generateCircles();
         showRandomCircle();
     }
 
+    // 원을 생성하는 함수
     function generateCircles() {
         const container = document.getElementById("circleContainer");
         container.innerHTML = '';
@@ -180,38 +182,46 @@
         }
     }
 
+    // 랜덤 원을 표시하는 함수
     function showRandomCircle() {
+        const circles = document.querySelectorAll('.circle');
+
+        // 모든 원 숨기기
+        circles.forEach(circle => {
+            circle.style.visibility = 'hidden';
+        });
+
+        // 새로운 랜덤 원 표시
         if (currentRound >= totalRounds) {
             endGame();
             return;
         }
 
-        const circles = document.querySelectorAll('.circle');
         const randomIndex = Math.floor(Math.random() * circles.length);
         const randomCircle = circles[randomIndex];
         let circlePosition = getRandomPosition();
 
+        randomCircle.style.visibility = 'visible';
         randomCircle.style.left = circlePosition.x + 'px';
         randomCircle.style.top = circlePosition.y + 'px';
-        
-        randomCircle.style.backgroundColor = 'red';
-        randomCircle.style.opacity = '1';
+        randomCircle.style.backgroundColor = 'red'; // 원 색깔을 빨간색으로 변경
+        randomCircle.style.opacity = '1'; // 원을 완전히 보이게 함
 
         startTime = Date.now();
-        
+
+        // 1초 후 자동으로 사라지도록
         setTimeout(() => {
-            if (!clickTimes[currentRound]) clickMissed = true;
-            randomCircle.style.backgroundColor = 'black';
-            randomCircle.style.opacity = '0.7';
+            randomCircle.style.visibility = 'hidden';
             currentRound++;
             showRandomCircle();
         }, 1000);
     }
 
+    // 랜덤 위치를 계산하는 함수
     function getRandomPosition() {
         const container = document.getElementById("circleContainer");
-        const maxX = container.offsetWidth - 80;
-        const maxY = container.offsetHeight - 80;
+        const maxX = container.offsetWidth - 80; // 원의 너비만큼 제외
+        const maxY = container.offsetHeight - 80; // 원의 높이만큼 제외
 
         let x = Math.floor(Math.random() * maxX);
         let y = Math.floor(Math.random() * maxY);
@@ -219,45 +229,59 @@
         return { x, y };
     }
 
+    // 클릭 이벤트 핸들러
     function handleClick(event) {
+        // 눌린 효과: 크기 작아지고 색 진해짐
+        const clickedCircle = event.target;
+        clickedCircle.style.transform = 'scale(0.8)';
+        clickedCircle.style.backgroundColor = 'darkred';
+
+        setTimeout(() => {
+            clickedCircle.style.transform = 'scale(1)';
+            clickedCircle.style.backgroundColor = 'red';
+        }, 200);
+
         const reactionTime = (Date.now() - startTime) / 1000;
-        clickTimes[currentRound] = reactionTime;
+        clickTimes.push(reactionTime);
     }
 
+    // 게임 종료 처리 함수
     function endGame() {
-        if (clickMissed || clickTimes.length < totalRounds) {
-            document.getElementById('result').innerHTML = `You failed to click the required circles.`;
+        let totalReactionTime = clickTimes.reduce((sum, time) => sum + time, 0);
+        let averageTime = totalReactionTime / totalRounds;
+
+        let tier = '';
+        if (clickTimes.length < totalRounds) {
+            tier = 'You failed to click all circles!';
+        } else if (averageTime <= 0.058) {
+            tier = 'Grand Master';
+        } else if (averageTime <= 0.062) {
+            tier = 'Master';
+        } else if (averageTime <= 0.65) {
+            tier = 'Diamond';
+        } else if (averageTime <= 0.7) {
+            tier = 'Platinum';
+        } else if (averageTime <= 0.75) {
+            tier = 'Gold';
+        } else if (averageTime <= 0.8) {
+            tier = 'Silver';
         } else {
-            let totalReactionTime = clickTimes.reduce((sum, time) => sum + time, 0);
-            let averageTime = totalReactionTime / totalRounds;
-
-            let tier = '';
-            if (averageTime <= 0.058) {
-                tier = 'Grand Master';
-            } else if (averageTime <= 0.062) {
-                tier = 'Master';
-            } else if (averageTime <= 0.65) {
-                tier = 'Diamond';
-            } else if (averageTime <= 0.7) {
-                tier = 'Platinum';
-            } else if (averageTime <= 0.75) {
-                tier = 'Gold';
-            } else if (averageTime <= 0.8) {
-                tier = 'Silver';
-            } else {
-                tier = 'Bronze';
-            }
-
-            document.getElementById('result').innerHTML = `Your average reaction time: ${averageTime.toFixed(6)}s<br>Your tier: ${tier}`;
+            tier = 'Bronze';
         }
+
+        document.getElementById('result').innerHTML = clickTimes.length < totalRounds 
+            ? tier 
+            : `Your average reaction time: ${averageTime.toFixed(6)}s<br>Your tier: ${tier}`;
 
         document.getElementById('backButton').style.display = 'block';
     }
 
+    // 게임 리스타트 함수
     function restartGame() {
         startCountdown();
     }
 </script>
+
 
 </body>
 </html>
