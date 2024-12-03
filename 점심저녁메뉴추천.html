@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- 애드센스 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
+     crossorigin="anonymous"></script>
+    
+    <meta charset="utf-8">
+    <title>점심/저녁 메뉴 추천</title>
+    
+    <!-- 파비콘 설정 -->
+    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+    
+    <style>
+        /* 전체 레이아웃 스타일 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
+            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            color: #bdc3c7; /* 회색 텍스트 */
+        }
+
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: -10px;
+            color: #7f8c8d;
+        }
+
+        /* 사이트 리스트 스타일 */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        li {
+            margin: 15px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        a:hover {
+            color: #3498db;
+            transform: scale(1.05);
+        }
+
+        /* 버튼 스타일 */
+        button {
+            font-size: 18px;
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background-color: #34495e;
+            transform: scale(1.05);
+        }
+
+        /* 홈 아이콘 스타일 */
+        a img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 0%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a img:hover {
+            transform: scale(1.1);
+        }
+
+        /* 콘텐츠 영역 */
+        .content {
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* 상징 이미지 */
+        .icon-container {
+            width: 200px;
+            height: 200px;
+            background-image: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0%; /* 정사각형 형태로 */
+            margin-bottom: 20px;
+        }
+
+        /* 버튼을 가운데로 정렬 */
+        #menu-button {
+            margin-top: 30px;
+        }
+
+        /* 추천된 메뉴 스타일 */
+        #menu-result {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- 상징 이미지 링크 추가 -->
+        <a href="index.html">
+            <div class="icon-container"></div>
+        </a>
+
+        <!-- 사이트 제목 -->
+        <h1>점심/저녁 메뉴 추천</h1>
+        <h3><a href="INDEX.HTML">by.shp98</a></h3>
+        <hr style="border: 1px solid #ecf0f1; width: 60%;"> <!-- 흰색 라인 -->
+
+        <!-- 메뉴 추천 버튼 -->
+        <button id="menu-button">메뉴 정하기</button>
+
+        <!-- 추천된 메뉴 표시 -->
+        <div id="menu-result"></div>
+    </div>
+
+    <script>
+        // 한국인들이 자주 먹는 점심, 저녁 메뉴 100가지
+        const menuList = [
+            '치킨', '피자', '햄버거', '떡볶이', '족발', '보쌈', '초밥', '물회', '김밥', '돈까스', 
+            '제육볶음', '생선구이', '닭갈비', '칼국수', '닭칼국수', '라면', '라멘', '순대국', '수육국밥', 
+            '김치찌개', '된장찌개', '불고기', '소갈비', '갈비찜', '비빔밥', '된장국', '불고기 덮밥', '잡채', 
+            '김밥', '떡볶이', '육회', '육회 비빔밥', '순두부찌개', '부대찌개', '김치볶음밥', '라면', 
+            '불고기비빔밥', '삼겹살', '닭갈비', '치킨', '떡국', '설렁탕', '갈비탕', '잡곡밥', '짜장면', 
+            '짬뽕', '볶음밥', '김치전', '해물파전', '오징어볶음', '두부조림', '오징어덮밥', '조개탕', 
+            '마파두부', '수제비', '국밥', '순대국', '밀면', '냉면', '김치전', '해물탕', '계란찜', '고추장찌개', 
+            '동태탕', '삼계탕', '소고기무국', '김치찜', '삼겹살 김치찌개', '조개구이', '광어회', '참치회', 
+            '회덮밥', '쭈꾸미', '제육볶음', '김치찜', '카레', '라볶이', '순두부', '오리불고기', '족발', 
+            '닭발', '막국수', '오징어순대', '김치김밥', '볶음밥', '연어덮밥', '멸치국수', '해물짬뽕', '오뎅탕', 
+            '소고기구이', '양념치킨', '매운탕', '육개장', '육회', '버섯전골', '고등어구이', '소시지볶음', 
+            '닭강정', '무국', '꼬막비빔밥', '전복죽', '청국장', '삼치구이', '훈제 오리', '간장게장', '묵은지갈비찜', 
+            '간장게장', '찜닭', '계란볶음밥', '김치라면', '버섯비빔밥', '갈릭버터새우', '샤브샤브', '불닭볶음면', 
+            '닭가슴살 샐러드', '떡국', '모듬전', '치즈돈까스', '불고기비빔면', '식혜', '보리밥', '쌀국수', 
+            '초밥', '철판볶음밥', '과일샐러드', '라멘', '고추장찌개', '꽃게탕', '부대찌개'
+        ];
+
+        // 메뉴 정하기 버튼 클릭 이벤트
+        document.getElementById('menu-button').addEventListener('click', function() {
+            const randomMenu = menuList[Math.floor(Math.random() * menuList.length)];
+            document.getElementById('menu-result').innerText = `오늘의 메뉴: ${randomMenu}`;
+        });
+    </script>
+</body>
+</html>
