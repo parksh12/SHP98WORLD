@@ -8,28 +8,36 @@
     <style>
         /* 전체 레이아웃 설정 */
         body {
+            margin: 0;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
+            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            color: #bdc3c7; /* 회색 텍스트 */
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 3em;
             text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         h3 {
-            font-size: 1.2em;
+            font-size: 1.5em;
             text-align: center;
+            margin-top: -10px;
+            color: #afb9b9;
         }
 
         p {
-            font-size: 1em;
-            color: red;
+            font-size: 2em;
+            color: rgba(58, 58, 58, 0.705);
             text-align: center;
             margin-bottom: 20px;
         }
@@ -94,7 +102,7 @@
         /* 카운트다운 스타일 */
         #countdown {
             font-size: 2em;
-            color: red;
+            color: rgb(13, 16, 202);
             font-weight: bold;
         }
     </style>
