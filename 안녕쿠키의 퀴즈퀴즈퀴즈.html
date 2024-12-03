@@ -1,12 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-D6CDR67DM4');
+</script>
     <!-- 애드센스 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
      crossorigin="anonymous"></script>
     
     <meta charset="utf-8">
-    <title>안녕쿠키의 퀴즈 퀴즈 퀴즈</title>
+    <title>안녕쿠키의 퀴즈퀴즈퀴즈</title>
     
     <!-- 파비콘 설정 -->
     <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
@@ -29,7 +38,7 @@
         h1 {
             font-size: 3em;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 20px; /* 이미지와 제목 사이 간격을 조금 줄임 */
             color: #ecf0f1;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -56,14 +65,14 @@
 
         a {
             text-decoration: none;
-            color: #ecf0f1;
+            color: #ecf0f1; /* 회색 링크 */
             font-weight: bold;
             transition: color 0.3s, transform 0.3s;
         }
 
         a:hover {
             color: #3498db;
-            transform: scale(1.05);
+            transform: scale(1.05); /* 클릭 시 살짝 커지는 효과 */
         }
 
         /* 버튼 스타일 */
@@ -72,7 +81,7 @@
             padding: 12px 24px;
             cursor: pointer;
             border: none;
-            background-color: #2c3e50;
+            background-color: #2c3e50; /* 어두운 회색색 버튼 */
             color: white;
             border-radius: 12px;
             transition: background-color 0.3s, transform 0.3s;
@@ -80,7 +89,7 @@
         }
 
         button:hover {
-            background-color: #34495e;
+            background-color: #34495e; /* 버튼 호버 시 색상 */
             transform: scale(1.05);
         }
 
@@ -90,12 +99,12 @@
             height: 120px;
             object-fit: cover;
             margin-bottom: 20px;
-            border-radius: 0%;
+            border-radius: 0%; /* 정사각형 형태로 */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: auto;  /* 사진을 가운데로 정렬 */
+            margin-right: auto; /* 사진을 가운데로 정렬 */
         }
 
         a img:hover {
@@ -130,66 +139,33 @@
             background-size: cover;
             background-position: center;
             border-radius: 0%; /* 정사각형 형태로 */
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* 이미지와 제목 사이의 간격을 더 줄임 */
         }
 
-        /* 버튼을 가운데로 정렬 */
-        #quiz-button {
-            margin-top: 30px;
-        }
-
-        /* 표 스타일 */
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
+        /* English Mode 버튼을 직사각형으로 변경 */
+        button a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
             text-align: center;
-            border: 1px solid #ddd;
+            line-height: 30px; /* 버튼 안의 텍스트를 수직 중앙에 배치 */
+            color: white;
+            text-decoration: none;
         }
 
-        th {
-            background-color: #f2f2f2;
+        button a:hover {
+            transform: scale(1.05); /* 버튼 클릭 시 커지는 효과 */
         }
 
-        td small {
-            font-size: 0.8em;
-            color: gray;
+        /* 링크에 마우스를 올릴 때 버튼처럼 커지는 효과 */
+        a {
+            transition: transform 0.3s ease-in-out;
         }
 
-        /* 퀴즈 영역 스타일 */
-        #quiz-container {
-            text-align: center;
-            margin-top: 30px;
+        a:hover {
+            transform: scale(1.05);
         }
 
-        /* 문제 글자 크기 수정 */
-        #quiz-question {
-            font-size: 1.8em;
-            margin-bottom: 20px; /* 문제와 입력칸 간격을 조금 넓혔습니다 */
-        }
-
-        #user-answer {
-            font-size: 1.2em;
-            padding: 10px;
-            width: 300px; /* 입력 칸 크기 증가 */
-            margin-bottom: 20px; /* 입력 칸과 버튼 간격을 넓혔습니다 */
-        }
-
-        #answer-feedback {
-            margin-top: 10px;
-            font-size: 1.4em; /* 정답 글자 크기 증가 */
-            font-weight: bold; /* 글자 굵게 */
-            color: #2ecc71; /* 정답일 때 색상 변경 */
-        }
-
-        #back-button {
-            display: none;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -200,88 +176,22 @@
         </a>
 
         <!-- 사이트 제목 -->
-        <h1>안녕쿠키의 퀴즈 퀴즈 퀴즈</h1>
-        <h3><a href="INDEX.HTML">by.shp98</a></h3>
+        <h1>안녕쿠키의 퀴즈퀴즈퀴즈</h1>
+        <h3>by.shp98</h3>
         <hr style="border: 1px solid #ecf0f1; width: 60%;"> <!-- 흰색 라인 -->
 
-        <!-- 퀴즈 영역 -->
-    <div id="quiz-container">
-        <div id="quiz-question">퀴즈 문제</div>
-        <input type="text" id="user-answer" placeholder="정답을 입력하세요" />
-        <div id="answer-feedback"></div>
-        <div id="quiz-button">
-            <button onclick="checkAnswer()">정답 확인</button>
-            <button id="next-button" onclick="nextQuestion()">다음 문제</button>
-            <button id="back-button" onclick="previousQuestion()">이전 문제</button>
-        </div>
+        <!-- 사이트 목록 -->
+        <ul>
+            <li><a href="퀴즈01.HTML">1. 달은 어느 쪽에서 뜰까요?</a></li>
+
+
+            
+        </ul>
+
+        <!-- 블로그 방문하기 버튼 -->
+        <button>
+            <a href="https://goodstock18.tistory.com">블로그 방문하기</a>
+        </button>
     </div>
-
-    <script>
-        // 퀴즈 데이터
-        const quizData = [
-            { question: "서울은 어떤 나라의 수도일까요?", answer: "대한민국" },
-            { question: "파리는 어떤 나라의 수도일까요?", answer: "프랑스" },
-            { question: "자전거의 발명가는 누구일까요?", answer: "카를 폰 드라이스" },
-            { question: "컴퓨터는 무엇을 사용하여 작동할까요?", answer: "전기" },
-            { question: "일본의 수도는 어디일까요?", answer: "도쿄" }
-        ];
-
-        let currentQuestionIndex = 0;
-
-        // 퀴즈 표시
-        function displayQuestion() {
-            document.getElementById("quiz-question").innerText = quizData[currentQuestionIndex].question;
-            document.getElementById("user-answer").value = '';
-            document.getElementById("answer-feedback").innerText = '';
-            document.getElementById("next-button").style.display = 'none';
-            document.getElementById("back-button").style.display = 'none';
-        }
-
-        // 정답 확인
-        function checkAnswer() {
-            const userAnswer = document.getElementById("user-answer").value.trim();
-            const correctAnswer = quizData[currentQuestionIndex].answer;
-
-            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                document.getElementById("answer-feedback").innerText = "정답입니다!";
-                document.getElementById("next-button").style.display = 'inline-block';
-            } else {
-                document.getElementById("answer-feedback").innerText = `정답은 ${correctAnswer}입니다.`;
-                document.getElementById("next-button").style.display = 'inline-block';
-            }
-
-            if (currentQuestionIndex > 0) {
-                document.getElementById("back-button").style.display = 'inline-block';
-            }
-        }
-
-        // 다음 문제로 이동
-        function nextQuestion() {
-            if (currentQuestionIndex < quizData.length - 1) {
-                currentQuestionIndex++;
-                displayQuestion();
-            } else {
-                document.getElementById("answer-feedback").innerText = "모든 문제를 완료했습니다!";
-            }
-        }
-
-        // 이전 문제로 이동
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                displayQuestion();
-            }
-        }
-
-        // 엔터 키로 정답 확인
-        document.getElementById("user-answer").addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                checkAnswer();
-            }
-        });
-
-        // 초기 문제 표시
-        displayQuestion();
-    </script>
 </body>
 </html>
