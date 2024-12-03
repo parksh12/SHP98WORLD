@@ -273,6 +273,13 @@
             }
         }
 
+        // 엔터 키로 정답 확인
+        document.getElementById("user-answer").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        });
+
         // 초기 문제 표시
         displayQuestion();
     </script>
