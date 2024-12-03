@@ -7,36 +7,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>랜덤 투구/타격 코스 설정</title>
     <style>
+        /* 전체 레이아웃 스타일 */
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-            flex-direction: column;
+            background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
+            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            color: #1e1c94; /* 회색 텍스트 */
         }
+
         h1 {
-            margin: 10px 0;
+            font-size: 3em;
+            text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
-        h1:first-of-type { /* 한글 제목 스타일 */
-            font-size: 24px; /* 크기를 살짝만 줄임 */
-            color: black; /* 검정색 유지 */
+
+        h3 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: -10px;
+            color: #7f8c8d;
         }
-        h1:last-of-type { /* 영어 제목 스타일 */
-            font-size: 16px; /* 크기를 확 줄임 */
-            color: gray; /* 회색으로 변경 */
+
+        /* 사이트 리스트 스타일 */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
         }
-        #by-shp98 {
-            margin-top: 5px;
-            font-size: 12px;
-            color: blue;
+
+        li {
+            margin: 15px 0;
+        }
+
+        a {
             text-decoration: none;
+            color: #ecf0f1;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
         }
-        #by-shp98:hover {
-            text-decoration: underline;
+
+        a:hover {
+            color: #3498db;
+            transform: scale(1.05);
         }
+
+        /* 버튼 스타일 */
+        button {
+            font-size: 18px;
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background-color: #34495e;
+            transform: scale(1.05);
+        }
+
+        /* 홈 아이콘 스타일 */
+        a img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 0%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a img:hover {
+            transform: scale(1.1);
+        }
+
+        /* 콘텐츠 영역 */
+        .content {
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* 상징 이미지 */
+        .icon-container {
+            width: 200px;
+            height: 200px;
+            background-image: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0%; /* 정사각형 형태로 */
+            margin-bottom: 20px;
+        }
+
+        /* 버튼을 가운데로 정렬 */
+        #quiz-button {
+            margin-top: 30px;
+        }
+
         #game-zone {
             width: 300px;
             height: 300px;
