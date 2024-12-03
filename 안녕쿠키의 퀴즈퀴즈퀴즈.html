@@ -1,48 +1,141 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- 기본 메타데이터 및 스타일 -->
+    <!-- 애드센스 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
+     crossorigin="anonymous"></script>
+    
     <meta charset="utf-8">
     <title>안녕쿠키의 퀴즈 퀴즈 퀴즈</title>
+    
+    <!-- 파비콘 설정 -->
     <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
     
     <style>
-        /* 전체 레이아웃 설정 */
+        /* 전체 레이아웃 스타일 */
         body {
+            margin: 0;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
+            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            color: #bdc3c7; /* 회색 텍스트 */
         }
 
         h1 {
-            font-size: 2em;
+            font-size: 3em;
             text-align: center;
+            margin-top: 20px;
+            color: #ecf0f1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         h3 {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: -10px;
+            color: #7f8c8d;
+        }
+
+        /* 사이트 리스트 스타일 */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
             font-size: 1.2em;
             text-align: center;
         }
 
+        li {
+            margin: 15px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        a:hover {
+            color: #3498db;
+            transform: scale(1.05);
+        }
+
         /* 버튼 스타일 */
         button {
-            font-size: 20px;
-            padding: 15px 30px;
+            font-size: 18px;
+            padding: 12px 24px;
             cursor: pointer;
             border: none;
-            background-color: #4CAF50;
+            background-color: #2c3e50;
             color: white;
-            border-radius: 10px;
-            transition: background-color 0.3s;
-            margin-top: 20px;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 30px;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #34495e;
+            transform: scale(1.05);
+        }
+
+        /* 홈 아이콘 스타일 */
+        a img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 0%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a img:hover {
+            transform: scale(1.1);
+        }
+
+        /* 콘텐츠 영역 */
+        .content {
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* 상징 이미지 */
+        .icon-container {
+            width: 200px;
+            height: 200px;
+            background-image: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0%; /* 정사각형 형태로 */
+            margin-bottom: 20px;
+        }
+
+        /* 버튼을 가운데로 정렬 */
+        #quiz-button {
+            margin-top: 30px;
         }
 
         /* 표 스타일 */
@@ -67,55 +160,51 @@
             color: gray;
         }
 
-        /* 문제 영역 스타일 */
+        /* 퀴즈 영역 스타일 */
         #quiz-container {
             text-align: center;
             margin-top: 30px;
         }
 
-        #answer {
-            margin-top: 20px;
+        /* 문제 글자 크기 수정 */
+        #quiz-question {
+            font-size: 1.8em;
+            margin-bottom: 20px; /* 문제와 입력칸 간격을 조금 넓혔습니다 */
         }
 
-        #quiz-button {
-            margin-top: 30px;
+        #user-answer {
+            font-size: 1.2em;
+            padding: 10px;
+            width: 300px; /* 입력 칸 크기 증가 */
+            margin-bottom: 20px; /* 입력 칸과 버튼 간격을 넓혔습니다 */
         }
 
         #answer-feedback {
             margin-top: 10px;
+            font-size: 1.4em; /* 정답 글자 크기 증가 */
+            font-weight: bold; /* 글자 굵게 */
+            color: #2ecc71; /* 정답일 때 색상 변경 */
         }
 
         #back-button {
             display: none;
             margin-top: 20px;
         }
-
-        /* 홈 아이콘 스타일 */
-        #home-icon {
-            margin-bottom: 20px;
-        }
-
-        /* 애드센스 광고 스타일 */
-        #adsense {
-            margin-top: 40px;
-            text-align: center;
-            width: 100%;
-        }
     </style>
 </head>
-
 <body>
-    <!-- 홈 아이콘 위치 지정-->
-    <a id="home-icon" href="index.html">
-        <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" width="90px">
-    </a>
+    <div class="content">
+        <!-- 상징 이미지 링크 추가 -->
+        <a href="index.html">
+            <div class="icon-container"></div>
+        </a>
 
-    <!-- 페이지 제목 및 부가 설명 -->
-    <h1>안녕쿠키의 퀴즈 퀴즈 퀴즈</h1>
-    <h3><a href="INDEX.HTML">by.shp98</a></h3>
-    <hr>
+        <!-- 사이트 제목 -->
+        <h1>안녕쿠키의 퀴즈 퀴즈 퀴즈</h1>
+        <h3><a href="INDEX.HTML">by.shp98</a></h3>
+        <hr style="border: 1px solid #ecf0f1; width: 60%;"> <!-- 흰색 라인 -->
 
-    <!-- 퀴즈 영역 -->
+        <!-- 퀴즈 영역 -->
     <div id="quiz-container">
         <div id="quiz-question">퀴즈 문제</div>
         <input type="text" id="user-answer" placeholder="정답을 입력하세요" />
@@ -125,20 +214,6 @@
             <button id="next-button" onclick="nextQuestion()">다음 문제</button>
             <button id="back-button" onclick="previousQuestion()">이전 문제</button>
         </div>
-    </div>
-
-    <!-- 구글 애드센스 광고 위치 -->
-    <div id="adsense">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
-     crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-5127178209204980"
-             data-ad-slot="6029874300"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
 
     <script>
@@ -171,7 +246,7 @@
                 document.getElementById("answer-feedback").innerText = "정답입니다!";
                 document.getElementById("next-button").style.display = 'inline-block';
             } else {
-                document.getElementById("answer-feedback").innerText = `틀렸습니다! 정답은 ${correctAnswer}입니다.`;
+                document.getElementById("answer-feedback").innerText = `정답은 ${correctAnswer}입니다.`;
                 document.getElementById("next-button").style.display = 'inline-block';
             }
 
@@ -201,6 +276,5 @@
         // 초기 문제 표시
         displayQuestion();
     </script>
-
 </body>
 </html>
