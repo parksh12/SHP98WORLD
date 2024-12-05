@@ -5,65 +5,152 @@
     <title>SHP98 WORLD</title>
     <link rel="icon" type="image/png" href="파비콘 이미지 URL">
     
-    <style>
+   <style>
         /* 전체 레이아웃 스타일 */
         body {
+            margin: 0;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
+            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            color: #bdc3c7; /* 회색 텍스트 */
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 3em;
             text-align: center;
+            margin-top: 20px; /* 이미지와 제목 사이 간격을 조금 줄임 */
+            color: #ecf0f1;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         h3 {
-            font-size: 1.2em;
+            font-size: 1.5em;
             text-align: center;
+            margin-top: -10px;
+            color: #7f8c8d;
         }
 
         /* 사이트 리스트 스타일 */
         ul {
             list-style-type: none;
             padding: 0;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
         }
 
         li {
-            font-size: 1.2em;
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         a {
             text-decoration: none;
-            color: #4CAF50;
-            transition: color 0.3s;
+            color: #ecf0f1; /* 회색 링크 */
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s;
         }
 
         a:hover {
-            color: #45a049;
+            color: #3498db;
+            transform: scale(1.05); /* 클릭 시 살짝 커지는 효과 */
         }
 
         /* 버튼 스타일 */
         button {
             font-size: 18px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             cursor: pointer;
             border: none;
-            background-color: #4CAF50;
+            background-color: #2c3e50; /* 어두운 회색색 버튼 */
             color: white;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-            margin-top: 20px;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 30px;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #34495e; /* 버튼 호버 시 색상 */
+            transform: scale(1.05);
         }
+
+        /* 홈 아이콘 스타일 */
+        a img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 0%; /* 정사각형 형태로 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            display: block;
+            margin-left: auto;  /* 사진을 가운데로 정렬 */
+            margin-right: auto; /* 사진을 가운데로 정렬 */
+        }
+
+        a img:hover {
+            transform: scale(1.1);
+        }
+
+        /* 콘텐츠 영역 */
+        .content {
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* 상징 이미지 */
+        .icon-container {
+            width: 200px;
+            height: 200px;
+            background-image: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 0%; /* 정사각형 형태로 */
+            margin-bottom: 20px; /* 이미지와 제목 사이의 간격을 더 줄임 */
+        }
+
+        /* English Mode 버튼을 직사각형으로 변경 */
+        button a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 30px; /* 버튼 안의 텍스트를 수직 중앙에 배치 */
+            color: white;
+            text-decoration: none;
+        }
+
+        button a:hover {
+            transform: scale(1.05); /* 버튼 클릭 시 커지는 효과 */
+        }
+
+        /* 링크에 마우스를 올릴 때 버튼처럼 커지는 효과 */
+        a {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        a:hover {
+            transform: scale(1.05);
+        }
+
     </style>
 </head>
 <body>
