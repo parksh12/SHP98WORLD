@@ -33,7 +33,7 @@
             width: 80px;
             height: 80px;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 0%;
             margin-right: 20px; /* 이미지와 텍스트 간 간격 */
             transition: transform 0.3s;
         }
@@ -52,6 +52,23 @@
             font-size: 1em;
             margin: 0 0 0 10px; /* h1과의 간격 */
             color: #7f8c8d;
+        }
+
+        /* 스크롤 진행 바 */
+        .progress-container {
+            position: sticky;
+            top: 60px; /* 헤더 바로 아래 */
+            width: 100%;
+            height: 5px;
+            background: #2c3e50; /* 진행 바 배경 */
+            z-index: 9;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: #ffffff; /* 밝은 흰색으로 변경 */
+            transition: width 0.1s linear;
         }
 
         /* 콘텐츠 영역 */
@@ -99,12 +116,17 @@
         <h3>by.shp98</h3>
     </div>
 
-    <!-- 글 시작-->
-    <p data-ke-size="size16"><a href="https://www.youtube.com/watch?v=Zc1CKgVCj0k" target="_blank" rel="noopener&nbsp;noreferrer">https://www.youtube.com/watch?v=Zc1CKgVCj0k</a></p>
-    <figure data-ke-type="video" data-ke-style="alignLeft" data-video-host="youtube" data-video-url="https://www.youtube.com/watch?v=Zc1CKgVCj0k" data-video-thumbnail="https://scrap.kakaocdn.net/dn/NHWP5/hyXKnQmdS3/qkJiOPQrfX34liYTdK6ky0/img.jpg?width=1280&amp;height=720&amp;face=240_108_410_294,https://scrap.kakaocdn.net/dn/cDdutw/hyXKsREtfl/akwe0y0TwDq08QxboxuDf1/img.jpg?width=1280&amp;height=720&amp;face=240_108_410_294" data-video-width="250" data-video-height="141" data-video-origin-width="860" data-video-origin-height="484" data-ke-mobilestyle="widthContent" data-video-title="미국은 왜 의료보험CEO 살인사건에 환호하나" data-original-url=""><iframe src="https://www.youtube.com/embed/Zc1CKgVCj0k" width="250" height="141" frameborder="0" allowfullscreen="true"></iframe>
-    <figcaption style="display: none;"></figcaption>
-    </figure>
+    <!-- 스크롤 진행 바 -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- 글 시작 -->
     <div class="content">
+        <p data-ke-size="size16"><a href="https://www.youtube.com/watch?v=Zc1CKgVCj0k" target="_blank" rel="noopener&nbsp;noreferrer">https://www.youtube.com/watch?v=Zc1CKgVCj0k</a></p>
+        <figure data-ke-type="video" data-ke-style="alignLeft" data-video-host="youtube" data-video-url="https://www.youtube.com/watch?v=Zc1CKgVCj0k" data-video-thumbnail="https://scrap.kakaocdn.net/dn/NHWP5/hyXKnQmdS3/qkJiOPQrfX34liYTdK6ky0/img.jpg?width=1280&amp;height=720&amp;face=240_108_410_294,https://scrap.kakaocdn.net/dn/cDdutw/hyXKsREtfl/akwe0y0TwDq08QxboxuDf1/img.jpg?width=1280&amp;height=720&amp;face=240_108_410_294" data-video-width="250" data-video-height="141" data-video-origin-width="860" data-video-origin-height="484" data-ke-mobilestyle="widthContent" data-video-title="미국은 왜 의료보험CEO 살인사건에 환호하나" data-original-url="">
+            <iframe src="https://www.youtube.com/embed/Zc1CKgVCj0k" width="250" height="141" frameborder="0" allowfullscreen="true"></iframe>
+        </figure>
         <h2><b>유나이티드 헬스케어 CEO 총격 사건</b></h2>
         <p>미국 최대 보험사 CEO 살인 사건: 뉴욕에서 유나이티드 헬스케어 CEO가 대낮 총격으로 사망, 범인은 체포되지 않음.</p>
         <p>유나이티드 헬스케어의 논란: 보험금 지급 거부율 32%, 업계 평균의 두 배로 미국인들에게 비판받음.</p>
@@ -120,8 +142,16 @@
         <p>GDP(Gross Domestic Product, 국내총생산)는 특정 기간 동안 한 나라에서 생산된 모든 최종재화와 서비스의 시장 가치를 합산한 경제 지표.</p>
         <p>미국의 2023년 GDP는 약 27조 3,609억 4,000만 달러.</p>
     </div>
+    <!-- 글 끝 -->
 
-
-    <!-- 글 끝-->
+    <script>
+        // 스크롤 진행 바 동작
+        document.addEventListener('scroll', function() {
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollTop = document.documentElement.scrollTop;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        });
+    </script>
 </body>
 </html>
