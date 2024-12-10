@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <title>교양을 쌓아보자</title>
+    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+    <style>
+        /* 전체 레이아웃 스타일 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #1f2937;
+            color: #bdc3c7;
+        }
+
+        /* 제목과 상단 이미지 고정 */
+        .header {
+            position: sticky;
+            top: 0;
+            background: #1f2937;
+            z-index: 10;
+            width: 100%;
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center; /* 세로 정렬 */
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 20px; /* 이미지와 텍스트 간 간격 */
+            transition: transform 0.3s;
+        }
+
+        .header img:hover {
+            transform: scale(1.1);
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            margin: 0;
+            color: #ecf0f1;
+        }
+
+        .header h3 {
+            font-size: 1em;
+            margin: 0 0 0 10px; /* h1과의 간격 */
+            color: #7f8c8d;
+        }
+
+        /* 콘텐츠 영역 */
+        .content {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left; /* 좌측 정렬 */
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #ecf0f1;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1.1em;
+            color: #bdc3c7;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: 1px solid #ecf0f1;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 상단 고정 헤더 -->
+    <div class="header">
+        <a href="index.html">
+            <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" alt="상징 이미지">
+        </a>
+        <h1>교양을 쌓아보자</h1>
+        <h3>by.shp98</h3>
+    </div>
+
+    <!-- 글 시작-->
+    <p data-ke-size="size16"><a href="https://www.youtube.com/watch?v=Zc1CKgVCj0k" target="_blank" rel="noopener&nbsp;noreferrer">https://www.youtube.com/watch?v=Zc1CKgVCj0k</a></p>
+    <figure data-ke-type="video" data-ke-style="alignLeft" data-video-host="youtube" data-video-url="https://www.youtube.com/watch?v=Zc1CKgVCj0k" data-video-thumbnail="https://scrap.kakaocdn.net/dn/NHWP5/hyXKnQmdS3/qkJiOPQrfX34liYTdK6ky0/img.jpg?width=1280&amp;height=720&amp;face=240_108_410_294,https://scrap.kakaocdn.net/dn/cDdutw/hyXKsREtfl/akwe0y0TwDq08QxboxuDf1/img.jpg?width=1280&amp;height=720&amp;face=240_108_410_294" data-video-width="250" data-video-height="141" data-video-origin-width="860" data-video-origin-height="484" data-ke-mobilestyle="widthContent" data-video-title="미국은 왜 의료보험CEO 살인사건에 환호하나" data-original-url=""><iframe src="https://www.youtube.com/embed/Zc1CKgVCj0k" width="250" height="141" frameborder="0" allowfullscreen="true"></iframe>
+    <figcaption style="display: none;"></figcaption>
+    </figure>
+    <div class="content">
+        <h2><b>유나이티드 헬스케어 CEO 총격 사건</b></h2>
+        <p>미국 최대 보험사 CEO 살인 사건: 뉴욕에서 유나이티드 헬스케어 CEO가 대낮 총격으로 사망, 범인은 체포되지 않음.</p>
+        <p>유나이티드 헬스케어의 논란: 보험금 지급 거부율 32%, 업계 평균의 두 배로 미국인들에게 비판받음.</p>
+        <p>대중 반응: CEO의 죽음을 축하하는 반응 다수, 보험사로 인해 가족을 잃은 경험 공유가 주요 배경.</p>
+        <p>미국 의료 시스템의 문제: 공적 의료보험 부재로 민간 보험사가 시장을 장악하며 서비스 품질은 낮음.</p>
+        <p>세계 최고 수준의 의료비: 미국은 GDP의 18%를 의료비에 지출하며 OECD 평균의 약 두 배.</p>
+        <p>CEO 사망 후 기업 영향: 유나이티드 헬스케어 주가가 사망 발표 후 급락, 회사의 영업이익은 23조 원.</p>
+        <p>공적 보험 도입의 정치적 어려움: 민주당과 공화당 간 갈등으로 공적 의료보험 체계 도입 실패.</p>
+        <p>의료비용으로 인한 파산: 미국 가계 파산의 주요 원인 중 하나는 의료비 부채.</p>
+        <p>사전 승인 제도의 논란: 보험사의 사전 승인이 없으면 치료비를 받을 수 없으며, 과잉 진료 방지 목적이지만 비판 대상.</p>
+        <p>문화적 장벽: "개인 책임"을 강조하는 문화로 인해 공적 보험 제도에 대한 지지가 부족함.</p>
+        <hr>
+        <p>GDP(Gross Domestic Product, 국내총생산)는 특정 기간 동안 한 나라에서 생산된 모든 최종재화와 서비스의 시장 가치를 합산한 경제 지표.</p>
+        <p>미국의 2023년 GDP는 약 27조 3,609억 4,000만 달러.</p>
+    </div>
+
+
+    <!-- 글 끝-->
+</body>
+</html>
