@@ -18,7 +18,7 @@
             align-items: center;
             height: 100vh;
             background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
-            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            background: #1f2937 ;
             color: #bdc3c7; /* 회색 텍스트 */
         }
 
@@ -75,9 +75,35 @@
             margin-top: 30px;
         }
 
-        button:hover {
-            background-color: #34495e; /* 버튼 호버 시 색상 */
-            transform: scale(1.05);
+        .button-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin: 20px 0;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .button-red {
+            background-color: #8b0000;
+        }
+
+        .button-green {
+            background-color: #006400;
+        }
+
+        .button-yellow {
+            background-color: #b8860b;
+        }
+
+        .button-container button:hover {
+            opacity: 0.9;
         }
 
         /* 홈 아이콘 스타일 */
@@ -158,7 +184,7 @@
 <body>
     <div class="content">
         <!-- 상징 이미지 링크 추가 -->
-        <a href="index.html">
+        <a href="../index.html">
             <div class="icon-container"></div>
         </a>
 
@@ -168,7 +194,7 @@
         <hr style="border: 1px solid #ecf0f1; width: 60%;"> <!-- 흰색 라인 -->
 
         <!-- 사이트 목록 -->
-        <h1>퀴즈는 매주 화요일 10문제씩 업데이트됩니다.</h1>
+
         <ul>
             <li><a href="퀴즈01.HTML">1. 달은 어느 쪽에서 뜰까요?</a></li>
             <li><a href="퀴즈02.HTML">2. 업데이트 예정</a></li>
@@ -177,10 +203,20 @@
             
         </ul>
 
-        <!-- 블로그 방문하기 버튼 -->
-        <button>
-            <a href="https://goodstock18.tistory.com">블로그 방문하기</a>
-        </button>
+    <!-- 버튼 -->
+    <div class="button-container">
+        <a href="../교양.HTML" target="">
+            <button class="button-red">교양 채우러가기</button>
+        </a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="../index.HTML" target="">
+            <button class="button-green">홈 바로가기</button>
+        </a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="https://goodstock18.tistory.com/" target="_blank">
+            <button class="button-yellow">블로그 방문하기</button>
+        </a>
+    </div>
     </div>
 </body>
 </html>
