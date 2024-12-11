@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <title>교양을 쌓아보자</title>
+    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #1f2937;
+            color: #bdc3c7;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            background: #1f2937;
+            z-index: 10;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            color: #ecf0f1;
+        }
+
+        .header h3 {
+            font-size: 1em;
+            margin: 0 0 0 10px;
+            color: #7f8c8d;
+        }
+
+        .progress-container {
+            position: sticky;
+            top: 60px;
+            width: 100%;
+            height: 5px;
+            background: #2c3e50;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: #ffffff;
+            transition: width 0.1s linear;
+        }
+
+        .content {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #ecf0f1;
+        }
+
+        p {
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        span.highlight {
+            background: #f1c40f4d;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            margin: 10px 0;
+        }
+
+        iframe {
+            display: block;
+            margin: 10px auto;
+        }
+
+        hr {
+            border: 1px solid #ecf0f1;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        .button-red {
+            background-color: #8b0000;
+        }
+
+        .button-green {
+            background-color: #006400;
+        }
+
+        .button-yellow {
+            background-color: #b8860b;
+        }
+
+        .button-container button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html">
+            <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" alt="상징 이미지">
+        </a>
+        <h1>교양을 쌓아보자</h1>
+        <h3>by.shp98</h3>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="content">
+        <!-- 글 제목 -->
+        <h1><b>경제 대전환의 갈림길</b></h1>
+        <iframe src="https://www.youtube.com/embed/qKjadhfFQPg" width="400" height="220" frameborder="0" allowfullscreen="true"></iframe>
+        <a href="https://www.youtube.com/watch?v=qKjadhfFQPg" target="_blank" rel="noopener noreferrer">
+            출처: 슈카월드
+        </a>
+
+        <p>세계 경제는 <span class="highlight">인플레이션</span>과 경기 둔화의 도전 속에 있다.</p>
+        <p>미국은 <span class="highlight">금리</span> 인상을 통해 물가 안정을 추구 중이다.</p>
+        <p>유럽은 <span class="highlight">에너지 위기</span>로 경기 침체의 위기에 직면했다.</p>
+        <p>중국은 <span class="highlight">부동산 위기</span>와 내수 부진으로 성장이 둔화되고 있다.</p>
+        <p>한국은 수출 감소와 <span class="highlight">환율</span> 변동성으로 경제 압박을 받고 있다.</p>
+        <p>테크 기업들은 <span class="highlight">구조조정</span>과 비용 절감을 통해 생존 전략을 모색 중이다.</p>
+        <p>디지털 전환은 새로운 성장 기회를 제공하지만 동시에 위험 요소도 증가시킨다.</p>
+        <p>글로벌 무역 질서는 <span class="highlight">재편</span>되며 불확실성이 확대되고 있다.</p>
+        <p>지속 가능성을 위한 <span class="highlight">친환경 정책</span> 강화가 경제 혁신의 주요 과제로 떠오르고 있다.</p>
+        <p>기술 혁신이 산업 구조를 변화시키며 새로운 경제 질서를 창출하고 있다.</p>
+        <hr>
+        <p><b>인플레이션:</b> 물가 상승과 화폐 가치 하락이 동반된 경제 현상.</p>
+        <p><b>금리:</b> 자본 사용에 따른 이자율.</p>
+        <p><b>디지털 전환:</b> 기술을 활용한 산업 및 경제 구조의 변화 과정.</p>
+    </div>
+
+    <div class="button-container">
+        <a href="교양.HTML" target="_blank">
+            <button class="button-red">교양 더 보기</button>
+        </a>
+        <a href="../index.HTML" target="_blank">
+            <button class="button-green">홈 바로가기</button>
+        </a>
+        <a href="https://goodstock18.tistory.com/" target="_blank">
+            <button class="button-yellow">블로그 방문하기</button>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('scroll', function() {
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollTop = document.documentElement.scrollTop;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+        });
+    </script>
+</body>
+</html>
