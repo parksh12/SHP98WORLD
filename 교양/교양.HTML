@@ -132,30 +132,38 @@
             margin-bottom: 20px; /* 이미지와 제목 사이의 간격을 더 줄임 */
         }
 
-        /* English Mode 버튼을 직사각형으로 변경 */
-        button a {
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            line-height: 30px; /* 버튼 안의 텍스트를 수직 중앙에 배치 */
-            color: white;
-            text-decoration: none;
+        /* 버튼 스타일 */
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px; /* 버튼 사이 간격 20픽셀 */
+            margin: 20px 0;
         }
 
-        button a:hover {
-            transform: scale(1.05); /* 버튼 클릭 시 커지는 효과 */
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #ffffff;
         }
 
-        /* 링크에 마우스를 올릴 때 버튼처럼 커지는 효과 */
-        a {
-            transition: transform 0.3s ease-in-out;
+        .button-red {
+            background-color: #8b0000; /* 어두운 빨강 */
         }
 
-        a:hover {
-            transform: scale(1.05);
+        .button-green {
+            background-color: #006400; /* 어두운 초록 */
         }
 
+        .button-yellow {
+            background-color: #b8860b; /* 어두운 노랑 */
+        }
+
+        .button-container button:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
