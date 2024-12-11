@@ -16,7 +16,7 @@
             align-items: center;
             height: 100vh;
             background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
-            background: linear-gradient(45deg, #1f2937 35%, #2980b9 20%, #8e44ad 35%, #8e44ad 100%);
+            background: #1f2937;
             color: #bdc3c7; /* 회색 텍스트 */
         }
 
@@ -25,19 +25,19 @@
             text-align: center;
             margin-top: 20px;
             color: #ecf0f1;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 5px rgba(214, 214, 214, 0.2);
         }
 
         h3 {
             font-size: 1.5em;
             text-align: center;
             margin-top: -10px;
-            color: #afb9b9;
+            color: #ffffff;
         }
 
         p {
             font-size: 2em;
-            color: rgba(58, 58, 58, 0.705);
+            color: rgba(224, 224, 224, 0.705);
             text-align: center;
             margin-bottom: 20px;
         }
@@ -48,7 +48,7 @@
             padding: 15px 30px;
             cursor: pointer;
             border: none;
-            background-color: #4CAF50;
+            background-color: #639199;
             color: white;
             border-radius: 10px;
             transition: background-color 0.3s;
@@ -56,7 +56,7 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #45a098;
         }
 
         /* 원 스타일 */
@@ -102,7 +102,7 @@
         /* 카운트다운 스타일 */
         #countdown {
             font-size: 2em;
-            color: rgb(13, 16, 202);
+            color: rgb(197, 197, 197);
             font-weight: bold;
         }
     </style>
@@ -110,17 +110,19 @@
 <body>
 
 <!-- 홈 아이콘 -->
-<a href="index.html"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" width="90px"></a>
+<a href="../index.html"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png" width="200px"></a>
 
 <h1>Reaction Time Test Game</h1>
-<h3><a href="index.html">by.shp98</a></h3>
-<hr>
+<h3><a href="../index.html">by.shp98</a></h3>
+<hr style="border: 1px solid #ecf0f1; width: 60%;"> <!-- 흰색 라인 -->
 
 <!-- 안내 문구 -->
 <p>Click the red circle!</p>
 
 <!-- 게임 시작 버튼 -->
 <button onclick="startCountdown()">Start Game</button>
+
+<br><br><br><br><br>
 
 <!-- 카운트다운 표시 -->
 <div id="countdown"></div>
