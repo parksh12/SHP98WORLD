@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>VOO</title>
+
+    <!-- 파비콘 설정 -->
+    <link rel="icon" type="image/png" href="사진.png">
+    
+    <style>
+        /* 전체 레이아웃 스타일 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #bdc3c7;
+            color: #bdc3c7;
+        }
+
+        h1 {
+            font-size: 2em; /* 제목 크기를 줄임 */
+            text-align: left;
+            margin-top: 20px;
+            color: #000000; /* 검정 글자 */
+            text-shadow: none; /* 그림자 제거 */
+        }
+
+        h2 {
+            font-size: 2em; 
+            text-align: left;
+            margin-top: 20px;
+            color: #000000; /* 검정 글자 */
+            text-shadow: none; /* 그림자 제거 */
+        }
+
+        h3 {
+            font-size: 1.5em;
+            text-align: left;
+            margin-top: -10px;
+            color: #000000; /* 검정 글자 */
+        }
+
+        h4 {
+            font-size: 2.2em;
+            text-align: left;
+            margin-top: -10px;
+            color: #000000; /* 검정 글자 */
+        }
+
+        h5 {
+            font-size: 1em;
+            text-align: left;
+            margin-top: -10px;
+            color: #000000; /* 검정 글자 */
+        }
+
+        /* 콘텐츠 스타일 */
+        .content {
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 글 스타일 */
+        article {
+            text-align: left;
+            background-color: #bdc3c7;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            color: #2c3e50;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p, ul, ol {
+            margin-bottom: 100px; /* 문단 간 5줄 간격 추가 */
+        }
+
+        ul li, ol li {
+            margin-bottom: 20px; /* 리스트 항목 간 간격 유지 */
+        }
+
+        mark {
+            background-color: #ff69b4; /* 진한 핑크색 하이라이트 */
+        }
+
+        /* 버튼 스타일 */
+        .button-container {
+            text-align: center; /* 버튼을 중앙에 배열 */
+        }
+
+        button {
+            font-size: 18px;
+            font-weight: bold; /* 글자를 강조 */
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background-color: #555555; /* 옅은 검정 버튼 */
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        button:hover {
+            background-color: #666666;
+            transform: scale(1.05);
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .content {
+            padding-top: 150px; /* 고정된 영역만큼 패딩 추가 */
+        }
+
+
+        .fixed-image {
+        position: fixed; /* 상단에 고정 */
+        top: 0; /* 화면 상단에 위치 */
+        right: 0; /* 화면 우측에 위치 */
+        width: 80%; /* 화면 너비에 맞게 설정 (필요에 따라 비율 조정 가능) */
+        max-width: 100px; /* 최대 너비를 설정 (예: 1200px) */
+        height: auto; /* 비율에 맞게 자동 높이 설정 */
+        z-index: 1000; /* 다른 콘텐츠 위에 표시 */
+
+}
+
+
+       .content {
+           padding-top: 200px; /* 고정된 이미지 높이만큼 패딩 추가 */
+       }
+    </style>
+
+
+</head>
+
+<body>
+
+        <!-- 상단 고정 이미지 -->
+        <a href="../index.html">
+            <img src="../사진.png" class="fixed-image" alt="Logo">
+        </a>
+    
+        <div class="content">
+
+        <!-- 글쓰기 시작 -->
+        <article>
+
+                    <!-- 차트 시작-->
+<div class="tradingview-widget-container">
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+      new TradingView.widget(
+      {
+      "width": 600, /* 폭 설정 */
+      "height": 400, /* 높이 설정 */
+      "symbol": "VOO", /* 티커 설정 */
+      "interval": "W", /* 주봉 설정 */
+      "timezone": "Etc/UTC",
+      "theme": "dark", /* 배경색 설정 LIGHT OR DARK*/
+      "style": "1",
+      "locale": "kr",
+      "toolbar_bg": "#f1f3f6",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "container_id": "tradingview_86f31"
+    }
+      );
+      </script>
+    </div>
+        <!-- 차트 끝-->
+
+        <!-- 글 여기에 넣기-->
+        <h1>VOO: 장기 투자자들을 위한 이상적인 선택</h1>
+  
+        <p>VOO(Vanguard S&P 500 ETF)는 투자자들 사이에서 매우 인기 있는 상장지수펀드(ETF)로, 미국의 대표적인 주가지수인 S&P 500을 추종합니다. S&P 500 지수는 미국의 대형 기업 500개로 구성되어 있어 미국 경제의 전반적인 건강 상태를 반영한다고 할 수 있습니다. 이번 글에서는 VOO의 특성과 장점, 그리고 거시적인 관점에서의 투자 가치에 대해 심층적으로 분석하겠습니다.</p>
+      
+        <h2>1. VOO의 기본 구조와 특징</h2>
+        <p>VOO는 Vanguard 그룹에서 제공하는 ETF로, 다음과 같은 주요 특징을 가지고 있습니다:</p>
+        <ul>
+          <li><strong>저비용 구조:</strong> VOO의 총 보수율(Expense Ratio)은 0.03%로, 업계 평균을 크게 하회합니다. 이는 투자자들이 수수료로 인해 장기적으로 발생하는 비용을 최소화할 수 있음을 의미합니다.</li>
+          <li><strong>분산 투자:</strong> S&P 500 지수를 추종하기 때문에, VOO는 다양한 산업과 기업에 대한 분산 투자를 제공합니다. 이는 투자 포트폴리오의 안정성을 높이는 데 기여합니다.</li>
+          <li><strong>유동성:</strong> VOO는 시장에서 활발히 거래되며, 스프레드가 낮아 투자자들이 쉽게 매매할 수 있습니다.</li>
+        </ul>
+      
+        <h2>2. 거시 경제와 S&P 500</h2>
+        <p>S&P 500 지수는 미국 경제의 전반적인 상태를 나타내는 지표로 사용됩니다. 따라서 VOO에 투자하는 것은 곧 미국 경제에 투자하는 것과 같습니다. 이를 이해하기 위해 현재의 거시 경제 상황을 살펴보겠습니다:</p>
+      
+        <h3>2.1. 미국 경제의 성장</h3>
+        <p>미국은 세계 최대 경제 대국으로, 기술, 금융, 헬스케어 등 다양한 산업에서 선도적인 역할을 하고 있습니다. 최근 몇 년 동안 인플레이션과 금리 상승으로 인해 시장 변동성이 증가했지만, 장기적으로 미국 경제는 안정적인 성장을 이어갈 것으로 보입니다.</p>
+      
+        <h3>2.2. 통화 정책과 금리</h3>
+        <p>연방준비제도(Fed)의 금리 정책은 S&P 500 기업들의 수익성과 주가에 큰 영향을 미칩니다. 금리가 상승하면 기업의 자금 조달 비용이 증가하지만, 안정적인 기업들은 이를 극복할 수 있는 충분한 자본과 유동성을 가지고 있습니다. VOO는 이러한 대형 기업들을 포함하고 있어 상대적으로 안정적인 투자 옵션이 됩니다.</p>
+      
+        <h2>3. VOO의 투자 장점</h2>
+        <p>VOO는 다음과 같은 이유로 투자자들에게 매력적인 선택이 될 수 있습니다:</p>
+      
+        <h3>3.1. 장기적인 수익률</h3>
+        <p>S&P 500 지수는 지난 수십 년간 연평균 10%에 가까운 수익률을 기록해 왔습니다. 이는 복리 효과를 극대화하며, 장기 투자자들에게 안정적인 자산 증식을 가능하게 합니다.</p>
+      
+        <h3>3.2. 리스크 관리</h3>
+        <p>VOO는 500개 기업에 투자하므로, 특정 기업이나 산업의 부진이 전체 펀드에 미치는 영향을 최소화합니다. 이는 개별 주식 투자에 비해 리스크를 효과적으로 관리할 수 있음을 의미합니다.</p>
+      
+        <h3>3.3. 인플레이션 헤지</h3>
+        <p>VOO에 포함된 기업들은 제품 가격을 조정하거나 생산성을 향상시켜 인플레이션의 영향을 최소화할 수 있습니다. 특히 기술 및 소비재 기업들은 이러한 면에서 강점을 보입니다.</p>
+      
+        <h2>4. 투자 시 유의 사항</h2>
+        <p>VOO는 장점이 많지만, 몇 가지 주의할 점도 있습니다:</p>
+        <ul>
+          <li><strong>시장 리스크:</strong> VOO는 S&P 500 지수를 추종하기 때문에, 시장 전체의 하락 시 손실을 피할 수 없습니다.</li>
+          <li><strong>환율 리스크:</strong> 미국 외 투자자들에게는 환율 변동이 수익률에 영향을 미칠 수 있습니다.</li>
+        </ul>
+      
+        <h2>5. 결론</h2>
+        <p>VOO는 저비용, 분산 투자, 장기적인 수익률이라는 장점 덕분에 장기 투자자들에게 이상적인 선택지입니다. 미국 경제의 지속적인 성장과 대형 기업들의 안정성을 고려할 때, VOO는 매력적인 투자 옵션으로 평가됩니다. 그러나 투자 전에는 자신의 재무 목표와 리스크 수용 능력을 충분히 고려하고, 필요한 경우 금융 전문가와 상담하는 것이 중요합니다.</p>
+      
+        <p>VOO는 단순히 ETF를 넘어, 안정적이고 효율적인 장기 투자 전략의 핵심 요소가 될 수 있습니다. 오늘날과 같은 변동성 높은 시장에서도 VOO와 같은 상품은 투자자들에게 희망적인 선택지를 제공합니다.</p>
+      </body>
+            
+        </article>
+        <!-- 글쓰기 끝 -->
+         <!-- 홈 버튼 시작-->
+         <div class="button-container">
+            <button>
+                <a href="../index.HTML" style="color: white; text-decoration: none;">Home</a>
+            </button>
+         <!-- 홈 버튼 끝-->
+        </div>
+    </div>
+</body>
+</html>
