@@ -146,11 +146,11 @@
 
 .fixed-image {
     position: fixed; /* 상단에 고정 */
-    top: 0; /* 화면 상단에 위치 */
+    top: 20PX; /* 화면 상단 살짝 밑에 위치 */
     left: 50%; /* 화면 중앙에 위치 */
     transform: translateX(-50%); /* 정확히 중앙 정렬 */
     width: 80%; /* 화면 너비에 맞게 설정 (필요에 따라 비율 조정 가능) */
-    max-width: 100px; /* 최대 너비를 설정 (예: 1200px) */
+    max-width: 150px; /* 최대 너비를 설정 (예: 1200px) */
     height: auto; /* 비율에 맞게 자동 높이 설정 */
     z-index: 1000; /* 다른 콘텐츠 위에 표시 */
 }
@@ -164,7 +164,10 @@
         <!-- 상단 고정 이미지 -->
         <a href="../index.html">
             <img src="사진.png" class="fixed-image" alt="Logo">
+
         </a>
+
+   
     
         <div class="content">
 
