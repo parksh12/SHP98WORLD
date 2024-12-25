@@ -20,8 +20,8 @@
 <!--방문자수 카운트-->
    <div id="sfcrecn71qr8gj27bb5ctmhmzlwue39k8rw"></div><script type="text/javascript" src="https://counter6.optistats.ovh/private/counter.js?c=recn71qr8gj27bb5ctmhmzlwue39k8rw&down=async" async></script><noscript><a href="https://www.freecounterstat.com" title="website hit counter"><img src="https://counter6.optistats.ovh/private/freecounterstat.php?c=recn71qr8gj27bb5ctmhmzlwue39k8rw" border="0" title="website hit counter" alt="website hit counter"></a></noscript>
     
-    <!-- 파비콘 설정 -->
-    <link rel="icon" type="image/png" href="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png">
+ <!-- 파비콘 설정 -->
+    <link rel="icon" type="image/png" href="사진.png">
     
     <style>
         /* 전체 레이아웃 스타일 */
@@ -30,104 +30,50 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: rgb(25, 37, 72); /* 검정색, 파란색, 보라색을 2:4:4 비율로 섞은 색 */
-            background: #1f2937 ;
-            color: #bdc3c7; /* 회색 텍스트 */
+            min-height: 100vh;
+            background: #bdc3c7;
+            color: #bdc3c7;
         }
 
         h1 {
-            font-size: 3em;
-            text-align: center;
-            margin-top: 20px; /* 이미지와 제목 사이 간격을 조금 줄임 */
-            color: #ecf0f1;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 2em; /* 제목 크기를 줄임 */
+            text-align: left;
+            margin-top: 20px;
+            color: #000000; /* 검정 글자 */
+            text-shadow: none; /* 그림자 제거 */
+        }
+
+        h2 {
+            font-size: 2em; 
+            text-align: left;
+            margin-top: 20px;
+            color: #000000; /* 검정 글자 */
+            text-shadow: none; /* 그림자 제거 */
         }
 
         h3 {
             font-size: 1.5em;
-            text-align: center;
+            text-align: left;
             margin-top: -10px;
-            color: #7f8c8d;
+            color: #000000; /* 검정 글자 */
         }
 
-        /* 사이트 리스트 스타일 */
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 20px 0;
-            font-size: 1.2em;
-            text-align: center;
+        h4 {
+            font-size: 2.2em;
+            text-align: left;
+            margin-top: -10px;
+            color: #000000; /* 검정 글자 */
         }
 
-        li {
-            margin: 15px 0;
-        }
-
-        a {
-            text-decoration: none;
-            color: #ecf0f1; /* 회색 링크 */
-            font-weight: bold;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        a:hover {
-            color: #3498db;
-            transform: scale(1.05); /* 클릭 시 살짝 커지는 효과 */
-        }
-
-        /* 버튼 스타일 */
-        .button-container button {
-            padding: 10px 20px; /* 패딩은 제거하거나 수정 */
+        h5 {
             font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: #ffffff;
-            height: 50px; /* 버튼의 높이 고정 */
-            display: inline-block;
-            text-align: center; /* 텍스트 정렬 */
-            line-height: 25px; /* 버튼 높이에 맞춘 텍스트 수직 정렬 */
+            text-align: left;
+            margin-top: -10px;
+            color: #000000; /* 검정 글자 */
         }
 
-        .button-red {
-            background-color: #8b0000;
-        }
-
-        .button-green {
-            background-color: #006400;
-        }
-
-        .button-yellow {
-            background-color: #b8860b;
-        }
-
-        .button-container button:hover {
-            opacity: 0.9;
-        }
-
-
-        /* 홈 아이콘 스타일 */
-        a img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border-radius: 0%; /* 정사각형 형태로 */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-            display: block;
-            margin-left: auto;  /* 사진을 가운데로 정렬 */
-            margin-right: auto; /* 사진을 가운데로 정렬 */
-        }
-
-        a img:hover {
-            transform: scale(1.1);
-        }
-
-        /* 콘텐츠 영역 */
+        /* 콘텐츠 스타일 */
         .content {
             animation: fadeIn 2s ease-in-out;
             text-align: center;
@@ -135,6 +81,55 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+
+        /* 글 스타일 */
+        article {
+            text-align: left;
+            background-color: #bdc3c7;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            color: #2c3e50;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p, ul, ol {
+            margin-bottom: 100px; /* 문단 간 5줄 간격 추가 */
+        }
+
+        ul li, ol li {
+            margin-bottom: 20px; /* 리스트 항목 간 간격 유지 */
+        }
+
+        mark {
+            background-color: #ff69b4; /* 진한 핑크색 하이라이트 */
+        }
+
+        /* 버튼 스타일 */
+        .button-container {
+            text-align: center; /* 버튼을 중앙에 배열 */
+        }
+
+        button {
+            font-size: 18px;
+            font-weight: bold; /* 글자를 강조 */
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background-color: #555555; /* 옅은 검정 버튼 */
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        button:hover {
+            background-color: #666666;
+            transform: scale(1.05);
         }
 
         /* 애니메이션 효과 */
@@ -147,64 +142,39 @@
             }
         }
 
-        /* 상징 이미지 */
-        .icon-container {
-            width: 200px;
-            height: 200px;
-            background-image: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbbqJdy%2FbtszAY8E0nn%2F2ces7gFBw4k8siK5xJxOb0%2Fimg.png');
-            background-size: cover;
-            background-position: center;
-            border-radius: 0%; /* 정사각형 형태로 */
-            margin-bottom: 20px; /* 이미지와 제목 사이의 간격을 더 줄임 */
+        .content {
+            padding-top: 150px; /* 고정된 영역만큼 패딩 추가 */
         }
 
-        /* English Mode 버튼을 직사각형으로 변경 */
-        button a {
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            line-height: 30px; /* 버튼 안의 텍스트를 수직 중앙에 배치 */
-            color: white;
-            text-decoration: none;
-        }
 
-        button a:hover {
-            transform: scale(1.05); /* 버튼 클릭 시 커지는 효과 */
-        }
+        .fixed-image {
+        position: fixed; /* 상단에 고정 */
+        top: 0; /* 화면 상단에 위치 */
+        right: 0; /* 화면 우측에 위치 */
+        width: 80%; /* 화면 너비에 맞게 설정 (필요에 따라 비율 조정 가능) */
+        max-width: 100px; /* 최대 너비를 설정 (예: 1200px) */
+        height: auto; /* 비율에 맞게 자동 높이 설정 */
+        z-index: 1000; /* 다른 콘텐츠 위에 표시 */
 
-        /* 링크에 마우스를 올릴 때 버튼처럼 커지는 효과 */
-        a {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        a:hover {
-            transform: scale(1.05);
-        }
-
+}
+       .content {
+           padding-top: 200px; /* 고정된 이미지 높이만큼 패딩 추가 */
+       }
+    </style>
     </style>
 </head>
 <body>
-    <div class="content">
-        <!-- 상징 이미지 링크 추가 -->
-        <a href="index.html">
-            <div class="icon-container"></div>
+        <!-- 상단 고정 이미지 -->
+        <a href="../index.html">
+            <img src="사진.png" class="fixed-image" alt="Logo">
         </a>
-
-        <!-- 사이트 제목 -->
-        <h1>SHP98 WORLD</h1>
-        <h3>by.shp98</h3>
-        <hr style="border: 1px solid #ecf0f1; width: 60%;"> <!-- 흰색 라인 -->
+    
+        <div class="content">
 
         <!-- 사이트 목록 -->
         <ul>
-            <li><a href="교양/교양.html">1. 교양을 쌓아보자</a></li>
-            <li><a href="퀴즈/퀴즈.HTML">2. 퀴즈를 풀어보자</a></li>
-            <li><a href="JOPS/JOPS.HTML">3. 시간을 떼워보자</a></li>
-           
-
-            
-        </ul>
+            <li><a href="주식/tsla.html">TSLA</a></li>
+         </ul>
 
     <!-- 버튼 -->
     <div class="button-container">
