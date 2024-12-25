@@ -144,15 +144,15 @@
         }
 
 
-        .fixed-image {
-        position: fixed; /* 상단에 고정 */
-        top: 0; /* 화면 상단에 위치 */
-        right: 0; /* 화면 우측에 위치 */
-        width: 80%; /* 화면 너비에 맞게 설정 (필요에 따라 비율 조정 가능) */
-        max-width: 100px; /* 최대 너비를 설정 (예: 1200px) */
-        height: auto; /* 비율에 맞게 자동 높이 설정 */
-        z-index: 1000; /* 다른 콘텐츠 위에 표시 */
-
+.fixed-image {
+    position: fixed; /* 상단에 고정 */
+    top: 0; /* 화면 상단에 위치 */
+    left: 50%; /* 화면 중앙에 위치 */
+    transform: translateX(-50%); /* 정확히 중앙 정렬 */
+    width: 80%; /* 화면 너비에 맞게 설정 (필요에 따라 비율 조정 가능) */
+    max-width: 100px; /* 최대 너비를 설정 (예: 1200px) */
+    height: auto; /* 비율에 맞게 자동 높이 설정 */
+    z-index: 1000; /* 다른 콘텐츠 위에 표시 */
 }
        .content {
            padding-top: 200px; /* 고정된 이미지 높이만큼 패딩 추가 */
