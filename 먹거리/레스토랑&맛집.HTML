@@ -1,608 +1,456 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>세종시 데이트 지도 | 레스토랑 & 맛집</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* (기존 스타일 유지) */
-        body {
-            margin: 0;
-            font-family: 'Noto Sans KR', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            background: #f4f4f4;
-            color: #333333;
-        }
+    <meta charset="utf-8">
+    <title>세종시 데이트 지도 | 레스토랑 & 맛집</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* (기존 스타일 유지) */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #f4f4f4;
+            color: #333333;
+        }
 
-        h1 {
-            font-size: 2.5em;
-            font-weight: 700;
-            text-align: center;
-            margin: 0;
-            padding: 15px 0;
-            color: #ffffff;
-            background-color: #ff69b4;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            padding: 15px 0;
+            color: #ffffff;
+            background-color: #ff69b4;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-        h2 {
-            font-size: 1.8em;
-            font-weight: 700;
-            text-align: left;
-            margin-top: 40px;
-            margin-bottom: 10px;
-            color: #2c3e50;
-            border-left: 5px solid #ff69b4;
-            padding-left: 10px;
-        }
-        
-        .category-intro {
-            font-size: 1em;
-            margin-top: 5px;
-            margin-bottom: 30px;
-            color: #7f8c8d;
-            line-height: 1.5;
-            padding-left: 5px;
-        }
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            text-align: left;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            border-left: 5px solid #ff69b4;
+            padding-left: 10px;
+        }
+        
+        .category-intro {
+            font-size: 1em;
+            margin-top: 5px;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+            line-height: 1.5;
+            padding-left: 5px;
+        }
 
-        .fixed-title {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
+        .fixed-title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
 
-        .fixed-image {
-            position: fixed;
-            top: 15px;
-            right: 20px;
-            width: 80px;
-            height: auto;
-            z-index: 1001;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .content {
-            padding-top: 80px;
-            animation: fadeIn 1.5s ease-out;
-            width: 90%;
-            max-width: 800px;
-        }
-        
-        article {
-            text-align: left;
-            background-color: #ffffff;
-            padding: 30px;
-            margin: 20px 0;
-            border-radius: 15px;
-            color: #2c3e50;
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .list-area {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #eee;
-            margin-top: 20px;
-        }
+        .fixed-image {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            width: 80px;
+            height: auto;
+            z-index: 1001;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .content {
+            padding-top: 80px;
+            animation: fadeIn 1.5s ease-out;
+            width: 90%;
+            max-width: 800px;
+        }
+        
+        article {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 15px;
+            color: #2c3e50;
+            width: 100%;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .list-area {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            margin-top: 20px;
+        }
 
-        /* 개별 식당 항목 컨테이너 (구분선 진하게 유지) */
-        .restaurant-item {
-            padding: 15px 0;
-            border-bottom: 3px solid #ffdae5; 
-        }
+        /* 개별 식당 항목 컨테이너 (구분선 진하게 유지) */
+        .restaurant-item {
+            padding: 15px 0;
+            border-bottom: 3px solid #ffdae5; 
+        }
 
-        .restaurant-item:last-child {
-            border-bottom: none;
-        }
+        .restaurant-item:last-child {
+            border-bottom: none;
+        }
 
-        /* 식당별 간단 설명 스타일 */
-        .restaurant-description {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            padding-left: 5px;
-            border-left: 3px solid #f990c7; /* 핑크 계열의 연한 구분선 */
-        }
+        /* 식당별 간단 설명 스타일 */
+        .restaurant-description {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            padding-left: 5px;
+            border-left: 3px solid #f990c7; /* 핑크 계열의 연한 구분선 */
+        }
 
-        /* 이미지 갤러리 스타일 */
-        .restaurant-image-gallery {
-            display: flex; /* 이미지를 가로로 나열 */
-            gap: 10px; /* 이미지 간 간격 */
-            margin-top: 10px; 
-            margin-bottom: 15px; /* 주차 정보 위 간격 */
-            overflow-x: auto; 
-            padding-bottom: 5px; 
-        }
+        /* 이미지 갤러리 스타일 */
+        .restaurant-image-gallery {
+            display: flex; /* 이미지를 가로로 나열 */
+            gap: 10px; /* 이미지 간 간격 */
+            margin-top: 10px; 
+            margin-bottom: 15px; /* 주차 정보 위 간격 */
+            overflow-x: auto; 
+            padding-bottom: 5px; 
+        }
 
-        .restaurant-gallery-img {
-            min-width: calc(50% - 5px); /* 두 이미지가 가로에 배치되도록 설정 */
-            width: calc(50% - 5px); 
-            height: 150px; 
-            border-radius: 8px;
-            object-fit: cover; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #e0e0e0; /* 이미지 로딩 전 배경 */
-            cursor: pointer; /* 클릭 가능한 요소로 표시 */
-            transition: transform 0.2s;
-        }
-        
-        .restaurant-gallery-img:hover {
-            transform: scale(1.02);
-        }
-        
-        /* 주차 정보 스타일 */
-        .parking-info {
-            font-size: 0.9em;
-            color: #3498db; 
-            font-weight: 500;
-            margin-bottom: 15px;
-            padding-left: 5px;
-            border-left: 3px solid #3498db;
-        }
+        .restaurant-gallery-img {
+            min-width: calc(50% - 5px); /* 두 이미지가 가로에 배치되도록 설정 */
+            width: calc(50% - 5px); 
+            height: 150px; 
+            border-radius: 8px;
+            object-fit: cover; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #e0e0e0; /* 이미지 로딩 전 배경 */
+            cursor: pointer; /* 클릭 가능한 요소로 표시 */
+            transition: transform 0.2s;
+        }
+        
+        .restaurant-gallery-img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* 주차 정보 스타일 */
+        .parking-info {
+            font-size: 0.9em;
+            color: #3498db; 
+            font-weight: 500;
+            margin-bottom: 15px;
+            padding-left: 5px;
+            border-left: 3px solid #3498db;
+        }
 
-        .restaurant-item h4 {
-            font-size: 1.2em;
-            color: #ff69b4;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
+        .restaurant-item h4 {
+            font-size: 1.2em;
+            color: #ff69b4;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
 
-        /* 주소 및 복사 버튼 컨테이너 */
-        .address-row {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-        
-        .address-text {
-            font-size: 0.95em;
-            color: #555;
-            margin-right: 10px;
-            font-weight: 300;
-            flex-grow: 1;
-        }
+        /* 주소 및 복사 버튼 컨테이너 */
+        .address-row {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .address-text {
+            font-size: 0.95em;
+            color: #555;
+            margin-right: 10px;
+            font-weight: 300;
+            flex-grow: 1;
+        }
 
-        /* 복사 버튼 스타일 */
-        .copy-button {
-            padding: 4px 10px;
-            background-color: #ffdae5;
-            color: #ff69b4;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-            font-weight: 500;
-            transition: background-color 0.2s;
-            flex-shrink: 0;
-        }
+        /* 복사 버튼 스타일 */
+        .copy-button {
+            padding: 4px 10px;
+            background-color: #ffdae5;
+            color: #ff69b4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
 
-        .copy-button:hover {
-            background-color: #ff69b4;
-            color: white;
-        }
-        
-        /* 해시태그 스타일 */
-        .hashtag {
-            display: inline-block;
-            background-color: #ffebf2;
-            color: #ff69b4;
-            font-weight: 500;
-            padding: 3px 8px;
-            margin-right: 5px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
+        .copy-button:hover {
+            background-color: #ff69b4;
+            color: white;
+        }
+        
+        /* 해시태그 스타일 */
+        .hashtag {
+            display: inline-block;
+            background-color: #ffebf2;
+            color: #ff69b4;
+            font-weight: 500;
+            padding: 3px 8px;
+            margin-right: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
 
-        /* 피드백 버튼 컨테이너 스타일 */
-        .feedback-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 5px;
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #e0e0e0;
-        }
+        /* 피드백 버튼 컨테이너 스타일 */
+        .feedback-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #e0e0e0;
+        }
 
-        /* 피드백 버튼 공통 스타일 */
-        .feedback-button {
-            flex-grow: 1;
-            padding: 8px 10px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85em;
-            font-weight: 700;
-            transition: opacity 0.2s, transform 0.2s;
-        }
+        /* 피드백 버튼 공통 스타일 */
+        .feedback-button {
+            flex-grow: 1;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 700;
+            transition: opacity 0.2s, transform 0.2s;
+        }
 
-        .feedback-button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
+        .feedback-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
 
-        /* 개별 피드백 버튼 스타일 */
-        .btn-recommend {
-            background-color: #2ecc71; 
-            color: white;
-        }
+        /* 개별 피드백 버튼 스타일 */
+        .btn-recommend {
+            background-color: #2ecc71; 
+            color: white;
+        }
 
-        .btn-not-recommend {
-            background-color: #f39c12; 
-            color: white;
-        }
+        .btn-not-recommend {
+            background-color: #f39c12; 
+            color: white;
+        }
 
-        .btn-closed {
-            background-color: #e74c3c; 
-            color: white;
-        }
-        
-        /* 홈 버튼 스타일 (중략) */
-        button {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 15px 30px;
-            cursor: pointer;
-            border: none;
-            background-color: #ff69b4;
-            color: white;
-            border-radius: 30px;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            margin: 40px 0;
-            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
-        }
+        .btn-closed {
+            background-color: #e74c3c; 
+            color: white;
+        }
+        
+        /* 홈 버튼 스타일 (중략) */
+        button {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            margin: 40px 0;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+        }
 
-        button:hover {
-            background-color: #e55a9e;
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
-        }
-        
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        button:hover {
+            background-color: #e55a9e;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-        /* --- 모달(이미지 확대) 스타일 추가 --- */
-        .modal {
-            display: none; /* 초기에는 숨김 */
-            position: fixed;
-            z-index: 2000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.9); /* 검은색 배경 투명도 90% */
-        }
+        /* --- 모달(이미지 확대) 스타일 추가 --- */
+        .modal {
+            display: none; /* 초기에는 숨김 */
+            position: fixed;
+            z-index: 2000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9); /* 검은색 배경 투명도 90% */
+        }
 
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            max-height: 90vh;
-            object-fit: contain; /* 이미지 전체가 보이도록 */
-        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 90vh;
+            object-fit: contain; /* 이미지 전체가 보이도록 */
+        }
 
-        /* 닫기 버튼 */
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
+        /* 닫기 버튼 */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
 
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        /* 탐색 버튼 (이전/다음) */
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -50px;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            -webkit-user-select: none;
-            background-color: rgba(0,0,0,0.5);
-        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* 탐색 버튼 (이전/다음) */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: rgba(0,0,0,0.5);
+        }
 
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
 
-        .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
-    </style>
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+    </style>
 </head>
 
 <body>
-    <h1 class="fixed-title">세종시 데이트 지도</h1>
+    <h1 class="fixed-title">세종시 데이트 지도</h1>
 
-    <a href="../../index.html">
-        <img src="../../사진.png" class="fixed-image" alt="Logo">
-    </a>
+    <a href="../../index.html">
+        <img src="../../사진.png" class="fixed-image" alt="Logo">
+    </a>
 
-    <div class="content">
-    <article>
+    <div class="content">
+    <article>
 
-        <h2>🍽️ 레스토랑 & 맛집</h2>
-        <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
+        <h2>🍽️ 레스토랑 & 맛집</h2>
+        <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
 
-        <div class="list-area">
-            <h3>💖 추천 리스트</h3>
-            
-            <div class="restaurant-item">
+        <div class="list-area">
+            <h3>💖 추천 리스트</h3>
+            
+            <div class="restaurant-item">
 
-                <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4> 1. 으뜸스시 세종아름점</h4>
-                </a>
-                
-                <div class="restaurant-description">
-                    최근 세종에 많이 생기고 있는 회전초밥 프렌차이즈에요! 가격도 한 접시에 2,200원으로 저렴해요. 🍣<br>특히 새우초밥이 예술인 회전초밥집이에요!<br>👍주인장 추천메뉴: 치즈구운새우롤 & 키조개관자
-                </div>
-                
-                <div class="address-row">
-                    <span class="address-text" id="address1">세종특별자치시 보듬3로 158 (아름메디컬센터 1층, 아름동)</span>
-                    <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="0">
-                    <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 내부" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 초밥" class="restaurant-gallery-img" loading="lazy">
-                </div>
-                
-                <div class="parking-info">
-                    🅿️ 주차: 건물 지하 주차장 이용 가능 (아름메디컬센터)
-                </div>
+                <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4> 1. 으뜸스시 세종아름점</h4>
+                </a>
+                
+                <div class="restaurant-description">
+                    최근 세종에 많이 생기고 있는 회전초밥 프렌차이즈에요! 가격도 한 접시에 2,200원으로 저렴해요. 🍣<br>특히 새우초밥이 예술인 회전초밥집이에요!<br>👍주인장 추천메뉴: 치즈구운새우롤 & 키조개관자
+                </div>
+                
+                <div class="address-row">
+                    <span class="address-text" id="address1">세종특별자치시 보듬3로 158 (아름메디컬센터 1층, 아름동)</span>
+                    <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                
+                <div class="restaurant-image-gallery" data-item-index="0">
+                    <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 내부" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 초밥" class="restaurant-gallery-img" loading="lazy">
+                </div>
+                
+                <div class="parking-info">
+                    🅿️ 주차: 건물 지하 주차장 이용 가능 (아름메디컬센터)
+                </div>
 
-                <p>
-                    <span class="hashtag">#회전초밥</span>
-                    <span class="hashtag">#가성비맛집</span>
-                    <span class="hashtag">#혼밥가능</span>
-                </p>
+                <p>
+                    <span class="hashtag">#회전초밥</span>
+                    <span class="hashtag">#가성비맛집</span>
+                    <span class="hashtag">#혼밥가능</span>
+                </p>
 
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '으뜸스시 세종아름점')">👍 이 장소를 추천해요!</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '으뜸스시 세종아름점')">👎 이 장소 추천하지 않아요.</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '으뜸스시 세종아름점')">🚨 폐업했어요!</button>
-                </div>
-            </div>
-            
-            <div class="restaurant-item">
-                
-                <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>2. 규카츠정 나성점</h4>
-                </a>
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '으뜸스시 세종아름점')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '으뜸스시 세종아름점')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '으뜸스시 세종아름점')">🚨 폐업했어요!</button>
+                </div>
+            </div>
+            
+            <div class="restaurant-item">
+                
+                <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>2. 규카츠정 나성점</h4>
+                </a>
 
-                <div class="restaurant-description">
-                    겉바속촉 규카츠를 내 테이블 미니 화로에 구워 먹는 재미! 🔥 특별한게 먹고 싶을 때 강추해요. <br>오픈런 필수!, 입에서 녹는 소고기 맛에 기분까지 좋아지는 곳!<br>👍주인장 추천메뉴: 규카츠 타마고텐동 정식
-                </div>
-                
-                <div class="address-row">
-                    <span class="address-text" id="address2">세종특별자치시 나성로 133-15 애플타워 1층 113호 (나성동)</span>
-                    <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="1">
-                    <img src="../사진/규카츠정 나성점_1.jpg" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/규카츠정 나성점_2.jpg" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
-                </div>
-                
-                <div class="parking-info">
-                    🅿️ 주차: 건물 지하 주차장 이용 가능 (2시간 무료 주차)
-                </div>
+                <div class="restaurant-description">
+                    겉바속촉 규카츠를 내 테이블 미니 화로에 구워 먹는 재미! 🔥 특별한게 먹고 싶을 때 강추해요. <br>오픈런 필수!, 입에서 녹는 소고기 맛에 기분까지 좋아지는 곳!<br>👍주인장 추천메뉴: 규카츠 타마고텐동 정식
+                </div>
+                
+                <div class="address-row">
+                    <span class="address-text" id="address2">세종특별자치시 나성로 133-15 애플타워 1층 113호 (나성동)</span>
+                    <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                
+                <div class="restaurant-image-gallery" data-item-index="1">
+                    <img src="../사진/규카츠정 나성점_1.jpg" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/규카츠정 나성점_2.jpg" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
+                </div>
+                
+                <div class="parking-info">
+                    🅿️ 주차: 건물 지하 주차장 이용 가능 (2시간 무료 주차)
+                </div>
 
-                <p>
-                    <span class="hashtag">#규카츠정식</span>
-                    <span class="hashtag">#미니화로</span>
-                    <span class="hashtag">#데이트추천</span>
-                </p>
+                <p>
+                    <span class="hashtag">#규카츠정식</span>
+                    <span class="hashtag">#미니화로</span>
+                    <span class="hashtag">#데이트추천</span>
+                </p>
 
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '규카츠정 나성점')">👍 이 장소를 추천해요!</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '규카츠정 나성점')">👎 이 장소 추천하지 않아요.</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '규카츠정 나성점')">🚨 폐업했어요!</button>
-                </div>
-            </div>
-            
-            <div class="restaurant-item">
-                
-                <a href="https://search.naver.com/search.naver?query=세종 수미순두부 왕코다리 화덕생선구이" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>3. 수미순두부&왕코다리&화덕생선구이</h4>
-                </a>
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '규카츠정 나성점')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '규카츠정 나성점')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '규카츠정 나성점')">🚨 폐업했어요!</button>
+                </div>
+            </div>
+            
+            <div class="restaurant-item">
+                
+                <a href="https://search.naver.com/search.naver?query=세종 수미순두부 왕코다리 화덕생선구이" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>3. 수미순두부&왕코다리&화덕생선구이</h4>
+                </a>
 
-                <div class="restaurant-description">
-                    한식 러버들 모여! 🧡 순두부찌개, 화덕 생선구이, 코다리조림까지 맛있는 거 다 모아놓은 든든한 한정식집이에요.<br>메뉴가 다양해서 부모님이나 친구 커플과 함께 와서 푸짐하게 먹기 완전 좋답니다!<br>👍주인장 추천메뉴: 고등어구이 & 햄치즈순두부찌개
-                </div>
-                
-                <div class="address-row">
-                    <span class="address-text" id="address3">세종특별자치시 고운로 69 1층 (고운동)</span>
-                    <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="2">
-                    <img src="../사진/수미순두부_1.jpg" alt="순두부찌개" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/수미순두부_2.jpg" alt="화덕생선구이" class="restaurant-gallery-img" loading="lazy">
-                </div>
-                <div class="parking-info">
-                    🅿️ 주차: 건물 지하 주차장 이용 가능 (무료 주차)
-                </div>
-
-                <p>
-                    <span class="hashtag">#순두부</span>
-                    <span class="hashtag">#화덕생선</span>
-                    <span class="hashtag">#푸짐한한정식</span>
-                </p>
-                
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '수미순두부')">👍 이 장소를 추천해요!</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '수미순두부')">👎 이 장소 추천하지 않아요.</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '수미순두부')">🚨 폐업했어요!</button>
-                </div>
-            </div>
-        </article>
-    <div class="button-container">
-        <button>
-            <a href="../../index.html" style="color: white; text-decoration: none;">메인 카테고리로 돌아가기</a>
-        </button>
-    </div>
-    </div>
-    
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <a class="prev" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</a>
-        <a class="next" onclick="event.stopPropagation(); changeImage(1)">&#10095;</a>
-    </div>
-
-    <script>
-        // 현재 보고 있는 이미지 정보
-        let currentItemIndex = -1;
-        let currentImageIndex = -1;
-        let galleryImages = []; // 전체 식당의 이미지 배열을 저장할 변수
-
-        // DOM이 로드된 후 갤러리 초기화
-        document.addEventListener('DOMContentLoaded', initGallery);
-
-        function initGallery() {
-            const galleryContainers = document.querySelectorAll('.restaurant-image-gallery');
-            galleryImages = Array.from(galleryContainers).map(container => 
-                Array.from(container.querySelectorAll('.restaurant-gallery-img'))
-            );
-
-            // 각 이미지에 클릭 이벤트 추가
-            galleryImages.forEach((images, itemIndex) => {
-                images.forEach((img, imageIndex) => {
-                    img.onclick = function(event) {
-                        // 주소 복사 버튼과 겹치지 않게 하기 위해 event.stopPropagation() 사용
-                        event.stopPropagation(); 
-                        openModal(itemIndex, imageIndex);
-                    };
-                });
-            });
-        }
-
-        function openModal(itemIndex, imageIndex) {
-            currentItemIndex = itemIndex;
-            currentImageIndex = imageIndex;
-            
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-
-            const selectedImage = galleryImages[currentItemIndex][currentImageIndex];
-            
-            modal.style.display = 'block';
-            modalImg.src = selectedImage.src;
-
-            updateNavigationButtons();
-        }
-
-        function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
-
-        function changeImage(direction) {
-            const currentImages = galleryImages[currentItemIndex];
-            let newIndex = currentImageIndex + direction;
-
-            if (newIndex < 0) {
-                newIndex = currentImages.length - 1; // 첫 이미지에서 '이전' -> 마지막 이미지
-            } else if (newIndex >= currentImages.length) {
-                newIndex = 0; // 마지막 이미지에서 '다음' -> 첫 이미지
-            }
-
-            currentImageIndex = newIndex;
-            const modalImg = document.getElementById('modalImage');
-            modalImg.src = currentImages[currentImageIndex].src;
-
-            updateNavigationButtons();
-        }
-        
-        function updateNavigationButtons() {
-             const currentImages = galleryImages[currentItemIndex];
-             const prevBtn = document.querySelector('.prev');
-             const nextBtn = document.querySelector('.next');
-             
-             // 이미지가 1개 이하일 경우 탐색 버튼을 숨깁니다.
-             if (currentImages && currentImages.length <= 1) {
-                 prevBtn.style.display = 'none';
-                 nextBtn.style.display = 'none';
-             } else {
-                 prevBtn.style.display = 'block';
-                 nextBtn.style.display = 'block';
-             }
-        }
-
-
-        // 다른 기존 함수들 유지
-        function copyAddress(buttonElement) {
-            const addressId = buttonElement.getAttribute('data-address-id');
-            const addressElement = document.getElementById(addressId);
-            
-            if (addressElement) {
-                const addressText = addressElement.textContent;
-
-                navigator.clipboard.writeText(addressText.trim())
-                    .then(() => {
-                        const originalText = buttonElement.textContent;
-                        buttonElement.textContent = '복사 완료! ✔️';
-                        
-                        setTimeout(() => {
-                            buttonElement.textContent = originalText;
-                        }, 1500);
-                        
-                    })
-                    .catch(err => {
-                        console.error('클립보드 복사 실패:', err);
-                        alert('주소 복사에 실패했어요. 수동으로 복사해주세요: ' + addressText);
-                    });
-            }
-        }
-        
-        function handleFeedback(type, name) {
-            let message = '';
-            if (type === '추천') {
-                message = `${name}을(를) 추천해 주셔서 감사합니다! 소중한 의견을 반영하겠습니다. 😊`;
-            } else if (type === '비추천') {
-                message = `${name}에 대한 비추천 의견을 접수했습니다. 불편하셨던 점을 참고하여 개선하겠습니다. 😔`;
-            } else if (type === '폐업') {
-                message = `${name}의 폐업 신고를 접수했습니다. 확인 후 리스트에서 제외하겠습니다. 감사합니다. 🙏`;
-            }
-            alert(message);
-        }
-    </script>
-</body>
-</html>
+                <div class="restaurant-description">
+                    한식 러버들 모여! 🧡 순두부찌개, 화덕 생선구이, 코다리조림까지 맛있는 거 다 모아놓은 든든한 한정식집이에요.<br>메뉴가 다양해서 부모님이나 친구 커플과 함께 와서 푸짐하게 먹기 완전 좋답니다!<br>👍주인장 추천메뉴: 고등어구이 & 햄치즈순두부찌개
+                </div>
+                
+                <div class="address-row">
+                    <span class="address-text" id="address3">세종특별자치시 고운로 69 1층 (고운동)</span>
+                    <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                
+                <div class="restaurant-image-gallery" data-item-index="2">
