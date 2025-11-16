@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>세종시 데이트 지도 | 레스토랑 & 맛집</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 기본 스타일은 인덱스 파일과 동일하게 유지 */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #f4f4f4;
+            color: #333333;
+        }
+
+        /* 인덱스 페이지 스타일 복사 시작 */
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            padding: 15px 0;
+            color: #ffffff;
+            background-color: #ff69b4;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            text-align: left;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            border-left: 5px solid #ff69b4;
+            padding-left: 10px;
+        }
+        
+        .category-intro {
+            font-size: 1em;
+            margin-top: 5px;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+            line-height: 1.5;
+            padding-left: 5px;
+        }
+
+        .fixed-title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .fixed-image {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            width: 80px;
+            height: auto;
+            z-index: 1001;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* content 패딩 조정 */
+        .content {
+            padding-top: 80px;
+            animation: fadeIn 1.5s ease-out;
+            width: 90%; /* 콘텐츠 너비 조정 */
+            max-width: 1200px; /* 최대 너비 확장 */
+        }
+        
+        article {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 20px 0; /* 마진 조정 */
+            border-radius: 15px;
+            color: #2c3e50;
+            width: 100%; /* 콘텐츠 전체 너비 사용 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 지도 & 리스트 컨테이너 스타일 (핵심) */
+        .map-container {
+            display: flex; /* Flexbox 레이아웃 사용 */
+            gap: 20px; /* 요소 간 간격 */
+            margin-top: 20px;
+        }
+
+        .map-area {
+            flex: 3; /* 70% 비율 (3/4.3 = 약 70%) */
+            min-width: 400px;
+            height: 600px; /* 지도의 높이 설정 */
+            background-color: #e0e0e0; /* 지도 로딩 전 배경 */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            line-height: 600px;
+            color: #777;
+        }
+        
+        .list-area {
+            flex: 1.3; /* 30% 비율 (1.3/4.3 = 약 30%) */
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 600px; /* 지도와 높이 맞춤 */
+            overflow-y: auto; /* 리스트가 길어지면 스크롤 가능 */
+            border: 1px solid #eee;
+        }
+
+        /* 리스트 항목 스타일 */
+        .restaurant-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eeeeee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .restaurant-item:last-child {
+            border-bottom: none;
+        }
+
+        .restaurant-item:hover {
+            background-color: #ffeef2; /* 로즈 핑크 계열 hover 효과 */
+        }
+
+        .restaurant-item h4 {
+            font-size: 1.1em;
+            color: #ff69b4; /* 식당 이름 강조 */
+            margin: 0;
+        }
+
+        .restaurant-item p {
+            font-size: 0.9em;
+            color: #555;
+            margin: 5px 0 0;
+        }
+        
+        .button-container {
+            text-align: center;
+        }
+
+        button {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff69b4;
+            color: white;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            margin: 40px 0;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+        }
+
+        button:hover {
+            background-color: #e55a9e;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
+        }
+        
+        /* 인덱스 페이지 스타일 복사 끝 */
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h1 class="fixed-title">세종시 데이트 지도</h1>
+
+    <a href="../../index.html"> <img src="../../사진.png" class="fixed-image" alt="Logo">
+    </a>
+
+    <div class="content">
+
+    <article>
+
+        <h2>🍽️ 레스토랑 & 맛집</h2>
+        <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 **주메뉴**를 찾고 있다면 바로 요기로 와주세요!</p>
+
+        <div class="map-container">
+            
+            <div class="map-area">
+                지도 영역 (실제 지도를 여기에 삽입하고 마커 클릭 시 상세 페이지로 이동하도록 설정)
+            </div>
+            
+            <div class="list-area">
+                <h3>💖 커플 추천 맛집 리스트</h3>
+                
+                <a href="레스토랑_상세/레스토랑1.html" style="text-decoration: none; color: inherit;">
+                    <div class="restaurant-item">
+                        <h4>⭐ 1. 로맨틱 비스트로 세종</h4>
+                        <p>#파스타 #스테이크 #금강뷰</p>
+                    </div>
+                </a>
+                
+                <a href="레스토랑_상세/레스토랑2.html" style="text-decoration: none; color: inherit;">
+                    <div class="restaurant-item">
+                        <h4>2. 한옥 정찬 미가</h4>
+                        <p>#한정식 #전통 #조용함</p>
+                    </div>
+                </a>
+                
+                <a href="레스토랑_상세/레스토랑3.html" style="text-decoration: none; color: inherit;">
+                    <div class="restaurant-item">
+                        <h4>3. 퓨전 덮밥 옥토</h4>
+                        <p>#퓨전 #간편식 #인스타감성</p>
+                    </div>
+                </a>
+
+                <a href="레스토랑_상세/레스토랑4.html" style="text-decoration: none; color: inherit;">
+                    <div class="restaurant-item">
+                        <h4>4. 솥밥의 정석</h4>
+                        <p>#한식 #정갈함 #가성비</p>
+                    </div>
+                </a>
+                
+                <a href="레스토랑_상세/레스토랑5.html" style="text-decoration: none; color: inherit;">
+                    <div class="restaurant-item">
+                        <h4>5. 와인바 루프탑 101</h4>
+                        <p>#와인 #야경 #분위기</p>
+                    </div>
+                </a>
+
+                </div>
+            
+        </div>
+        </article>
+    <div class="button-container">
+        <button>
+            <a href="../../index.html" style="color: white; text-decoration: none;">메인 카테고리로 돌아가기</a>
+        </button>
+    </div>
+    </div>
+</body>
+</html>
