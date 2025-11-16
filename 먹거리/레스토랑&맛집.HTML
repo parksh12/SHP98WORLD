@@ -104,19 +104,19 @@
             border-bottom: none;
         }
 
-        /* 대표 사진 스타일 추가 */
+        /* 대표 사진 스타일 */
         .restaurant-image {
             width: 100%;
             height: 180px; 
             border-radius: 8px; 
             margin-bottom: 10px;
-            object-fit: cover; /* 이미지가 비율에 맞게 꽉 차도록 설정 */
+            object-fit: cover;
         }
         
         .restaurant-item h4 {
             font-size: 1.2em;
             color: #ff69b4;
-            margin-top: 5px; /* 사진과 제목 간격 */
+            margin-top: 5px;
             margin-bottom: 5px;
             font-weight: 700;
         }
@@ -134,6 +134,7 @@
             color: #555;
             margin-right: 10px;
             font-weight: 300;
+            flex-grow: 1; /* 주소가 길어지면 공간을 채우도록 설정 */
         }
 
         /* 복사 버튼 스타일 */
@@ -147,7 +148,7 @@
             font-size: 0.8em;
             font-weight: 500;
             transition: background-color 0.2s;
-            flex-shrink: 0; /* 주소가 길어져도 버튼이 줄어들지 않게 함 */
+            flex-shrink: 0;
         }
 
         .copy-button:hover {
@@ -217,56 +218,56 @@
             <h3>💖 커플 추천 맛집 리스트</h3>
             
             <div class="restaurant-item">
-                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=로맨틱+비스트로+세종" alt="로맨틱 비스트로 세종 대표 사진" class="restaurant-image">
+                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=으뜸스시+세종아름점" alt="으뜸스시 세종아름점 대표 사진" class="restaurant-image">
 
-                <a href="https://search.naver.com/search.naver?query=세종 로맨틱 비스트로 세종" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>⭐ 1. 로맨틱 비스트로 세종 (네이버 검색 결과로 이동)</h4>
+                <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>⭐ 1. 으뜸스시 세종아름점 (네이버 검색 결과로 이동)</h4>
                 </a>
                 
                 <div class="address-row">
-                    <span class="address-text" id="address1">세종특별자치시 나성동 123-45 3층</span>
+                    <span class="address-text" id="address1">세종특별자치시 보듬3로 158 (아름메디컬센터 1층, 아름동)</span>
                     <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
                 </div>
                 <p>
-                    <span class="hashtag">#시그니처파스타</span>
-                    <span class="hashtag">#금강뷰</span>
-                    <span class="hashtag">#기념일추천</span>
+                    <span class="hashtag">#회전초밥</span>
+                    <span class="hashtag">#가성비맛집</span>
+                    <span class="hashtag">#혼밥가능</span>
                 </p>
             </div>
             
             <div class="restaurant-item">
-                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=한옥+정찬+미가" alt="한옥 정찬 미가 대표 사진" class="restaurant-image">
+                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=규카츠정+나성점" alt="규카츠정 나성점 대표 사진" class="restaurant-image">
                 
-                <a href="https://search.naver.com/search.naver?query=세종 한옥 정찬 미가" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>2. 한옥 정찬 미가 (네이버 검색 결과로 이동)</h4>
+                <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>2. 규카츠정 나성점 (네이버 검색 결과로 이동)</h4>
                 </a>
                 
                 <div class="address-row">
-                    <span class="address-text" id="address2">세종특별자치시 연서면 기와골길 77</span>
+                    <span class="address-text" id="address2">세종특별자치시 나성로 133-15 애플타워 1층 113호 (나성동)</span>
                     <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
                 </div>
                 <p>
-                    <span class="hashtag">#궁중불고기</span>
-                    <span class="hashtag">#깔끔한한정식</span>
-                    <span class="hashtag">#부모님과함께</span>
+                    <span class="hashtag">#규카츠정식</span>
+                    <span class="hashtag">#미니화로</span>
+                    <span class="hashtag">#데이트추천</span>
                 </p>
             </div>
             
             <div class="restaurant-item">
-                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=퓨전+덮밥+옥토" alt="퓨전 덮밥 옥토 대표 사진" class="restaurant-image">
+                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=몽마르뜨" alt="몽마르뜨 대표 사진" class="restaurant-image">
 
-                <a href="https://search.naver.com/search.naver?query=세종 퓨전 덮밥 옥토" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>3. 퓨전 덮밥 옥토 (네이버 검색 결과로 이동)</h4>
+                <a href="https://search.naver.com/search.naver?query=세종 몽마르뜨 경양식" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>3. 몽마르뜨 (네이버 검색 결과로 이동)</h4>
                 </a>
 
                 <div class="address-row">
-                    <span class="address-text" id="address3">세종특별자치시 보람동 금강변로 100</span>
+                    <span class="address-text" id="address3">세종특별자치시 조치원읍 조치원로 31 지하 1층</span>
                     <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
                 </div>
                 <p>
-                    <span class="hashtag">#명란아보카도</span>
-                    <span class="hashtag">#인스타감성</span>
-                    <span class="hashtag">#웨이팅주의</span>
+                    <span class="hashtag">#경양식돈까스</span>
+                    <span class="hashtag">#30년전통</span>
+                    <span class="hashtag">#레트로감성</span>
                 </p>
             </div>
 
