@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>세종시 데이트 지도 | 레스토랑 & 맛집</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* (이전 스타일 유지) */
+        /* (기본 스타일 유지) */
         body {
             margin: 0;
             font-family: 'Noto Sans KR', sans-serif;
@@ -86,42 +86,53 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
+        /* ⭐⭐⭐ 변경된 CSS: 리스트 영역 배경색 및 테두리 ⭐⭐⭐ */
         .list-area {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #eee;
+            background-color: #fffafc; /* 연한 핑크 배경 */
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #ffe8f0;
             margin-top: 20px;
         }
 
-        /* 개별 식당 항목 컨테이너 */
+        /* ⭐⭐⭐ 변경된 CSS: 개별 식당 항목 시각적 구분 강화 ⭐⭐⭐ */
         .restaurant-item {
-            padding: 15px 0;
-            border-bottom: 1px solid #eeeeee;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #ffffff;
+            border: 1px solid #ffdae5; /* 핑크 테두리 */
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+            transition: transform 0.2s; 
+            border-bottom: none; /* 기존 border-bottom 제거 */
         }
 
         .restaurant-item:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .restaurant-item:hover {
+            transform: translateY(-2px); 
         }
 
         /* 이미지 갤러리 스타일 */
         .restaurant-image-gallery {
-            display: flex; /* 이미지를 가로로 나열 */
-            gap: 10px; /* 이미지 간 간격 */
+            display: flex;
+            gap: 10px;
             margin-top: 10px; 
-            margin-bottom: 15px; /* 주차 정보 위 간격 */
+            margin-bottom: 15px; 
             overflow-x: auto; 
             padding-bottom: 5px; 
         }
 
         .restaurant-gallery-img {
-            min-width: calc(50% - 5px); /* 두 이미지가 가로에 배치되도록 설정 */
+            min-width: calc(50% - 5px);
             width: calc(50% - 5px); 
             height: 150px; 
             border-radius: 8px;
             object-fit: cover; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #e0e0e0; /* 이미지 로딩 전 배경 */
+            background-color: #e0e0e0;
         }
         
         /* 주차 정보 스타일 */
@@ -263,7 +274,7 @@
 </head>
 
 <body>
-    <h1 class="fixed-title">세종시 데이트 지도</h1>
+    <h1 class="fixed-title">💖 세종 데이트, 이제 고민 끝! <br> 세종 데이트 지도에 오신 걸 환영해요! 🗺️✨</h1>
 
     <a href="../../index.html">
         <img src="../../사진.png" class="fixed-image" alt="Logo">
@@ -271,6 +282,16 @@
 
     <div class="content">
     <article>
+        
+        <p class="welcome-message">
+            세종에 사는 **현지인**으로서! 예쁜 카페나 맛집 찾을 때마다 "대체 세종은 갈 데가 왜 이렇게 없지? 😭" 하고 답답했던 경험, 저만 있는 거 아니죠? 흑흑... 
+            
+            세종에 살면서 제가 **직접 가보고 경험했던 생생한 후기**와, 인스타그램, 블로그 등 **인터넷상의 꿀 정보**를 싹싹 모아 이 **'세종 데이트 지도'** 사이트를 만들게 되었어요! 🥳
+            
+            분위기 좋은 레스토랑부터 인생샷 남길 수 있는 카페, 주말에 가기 좋은 특별한 스폿까지! **저희 커플의 노하우**를 담아 A부터 Z까지 모두 알려드릴게요!
+            
+            저희도 계속 새로운 스폿을 찾아다니면서 정보를 **열심히! 부지런히! 업데이트**할 예정이니까요, 세종에서 데이트할 땐 꼭 저희 사이트를 방문해서 **오늘의 핫플**을 찜해보세요! 🎀 많이 많이 놀러와 주세요~ 🥰
+        </p>
 
         <h2>🍽️ 레스토랑 & 맛집</h2>
         <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
@@ -281,7 +302,7 @@
             <div class="restaurant-item">
 
                 <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4> 1. 으뜸스시 세종아름점 (네이버 검색 결과로 이동)</h4>
+                    <h4>⭐ 1. 으뜸스시 세종아름점 (네이버 검색 결과로 이동)</h4>
                 </a>
                 
                 <div class="address-row">
@@ -295,7 +316,7 @@
                 </div>
                 
                 <div class="parking-info">
-                    🅿️ 주차: 건물 지하 주차장 이용 가능 (아름메디컬센터)
+                    🅿️ **주차:** 건물 지하 주차장 이용 가능 (아름메디컬센터)
                 </div>
 
                 <p>
@@ -323,8 +344,8 @@
                 </div>
                 
                 <div class="restaurant-image-gallery">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMjUy%2FMDAxNjY5NjQzMDI4Mjk0.S7d235cE1TmmfT-QeD_Y73qB9R51eYkXG0i3iV8hO_Ig.D7-R81mXq62XQ99W0dFqXJm8oG_T8W1W0-C41H-2k78g.JPEG.gmlgnsk%2FIMG_8535.JPG&type=sc960_832" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMjJfMTU3%2FMDAxNjk3OTUzODE1NzU1.pT4_H_mYqP-q3RkE_vJ0qR8n1S9o2S-O7J3J2J2J_5Qg.6n3V7E5H7G2G8W2H8H3K9K9H7H3J5G2H7K2G6K6H3K6G.JPEG.jjy3636%2FIMG_7679.jpg&type=sc960_832" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/규카츠정_1.JPG" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/규카츠정_2.JPG" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
                 </div>
                 
                 <div class="parking-info">
@@ -336,12 +357,13 @@
                     <span class="hashtag">#미니화로</span>
                     <span class="hashtag">#데이트추천</span>
                 </p>
-
-                <div class="restaurant-image-gallery">
-                    <img src="../사진/으뜸스시아름점1.jpg" alt="으뜸스시 내부" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/으뜸스시아름점2.jpg" alt="으뜸스시 초밥" class="restaurant-gallery-img" loading="lazy">
-                </div>
                 
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '규카츠정 나성점')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '규카츠정 나성점')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '규카츠정 나성점')">🚨 폐업했어요!</button>
+                </div>
+            </div>
             
             <div class="restaurant-item">
 
@@ -355,8 +377,8 @@
                 </div>
                 
                 <div class="restaurant-image-gallery">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjlfMTI1%2FMDAxNjY5NzAxNzI2Mjkz.f0w_qSg3y0jF6T5g_X3o1wY9JqWq6_W7j6yX3W2t4Pgg.9G8x4X9r6y4y-J4h9K9w7z7t-5T6Y7w-5Q6w4Y9t-6E.JPEG.sunghwa83%2F20221128_182103.jpg&type=sc960_832" alt="몽마르뜨 돈까스" class="restaurant-gallery-img" loading="lazy">
-                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjlfMTI1%2FMDAxNjY5NzAxNzI2Mjkz.f0w_qSg3y0jF6T5g_X3o1wY9JqWq6_W7j6yX3W2t4Pgg.9G8x4X9r6y4y-J4h9K9w7z7t-5T6Y7w-5Q6w4Y9t-6E.JPEG.sunghwa83%2F20221128_182103.jpg&type=sc960_832" alt="몽마르뜨 내부" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/몽마르뜨_1.JPG" alt="몽마르뜨 돈까스" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/몽마르뜨_2.JPG" alt="몽마르뜨 내부" class="restaurant-gallery-img" loading="lazy">
                 </div>
                 <div class="parking-info">
                     ⚠️ **주차:** 전용 주차장 없음. 주변 도로 또는 국민은행 등 **유료 주차장** 이용 필요.
@@ -368,6 +390,12 @@
                     <span class="hashtag">#레트로감성</span>
                 </p>
                 
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '몽마르뜨')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '몽마르뜨')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '몽마르뜨')">🚨 폐업했어요!</button>
+                </div>
+            </div>
 
             </div>
         </article>
