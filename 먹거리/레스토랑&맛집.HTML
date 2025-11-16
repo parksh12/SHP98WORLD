@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>세종시 데이트 지도 | 레스토랑 & 맛집</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans KR:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* (이전 스타일 유지) */
@@ -104,7 +104,7 @@
             border-bottom: none;
         }
 
-        /* --- 새로 추가된 이미지 갤러리 스타일 --- */
+        /* 이미지 갤러리 스타일 */
         .restaurant-image-gallery {
             display: flex; /* 이미지를 가로로 나열 */
             gap: 10px; /* 이미지 간 간격 */
@@ -121,29 +121,13 @@
             border-radius: 8px;
             object-fit: cover; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #e0e0e0; /* 이미지 로딩 전 배경 */
         }
-
-        /* 대표 사진 Placeholder 스타일 (삭제하고 갤러리로 대체) */
-        .restaurant-image-placeholder {
-            width: 100%;
-            height: 180px; 
-            border-radius: 8px; 
-            margin-bottom: 10px;
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 1.1em;
-            font-weight: 500;
-            display: none; /* 이전 단일 플레이스홀더는 숨김 처리 */
-        }
-        /* --- 이미지 갤러리 스타일 끝 --- */
         
         /* 주차 정보 스타일 */
         .parking-info {
             font-size: 0.9em;
-            color: #3498db; /* 파란색으로 강조 */
+            color: #3498db; 
             font-weight: 500;
             margin-bottom: 15px;
             padding-left: 5px;
@@ -236,17 +220,17 @@
 
         /* 개별 피드백 버튼 스타일 */
         .btn-recommend {
-            background-color: #2ecc71; /* 추천: 초록색 */
+            background-color: #2ecc71; 
             color: white;
         }
 
         .btn-not-recommend {
-            background-color: #f39c12; /* 비추천: 주황색 */
+            background-color: #f39c12; 
             color: white;
         }
 
         .btn-closed {
-            background-color: #e74c3c; /* 폐업: 빨간색 */
+            background-color: #e74c3c; 
             color: white;
         }
         
@@ -295,6 +279,7 @@
             <h3>💖 커플 추천 맛집 리스트</h3>
             
             <div class="restaurant-item">
+
                 <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4>⭐ 1. 으뜸스시 세종아름점 (네이버 검색 결과로 이동)</h4>
                 </a>
@@ -305,9 +290,10 @@
                 </div>
                 
                 <div class="restaurant-image-gallery">
-                    <img src="[사진 1 URL]" alt="으뜸스시 사진 1" class="restaurant-gallery-img">
-                    <img src="[사진 2 URL]" alt="으뜸스시 사진 2" class="restaurant-gallery-img">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMjZfMTQy%2FMDAxNjk4MzEzNDM5NzI4.q7W6mG7u2j-t0qC67y-pQf8R1S5eG9_o-Xb7o1e1vGsg.9W56s0W83Ld2vH_v_UfEwDqN8i4l6d1V_5mH-K-Ld9sg.JPEG.ejej_love%2FKakaoTalk_20231026_163623696.jpg&type=sc960_832" alt="으뜸스시 내부" class="restaurant-gallery-img" loading="lazy">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMTlfMTEx%2FMDAxNjk3NzE3Mjk0MzU0.qP4_z71f65s_9M6Hn4_H3rT4E7H8-yX46uSg7yYw80Mg.7pL3sM8lDq2_Pq76l7tS-31e9c8tFp7rYh7rR7p_5hYg.JPEG.narae_234%2FIMG_6424.jpg&type=sc960_832" alt="으뜸스시 초밥" class="restaurant-gallery-img" loading="lazy">
                 </div>
+                
                 <div class="parking-info">
                     🅿️ **주차:** 건물 지하 주차장 이용 가능 (아름메디컬센터)
                 </div>
@@ -326,6 +312,7 @@
             </div>
             
             <div class="restaurant-item">
+                
                 <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4>2. 규카츠정 나성점 (네이버 검색 결과로 이동)</h4>
                 </a>
@@ -336,9 +323,10 @@
                 </div>
                 
                 <div class="restaurant-image-gallery">
-                    <img src="[사진 1 URL]" alt="규카츠정 사진 1" class="restaurant-gallery-img">
-                    <img src="[사진 2 URL]" alt="규카츠정 사진 2" class="restaurant-gallery-img">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMjUy%2FMDAxNjY5NjQzMDI4Mjk0.S7d235cE1TmmfT-QeD_Y73qB9R51eYkXG0i3iV8hO_Ig.D7-R81mXq62XQ99W0dFqXJm8oG_T8W1W0-C41H-2k78g.JPEG.gmlgnsk%2FIMG_8535.JPG&type=sc960_832" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMjJfMTU3%2FMDAxNjk3OTUzODE1NzU1.pT4_H_mYqP-q3RkE_vJ0qR8n1S9o2S-O7J3J2J2J_5Qg.6n3V7E5H7G2G8W2H8H3K9K9H7H3J5G2H7K2G6K6H3K6G.JPEG.jjy3636%2FIMG_7679.jpg&type=sc960_832" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
                 </div>
+                
                 <div class="parking-info">
                     🅿️ **주차:** 건물 지하 주차장 이용 가능 (2시간 무료 주차)
                 </div>
@@ -357,6 +345,7 @@
             </div>
             
             <div class="restaurant-item">
+
                 <a href="https://search.naver.com/search.naver?query=세종 몽마르뜨 경양식" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4>3. 몽마르뜨 (네이버 검색 결과로 이동)</h4>
                 </a>
@@ -367,8 +356,8 @@
                 </div>
                 
                 <div class="restaurant-image-gallery">
-                    <img src="[사진 1 URL]" alt="몽마르뜨 사진 1" class="restaurant-gallery-img">
-                    <img src="[사진 2 URL]" alt="몽마르뜨 사진 2" class="restaurant-gallery-img">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjlfMTI1%2FMDAxNjY5NzAxNzI2Mjkz.f0w_qSg3y0jF6T5g_X3o1wY9JqWq6_W7j6yX3W2t4Pgg.9G8x4X9r6y4y-J4h9K9w7z7t-5T6Y7w-5Q6w4Y9t-6E.JPEG.sunghwa83%2F20221128_182103.jpg&type=sc960_832" alt="몽마르뜨 돈까스" class="restaurant-gallery-img" loading="lazy">
+                    <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjlfMTI1%2FMDAxNjY5NzAxNzI2Mjkz.f0w_qSg3y0jF6T5g_X3o1wY9JqWq6_W7j6yX3W2t4Pgg.9G8x4X9r6y4y-J4h9K9w7z7t-5T6Y7w-5Q6w4Y9t-6E.JPEG.sunghwa83%2F20221128_182103.jpg&type=sc960_832" alt="몽마르뜨 내부" class="restaurant-gallery-img" loading="lazy">
                 </div>
                 <div class="parking-info">
                     ⚠️ **주차:** 전용 주차장 없음. 주변 도로 또는 국민은행 등 **유료 주차장** 이용 필요.
@@ -404,7 +393,7 @@
             if (addressElement) {
                 const addressText = addressElement.textContent;
 
-                navigator.clipboard.writeText(addressText.trim()) // 공백 제거 후 복사
+                navigator.clipboard.writeText(addressText.trim())
                     .then(() => {
                         const originalText = buttonElement.textContent;
                         buttonElement.textContent = '복사 완료! ✔️';
