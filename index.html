@@ -3,26 +3,20 @@
 <head>
     <meta charset="utf-8">
     <title>세종시 데이트 지도</title>
-    <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
-        <script>
-         window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
- 
-     gtag('config', 'G-D6CDR67DM4');
-     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-     <!-- 애드센스 -->
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
-      crossorigin="anonymous"></script>
-     
-     <meta charset="utf-8">
-     <title>SHP98</title>
+        gtag('config', 'G-D6CDR67DM4');
+    </script>
 
-    <!-- 파비콘 설정 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
+     crossorigin="anonymous"></script>
+
     <link rel="icon" type="image/png" href="사진.png">
-    
+
     <style>
         /* 전체 레이아웃 스타일 */
         body {
@@ -45,7 +39,7 @@
         }
 
         h2 {
-            font-size: 2em; 
+            font-size: 2em;
             text-align: left;
             margin-top: 20px;
             color: #000000; /* 검정 글자 */
@@ -55,9 +49,31 @@
         h3 {
             font-size: 1.5em;
             text-align: left;
-            margin-top: -10px;
+            margin-top: 20px; /* 제목 간 간격 확보 */
+            margin-bottom: 5px; /* 본문과의 간격 줄임 */
             color: #000000; /* 검정 글자 */
         }
+        
+        /* 세부 카테고리 링크 스타일 */
+        h3 a {
+            color: rgb(30, 38, 128);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        h3 a:hover {
+            color: #FF5733 !important; /* 마우스 오버 시 색상 */
+        }
+        
+        /* 소개글 스타일 */
+        .category-intro {
+            font-size: 1em;
+            margin-top: 0px;
+            margin-bottom: 30px; /* 다음 카테고리와의 간격 */
+            color: #555555; /* 소개글을 어둡게 */
+            line-height: 1.4;
+        }
+
 
         h4 {
             font-size: 2.2em;
@@ -97,7 +113,7 @@
         }
 
         p, ul, ol {
-            margin-bottom: 100px; /* 문단 간 5줄 간격 추가 */
+            margin-bottom: 30px; /* 문단 간 간격 유지 */
         }
 
         ul li, ol li {
@@ -156,118 +172,111 @@
         height: auto; /* 비율에 맞게 자동 높이 설정 */
         z-index: 1000; /* 다른 콘텐츠 위에 표시 */
 
-}
+        }
 
 
-       .content {
-           padding-top: 200px; /* 고정된 이미지 높이만큼 패딩 추가 */
-       }
+        .content {
+            padding-top: 80px; /* 고정된 제목 영역 높이만큼 패딩 추가 */
+        }
     </style>
 
 
 </head>
 
 <body>
-        <!-- 제목 상단 고정 -->
-        <h1 style="position: fixed; top: 0; left: 0; width: 100%; text-align: center; background-color: #bdc3c7; color: #000000; padding: 10px; z-index: 1000;">세종시 데이트 지도</h1>
-       
-        <!-- 상단 고정 이미지 -->
-        <a href="../index.html">
-            <img src="../사진.png" class="fixed-image" alt="Logo">
-        </a>
-    
-        <div class="content" style="padding-top: 80px;">
+    <h1 style="position: fixed; top: 0; left: 0; width: 100%; text-align: center; background-color: #bdc3c7; color: #000000; padding: 10px; z-index: 1000;">세종시 데이트 지도</h1>
 
-        <!-- 글쓰기 시작 -->
-        <article>
+    <a href="../index.html">
+        <img src="../사진.png" class="fixed-image" alt="Logo">
+    </a>
 
-                    <!-- 차트 시작-->
-<div class="tradingview-widget-container">
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript">
-      new TradingView.widget(
-      {
-      "width": 600, /* 폭 설정 */
-      "height": 400, /* 높이 설정 */
-      "symbol": "VOO", /* 티커 설정 */
-      "interval": "M", /* 월봉 설정 */
-      "timezone": "Etc/UTC",
-      "theme": "dark", /* 배경색 설정 LIGHT OR DARK*/
-      "style": "1",
-      "locale": "kr",
-      "toolbar_bg": "#f1f3f6",
-      "enable_publishing": false,
-      "allow_symbol_change": true,
-      "container_id": "tradingview_86f31"
-    }
-      );
-      </script>
-    </div>
-        <!-- 차트 끝-->
+    <div class="content" style="padding-top: 80px;">
 
-        <!-- 글 여기에 넣기-->
+    <article>
 
         <h1>노잼도시 세종에도 놀거리가 있다!?</h1>
 
-        <p>아몰랑 일단 만들어~</p>
-      
-        <h2>1. 🍽️ 먹거리</h2>
-                    </h3>
-            <h3>
-            <a href="주식/nflx.html" style="color: rgb(30, 38, 128); text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='rgb(30, 38, 128)';">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!</a>
-        </h3>
+        <p>우리 사이트에선 달콤한 데이트를 위한 모든 것을 찾을 수 있답니다! 세종시의 숨은 매력을 함께 발견해봐요! 🥰</p>
 
-                        <h3>
-            <a href="주식/nflx.html" style="color: rgb(30, 38, 128); text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='rgb(30, 38, 128)';">아침 햇살처럼 상큼한 데이트 시작! 가볍지만 맛있는 브런치를 즐겨봐요.</a>
-        </h3>
-       
-      
-        <h2>2. 액티비티도 해보실? 놀거리</h2>
-        <p>미국은 안정적인 법적 및 금융 시스템을 갖추고 있어 투자자들에게 신뢰를 제공합니다. 특히, 미국 증권거래위원회(SEC)의 강력한 규제는 기업의 투명성을 보장하며, 투자자들이 공정한 정보를 바탕으로 투자 결정을 내릴 수 있게 합니다.</p>
-      
-        <h2>3. 잔잔한 카페</h2>
-        <p>미국 주식 시장은 세계에서 가장 크고 유동성이 높은 시장입니다. 이는 투자자들이 비교적 적은 비용으로 쉽게 매수 및 매도할 수 있음을 의미합니다. 또한, 미국 주식 시장에는 다양한 섹터와 기업이 포함되어 있어, 성장주와 배당주 모두를 포함한 다양한 투자 전략을 실행할 수 있는 기회를 제공합니다.</p>
-      
-        <h2>4. 기술 혁신의 중심</h2>
-        <p>미국은 기술 혁신의 최전선에 있는 국가로, 애플, 마이크로소프트, 구글과 같은 세계적인 기업이 본사를 두고 있습니다. 이들 기업은 지속적인 연구개발(R&D) 투자와 혁신을 통해 글로벌 시장에서 경쟁력을 유지하고 있습니다. 이러한 기술주에 대한 투자는 장기적으로 높은 수익률을 기대할 수 있는 기회를 제공합니다.</p>
-      
-        <h2>5. 달러의 강세와 안전 자산의 역할</h2>
-        <p>미국 달러는 세계에서 가장 많이 거래되는 통화이며, 경제 불확실성이 클수록 안전 자산으로서의 역할을 합니다. 미국 주식에 투자하면 간접적으로 달러에 노출되므로, 투자 포트폴리오의 분산 효과와 함께 환율 변동에 따른 이점을 누릴 수 있습니다.</p>
-      
-        <h2>6. 거시 경제 전망</h2>
-        <p>미국 경제는 글로벌 경제의 불확실성 속에서도 비교적 강한 회복력을 보여주고 있습니다. 정부의 적극적인 정책과 소비자 지출의 견조함이 이를 뒷받침하고 있습니다. 특히, 인플레이션과 금리 정책과 같은 거시경제 지표는 미국 주식 시장에 장기적인 영향을 미치므로, 이를 면밀히 관찰하면서 투자 전략을 세울 필요가 있습니다.</p>
-      
-        <h2>결론</h2>
-        <p>미국 주식 시장은 세계 경제의 중심지로서, 투자자들에게 다양한 기회와 안정성을 제공합니다. 기술 혁신, 높은 유동성, 안정적인 법적 시스템 등의 장점은 장기적인 투자 관점에서 매우 매력적입니다. 물론, 투자에는 항상 리스크가 수반되므로, 철저한 분석과 분산 투자 전략이 필요합니다. 미국 주식 시장에 투자하여 글로벌 경제 성장의 기회를 잡아보세요.</p>
-      
-        <h2> 투자할만한 ETF</h2>
-        <!-- 리스트 시작-->
+        <h2>🍽️ 먹거리 (Meal Focused)</h2>
+
         <h3>
-            <a href="주식/VOO.html" style="color: rgb(30, 38, 128); text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='rgb(30, 38, 128)';">S&P500에 투자하는 VOO</a>
+            <a href="먹거리/레스토랑&맛집.html">레스토랑 & 맛집</a>
         </h3>
-        <!-- 리스트 끝-->
-         
-        <h2> 투자할만한 개별 주식</h2>
-        <!-- 리스트 시작-->
+        <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 **주메뉴**를 찾고 있다면 바로 요기로 와주세요!</p>
+
+
         <h3>
-            <a href="주식/nvda.html" style="color: rgb(30, 38, 128); text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='rgb(30, 38, 128)';">반도체 시장의 깡패 NVDA (엔비디아)</a>
-        </h3>      
-            <h3>
-            <a href="주식/tsla.html" style="color: rgb(30, 38, 128); text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='rgb(30, 38, 128)';">전기차 시장의 선두주자 TSLA (테슬라)</a>
+            <a href="먹거리/브런치&가벼운식사.html">브런치 & 가벼운 식사</a>
         </h3>
-            <h3>
-            <a href="주식/nflx.html" style="color: rgb(30, 38, 128); text-decoration: none;" onmouseover="this.style.color='#FF5733';" onmouseout="this.style.color='rgb(30, 38, 128)';">OTT계의 압도적 최강자 NFLX (넷플릭스)</a>
+        <p class="category-intro">아침 햇살처럼 상큼한 데이트 시작! 가볍지만 든든한 브런치를 즐겨봐요.<br>데이트 중간에 간단하게 **한 끼 해결**할 맛집도 다 모여있답니다!</p>
+
+        <h2>☕ 카페/디저트 (Beverage & Treat Focused)</h2>
+
+        <h3>
+            <a href="카페/뷰맛집&감성카페.html">뷰 맛집 / 감성 카페</a>
         </h3>
-        <!-- 리스트 끝-->
-        </article>
-        <!-- 글쓰기 끝 -->
-         <!-- 홈 버튼 시작-->
-         <div class="button-container">
-            <button>
-                <a href="../index.HTML" style="color: white; text-decoration: none;">Home</a>
-            </button>
-         <!-- 홈 버튼 끝-->
-        </div>
+        <p class="category-intro">예쁜 사진 100장 예약! 📸 멋진 뷰나 감성 가득한 곳에서 수다 타임!<br>커피 한 잔과 함께 서로에게 **퐁당 빠지는** 시간을 가져봐요!</p>
+
+        <h3>
+            <a href="카페/디저트전문.html">디저트 전문</a>
+        </h3>
+        <p class="category-intro">세상의 모든 달콤함이 여기에! 🎂 예쁜 베이커리와 케이크가 주인공!<br>**식사 후 달콤한 마무리**가 필요할 때 찾아와주세요! 🍰</p>
+
+        <h2>🤸 놀거리/액티비티 (Activity & Entertainment)</h2>
+
+        <h3>
+            <a href="놀거리/체험&놀이.html">체험 & 놀이</a>
+        </h3>
+        <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
+
+        <h3>
+            <a href="놀거리/문화&예술.html">문화 & 예술</a>
+        </h3>
+        <p class="category-intro">똑똑해지는 데이트! 🖼️ 멋진 공연과 전시를 보며 감수성을 채워보세요.<br>조용하고 의미 있는 시간을 보내고 싶은 커플에게 딱이랍니다!</p>
+
+        <h2>🏞️ 공원/휴식 (Nature & Relaxation)</h2>
+
+        <h3>
+            <a href="공원/대형공원.html">대형 공원</a>
+        </h3>
+        <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
+
+        <h3>
+            <a href="공원/산책&드라이브.html">산책 & 드라이브</a>
+        </h3>
+        <p class="category-intro">그림 같은 풍경을 따라 드라이브! 🚗 여유로운 시간을 가져봐요.<br>조용히 서로의 이야기에 귀 기울이는 힐링 코스만 모았답니다!</p>
+
+        <h2>📸 인생샷 명소 (Photo Zone & Landmark)</h2>
+
+        <h3>
+            <a href="인생샷/건축물&야경.html">건축물 & 야경</a>
+        </h3>
+        <p class="category-intro">빛나는 세종시의 밤! ✨ 반짝이는 야경을 배경으로 예쁜 사진 남겨요.<br>세종시 **랜드마크**에서 우리 사랑을 영원히 기록할 시간이에요!</p>
+
+        <h3>
+            <a href="인생샷/계절별스팟.html">계절별 스팟</a>
+        </h3>
+        <p class="category-intro">봄에는 꽃, 가을엔 단풍! 🌸 사계절 내내 특별한 배경이 되어줄 곳!<br>**계절이 바뀔 때마다 다시 오고 싶은** 마법 같은 장소들이랍니다!</p>
+
+        <h2>🏠 숙소 (Accommodation)</h2>
+
+        <h3>
+            <a href="숙소/호텔&펜션.html">호텔 & 펜션</a>
+        </h3>
+        <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요.<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
+
+        <h3>
+            <a href="숙소/이색숙소&기념일.html">이색 숙소 & 기념일</a>
+        </h3>
+        <p class="category-intro">특별한 날엔 특별한 곳에서! 글램핑, 풀빌라에서 추억을 만들어봐요.<br>우리만의 소중한 **기념일을 로맨틱하게** 완성해 줄 공간이랍니다!</p>
+
+    </article>
+    <div class="button-container">
+        <button>
+            <a href="../index.HTML" style="color: white; text-decoration: none;">Home</a>
+        </button>
+    </div>
     </div>
 </body>
 </html>
