@@ -133,6 +133,12 @@
             object-fit: cover; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             background-color: #e0e0e0; /* 이미지 로딩 전 배경 */
+            cursor: pointer; /* 클릭 가능한 요소로 표시 */
+            transition: transform 0.2s;
+        }
+        
+        .restaurant-gallery-img:hover {
+            transform: scale(1.02);
         }
         
         /* 주차 정보 스타일 */
@@ -270,6 +276,75 @@
             0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
+
+        /* --- 모달(이미지 확대) 스타일 추가 --- */
+        .modal {
+            display: none; /* 초기에는 숨김 */
+            position: fixed;
+            z-index: 2000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9); /* 검은색 배경 투명도 90% */
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 90vh;
+            object-fit: contain; /* 이미지 전체가 보이도록 */
+        }
+
+        /* 닫기 버튼 */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* 탐색 버튼 (이전/다음) */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
     </style>
 </head>
 
@@ -304,7 +379,7 @@
                     <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
                 </div>
                 
-                <div class="restaurant-image-gallery">
+                <div class="restaurant-image-gallery" data-item-index="0">
                     <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 내부" class="restaurant-gallery-img" loading="lazy">
                     <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 초밥" class="restaurant-gallery-img" loading="lazy">
                 </div>
@@ -341,7 +416,7 @@
                     <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
                 </div>
                 
-                <div class="restaurant-image-gallery">
+                <div class="restaurant-image-gallery" data-item-index="1">
                     <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjExMjhfMjUy%2FMDAxNjY5NjQzMDI4Mjk0.S7d235cE1TmmfT-QeD_Y73qB9R51eYkXG0i3iV8hO_Ig.D7-R81mXq62XQ99W0dFqXJm8oG_T8W1W0-C41H-2k78g.JPEG.gmlgnsk%2FIMG_8535.JPG&type=sc960_832" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
                     <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMjJfMTU3%2FMDAxNjk3OTUzODE1NzU1.pT4_H_mYqP-q3RkE_vJ0qR8n1S9o2S-O7J3J2J2J_5Qg.6n3V7E5H7G2G8W2H8H3K9K9H7H3J5G2H7K2G6K6H3K6G.JPEG.jjy3636%2FIMG_7679.jpg&type=sc960_832" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
                 </div>
@@ -378,7 +453,7 @@
                     <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
                 </div>
                 
-                <div class="restaurant-image-gallery">
+                <div class="restaurant-image-gallery" data-item-index="2">
                     <img src="" alt="순두부찌개" class="restaurant-gallery-img">
                     <img src="" alt="화덕생선구이" class="restaurant-gallery-img">
                 </div>
@@ -406,7 +481,93 @@
     </div>
     </div>
     
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <a class="prev" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</a>
+        <a class="next" onclick="event.stopPropagation(); changeImage(1)">&#10095;</a>
+    </div>
+
     <script>
+        // 현재 보고 있는 이미지 정보
+        let currentItemIndex = -1;
+        let currentImageIndex = -1;
+        let galleryImages = []; // 전체 식당의 이미지 배열을 저장할 변수
+
+        // DOM이 로드된 후 갤러리 초기화
+        document.addEventListener('DOMContentLoaded', initGallery);
+
+        function initGallery() {
+            const galleryContainers = document.querySelectorAll('.restaurant-image-gallery');
+            galleryImages = Array.from(galleryContainers).map(container => 
+                Array.from(container.querySelectorAll('.restaurant-gallery-img'))
+            );
+
+            // 각 이미지에 클릭 이벤트 추가
+            galleryImages.forEach((images, itemIndex) => {
+                images.forEach((img, imageIndex) => {
+                    img.onclick = function(event) {
+                        // 주소 복사 버튼과 겹치지 않게 하기 위해 event.stopPropagation() 사용
+                        event.stopPropagation(); 
+                        openModal(itemIndex, imageIndex);
+                    };
+                });
+            });
+        }
+
+        function openModal(itemIndex, imageIndex) {
+            currentItemIndex = itemIndex;
+            currentImageIndex = imageIndex;
+            
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+
+            const selectedImage = galleryImages[currentItemIndex][currentImageIndex];
+            
+            modal.style.display = 'block';
+            modalImg.src = selectedImage.src;
+
+            updateNavigationButtons();
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        function changeImage(direction) {
+            const currentImages = galleryImages[currentItemIndex];
+            let newIndex = currentImageIndex + direction;
+
+            if (newIndex < 0) {
+                newIndex = currentImages.length - 1; // 첫 이미지에서 '이전' -> 마지막 이미지
+            } else if (newIndex >= currentImages.length) {
+                newIndex = 0; // 마지막 이미지에서 '다음' -> 첫 이미지
+            }
+
+            currentImageIndex = newIndex;
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = currentImages[currentImageIndex].src;
+
+            updateNavigationButtons();
+        }
+        
+        function updateNavigationButtons() {
+             const currentImages = galleryImages[currentItemIndex];
+             const prevBtn = document.querySelector('.prev');
+             const nextBtn = document.querySelector('.next');
+             
+             // 이미지가 1개 이하일 경우 탐색 버튼을 숨깁니다.
+             if (currentImages && currentImages.length <= 1) {
+                 prevBtn.style.display = 'none';
+                 nextBtn.style.display = 'none';
+             } else {
+                 prevBtn.style.display = 'block';
+                 nextBtn.style.display = 'block';
+             }
+        }
+
+
+        // 다른 기존 함수들 유지
         function copyAddress(buttonElement) {
             const addressId = buttonElement.getAttribute('data-address-id');
             const addressElement = document.getElementById(addressId);
@@ -431,7 +592,6 @@
             }
         }
         
-        // 피드백 버튼 처리 함수 (실제 기능 없이 알림창만 띄웁니다.)
         function handleFeedback(type, name) {
             let message = '';
             if (type === '추천') {
