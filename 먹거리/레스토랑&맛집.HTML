@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 기본 스타일은 인덱스 파일과 동일하게 유지 */
+        /* (이전 스타일 유지) */
         body {
             margin: 0;
             font-family: 'Noto Sans KR', sans-serif;
@@ -18,7 +18,6 @@
             color: #333333;
         }
 
-        /* 인덱스 페이지 스타일 복사 시작 */
         h1 {
             font-size: 2.5em;
             font-weight: 700;
@@ -69,83 +68,107 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
         
-        /* content 패딩 조정 */
         .content {
             padding-top: 80px;
             animation: fadeIn 1.5s ease-out;
-            width: 90%; /* 콘텐츠 너비 조정 */
-            max-width: 1200px; /* 최대 너비 확장 */
+            width: 90%;
+            max-width: 800px;
         }
         
         article {
             text-align: left;
             background-color: #ffffff;
             padding: 30px;
-            margin: 20px 0; /* 마진 조정 */
+            margin: 20px 0;
             border-radius: 15px;
             color: #2c3e50;
-            width: 100%; /* 콘텐츠 전체 너비 사용 */
+            width: 100%;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
-        /* 지도 & 리스트 컨테이너 스타일 (핵심) */
-        .map-container {
-            display: flex; /* Flexbox 레이아웃 사용 */
-            gap: 20px; /* 요소 간 간격 */
-            margin-top: 20px;
-        }
-
-        .map-area {
-            flex: 3; /* 70% 비율 (3/4.3 = 약 70%) */
-            min-width: 400px;
-            height: 600px; /* 지도의 높이 설정 */
-            background-color: #e0e0e0; /* 지도 로딩 전 배경 */
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            line-height: 600px;
-            color: #777;
-        }
-        
         .list-area {
-            flex: 1.3; /* 30% 비율 (1.3/4.3 = 약 30%) */
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 10px;
-            max-height: 600px; /* 지도와 높이 맞춤 */
-            overflow-y: auto; /* 리스트가 길어지면 스크롤 가능 */
             border: 1px solid #eee;
+            margin-top: 20px;
         }
 
-        /* 리스트 항목 스타일 */
+        /* 개별 식당 항목 컨테이너 */
         .restaurant-item {
             padding: 15px 0;
             border-bottom: 1px solid #eeeeee;
-            cursor: pointer;
-            transition: background-color 0.2s;
         }
 
         .restaurant-item:last-child {
             border-bottom: none;
         }
 
-        .restaurant-item:hover {
-            background-color: #ffeef2; /* 로즈 핑크 계열 hover 효과 */
-        }
-
-        .restaurant-item h4 {
-            font-size: 1.1em;
-            color: #ff69b4; /* 식당 이름 강조 */
-            margin: 0;
-        }
-
-        .restaurant-item p {
-            font-size: 0.9em;
-            color: #555;
-            margin: 5px 0 0;
+        /* 대표 사진 스타일 추가 */
+        .restaurant-image {
+            width: 100%;
+            height: 180px; 
+            border-radius: 8px; 
+            margin-bottom: 10px;
+            object-fit: cover; /* 이미지가 비율에 맞게 꽉 차도록 설정 */
         }
         
+        .restaurant-item h4 {
+            font-size: 1.2em;
+            color: #ff69b4;
+            margin-top: 5px; /* 사진과 제목 간격 */
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        /* 주소 및 복사 버튼 컨테이너 */
+        .address-row {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .address-text {
+            font-size: 0.95em;
+            color: #555;
+            margin-right: 10px;
+            font-weight: 300;
+        }
+
+        /* 복사 버튼 스타일 */
+        .copy-button {
+            padding: 4px 10px;
+            background-color: #ffdae5;
+            color: #ff69b4;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            flex-shrink: 0; /* 주소가 길어져도 버튼이 줄어들지 않게 함 */
+        }
+
+        .copy-button:hover {
+            background-color: #ff69b4;
+            color: white;
+        }
+        
+        /* 해시태그 스타일 */
+        .hashtag {
+            display: inline-block;
+            background-color: #ffebf2;
+            color: #ff69b4;
+            font-weight: 500;
+            padding: 3px 8px;
+            margin-right: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        /* 홈 버튼 스타일 */
         .button-container {
             text-align: center;
         }
@@ -170,77 +193,84 @@
             box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
         }
         
-        /* 인덱스 페이지 스타일 복사 끝 */
-        
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
     </style>
-
-
 </head>
 
 <body>
     <h1 class="fixed-title">세종시 데이트 지도</h1>
 
-    <a href="../../index.html"> <img src="../../사진.png" class="fixed-image" alt="Logo">
+    <a href="../../index.html">
+        <img src="../../사진.png" class="fixed-image" alt="Logo">
     </a>
 
     <div class="content">
-
     <article>
 
         <h2>🍽️ 레스토랑 & 맛집</h2>
         <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 **주메뉴**를 찾고 있다면 바로 요기로 와주세요!</p>
 
-        <div class="map-container">
+        <div class="list-area">
+            <h3>💖 커플 추천 맛집 리스트</h3>
             
-            <div class="map-area">
-                지도 영역 (실제 지도를 여기에 삽입하고 마커 클릭 시 상세 페이지로 이동하도록 설정)
+            <div class="restaurant-item">
+                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=로맨틱+비스트로+세종" alt="로맨틱 비스트로 세종 대표 사진" class="restaurant-image">
+
+                <a href="https://search.naver.com/search.naver?query=세종 로맨틱 비스트로 세종" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>⭐ 1. 로맨틱 비스트로 세종 (네이버 검색 결과로 이동)</h4>
+                </a>
+                
+                <div class="address-row">
+                    <span class="address-text" id="address1">세종특별자치시 나성동 123-45 3층</span>
+                    <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                <p>
+                    <span class="hashtag">#시그니처파스타</span>
+                    <span class="hashtag">#금강뷰</span>
+                    <span class="hashtag">#기념일추천</span>
+                </p>
             </div>
             
-            <div class="list-area">
-                <h3>💖 커플 추천 맛집 리스트</h3>
+            <div class="restaurant-item">
+                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=한옥+정찬+미가" alt="한옥 정찬 미가 대표 사진" class="restaurant-image">
                 
-                <a href="레스토랑_상세/레스토랑1.html" style="text-decoration: none; color: inherit;">
-                    <div class="restaurant-item">
-                        <h4>⭐ 1. 로맨틱 비스트로 세종</h4>
-                        <p>#파스타 #스테이크 #금강뷰</p>
-                    </div>
+                <a href="https://search.naver.com/search.naver?query=세종 한옥 정찬 미가" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>2. 한옥 정찬 미가 (네이버 검색 결과로 이동)</h4>
                 </a>
                 
-                <a href="레스토랑_상세/레스토랑2.html" style="text-decoration: none; color: inherit;">
-                    <div class="restaurant-item">
-                        <h4>2. 한옥 정찬 미가</h4>
-                        <p>#한정식 #전통 #조용함</p>
-                    </div>
-                </a>
-                
-                <a href="레스토랑_상세/레스토랑3.html" style="text-decoration: none; color: inherit;">
-                    <div class="restaurant-item">
-                        <h4>3. 퓨전 덮밥 옥토</h4>
-                        <p>#퓨전 #간편식 #인스타감성</p>
-                    </div>
-                </a>
-
-                <a href="레스토랑_상세/레스토랑4.html" style="text-decoration: none; color: inherit;">
-                    <div class="restaurant-item">
-                        <h4>4. 솥밥의 정석</h4>
-                        <p>#한식 #정갈함 #가성비</p>
-                    </div>
-                </a>
-                
-                <a href="레스토랑_상세/레스토랑5.html" style="text-decoration: none; color: inherit;">
-                    <div class="restaurant-item">
-                        <h4>5. 와인바 루프탑 101</h4>
-                        <p>#와인 #야경 #분위기</p>
-                    </div>
-                </a>
-
+                <div class="address-row">
+                    <span class="address-text" id="address2">세종특별자치시 연서면 기와골길 77</span>
+                    <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
                 </div>
+                <p>
+                    <span class="hashtag">#궁중불고기</span>
+                    <span class="hashtag">#깔끔한한정식</span>
+                    <span class="hashtag">#부모님과함께</span>
+                </p>
+            </div>
             
-        </div>
+            <div class="restaurant-item">
+                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=퓨전+덮밥+옥토" alt="퓨전 덮밥 옥토 대표 사진" class="restaurant-image">
+
+                <a href="https://search.naver.com/search.naver?query=세종 퓨전 덮밥 옥토" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>3. 퓨전 덮밥 옥토 (네이버 검색 결과로 이동)</h4>
+                </a>
+
+                <div class="address-row">
+                    <span class="address-text" id="address3">세종특별자치시 보람동 금강변로 100</span>
+                    <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                <p>
+                    <span class="hashtag">#명란아보카도</span>
+                    <span class="hashtag">#인스타감성</span>
+                    <span class="hashtag">#웨이팅주의</span>
+                </p>
+            </div>
+
+            </div>
         </article>
     <div class="button-container">
         <button>
@@ -248,5 +278,31 @@
         </button>
     </div>
     </div>
+    
+    <script>
+        function copyAddress(buttonElement) {
+            const addressId = buttonElement.getAttribute('data-address-id');
+            const addressElement = document.getElementById(addressId);
+            
+            if (addressElement) {
+                const addressText = addressElement.textContent;
+
+                navigator.clipboard.writeText(addressText)
+                    .then(() => {
+                        const originalText = buttonElement.textContent;
+                        buttonElement.textContent = '복사 완료! ✔️';
+                        
+                        setTimeout(() => {
+                            buttonElement.textContent = originalText;
+                        }, 1500);
+                        
+                    })
+                    .catch(err => {
+                        console.error('클립보드 복사 실패:', err);
+                        alert('주소 복사에 실패했어요. 수동으로 복사해주세요: ' + addressText);
+                    });
+            }
+        }
+    </script>
 </body>
 </html>
