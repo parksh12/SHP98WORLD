@@ -104,15 +104,31 @@
             border-bottom: none;
         }
 
-        /* 대표 사진 스타일 */
-        .restaurant-image {
+        /* 대표 사진 Placeholder 스타일 (사진이 없을 때 공간을 표시) */
+        .restaurant-image-placeholder {
             width: 100%;
             height: 180px; 
             border-radius: 8px; 
             margin-bottom: 10px;
-            object-fit: cover;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 1.1em;
+            font-weight: 500;
         }
         
+        /* 주차 정보 스타일 */
+        .parking-info {
+            font-size: 0.9em;
+            color: #3498db; /* 파란색으로 강조 */
+            font-weight: 500;
+            margin-bottom: 15px;
+            padding-left: 5px;
+            border-left: 3px solid #3498db;
+        }
+
         .restaurant-item h4 {
             font-size: 1.2em;
             color: #ff69b4;
@@ -134,7 +150,7 @@
             color: #555;
             margin-right: 10px;
             font-weight: 300;
-            flex-grow: 1; /* 주소가 길어지면 공간을 채우도록 설정 */
+            flex-grow: 1;
         }
 
         /* 복사 버튼 스타일 */
@@ -167,13 +183,53 @@
             border-radius: 5px;
             font-size: 0.9em;
             margin-top: 5px;
-        }
-        
-        /* 홈 버튼 스타일 */
-        .button-container {
-            text-align: center;
+            margin-bottom: 15px;
         }
 
+        /* 피드백 버튼 컨테이너 스타일 */
+        .feedback-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #e0e0e0;
+        }
+
+        /* 피드백 버튼 공통 스타일 */
+        .feedback-button {
+            flex-grow: 1;
+            padding: 8px 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 700;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .feedback-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* 개별 피드백 버튼 스타일 */
+        .btn-recommend {
+            background-color: #2ecc71; /* 추천: 초록색 */
+            color: white;
+        }
+
+        .btn-not-recommend {
+            background-color: #f39c12; /* 비추천: 주황색 */
+            color: white;
+        }
+
+        .btn-closed {
+            background-color: #e74c3c; /* 폐업: 빨간색 */
+            color: white;
+        }
+        
+        /* 홈 버튼 스타일 (중략) */
         button {
             font-size: 18px;
             font-weight: bold;
@@ -218,7 +274,9 @@
             <h3>💖 커플 추천 맛집 리스트</h3>
             
             <div class="restaurant-item">
-                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=으뜸스시+세종아름점" alt="으뜸스시 세종아름점 대표 사진" class="restaurant-image">
+                <div class="restaurant-image-placeholder">
+                    으뜸스시 세종아름점 (대표 사진 준비 중 🖼️)
+                </div>
 
                 <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4>⭐ 1. 으뜸스시 세종아름점 (네이버 검색 결과로 이동)</h4>
@@ -228,15 +286,28 @@
                     <span class="address-text" id="address1">세종특별자치시 보듬3로 158 (아름메디컬센터 1층, 아름동)</span>
                     <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
                 </div>
+                
+                <div class="parking-info">
+                    🅿️ **주차:** 건물 지하 주차장 이용 가능 (아름메디컬센터)
+                </div>
+
                 <p>
                     <span class="hashtag">#회전초밥</span>
                     <span class="hashtag">#가성비맛집</span>
                     <span class="hashtag">#혼밥가능</span>
                 </p>
+
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '으뜸스시 세종아름점')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '으뜸스시 세종아름점')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '으뜸스시 세종아름점')">🚨 폐업했어요!</button>
+                </div>
             </div>
             
             <div class="restaurant-item">
-                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=규카츠정+나성점" alt="규카츠정 나성점 대표 사진" class="restaurant-image">
+                <div class="restaurant-image-placeholder">
+                    규카츠정 나성점 (대표 사진 준비 중 🖼️)
+                </div>
                 
                 <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4>2. 규카츠정 나성점 (네이버 검색 결과로 이동)</h4>
@@ -246,15 +317,28 @@
                     <span class="address-text" id="address2">세종특별자치시 나성로 133-15 애플타워 1층 113호 (나성동)</span>
                     <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
                 </div>
+
+                <div class="parking-info">
+                    🅿️ **주차:** 건물 지하 주차장 이용 가능 (2시간 무료 주차)
+                </div>
+
                 <p>
                     <span class="hashtag">#규카츠정식</span>
                     <span class="hashtag">#미니화로</span>
                     <span class="hashtag">#데이트추천</span>
                 </p>
+
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '규카츠정 나성점')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '규카츠정 나성점')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '규카츠정 나성점')">🚨 폐업했어요!</button>
+                </div>
             </div>
             
             <div class="restaurant-item">
-                <img src="https://via.placeholder.com/800x180/ffd5e5/ff69b4?text=몽마르뜨" alt="몽마르뜨 대표 사진" class="restaurant-image">
+                <div class="restaurant-image-placeholder">
+                    몽마르뜨 (대표 사진 준비 중 🖼️)
+                </div>
 
                 <a href="https://search.naver.com/search.naver?query=세종 몽마르뜨 경양식" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4>3. 몽마르뜨 (네이버 검색 결과로 이동)</h4>
@@ -264,11 +348,22 @@
                     <span class="address-text" id="address3">세종특별자치시 조치원읍 조치원로 31 지하 1층</span>
                     <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
                 </div>
+
+                <div class="parking-info">
+                    ⚠️ **주차:** 전용 주차장 없음. 주변 도로 또는 국민은행 등 **유료 주차장** 이용 필요.
+                </div>
+
                 <p>
                     <span class="hashtag">#경양식돈까스</span>
                     <span class="hashtag">#30년전통</span>
                     <span class="hashtag">#레트로감성</span>
                 </p>
+                
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '몽마르뜨')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '몽마르뜨')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '몽마르뜨')">🚨 폐업했어요!</button>
+                </div>
             </div>
 
             </div>
@@ -303,6 +398,19 @@
                         alert('주소 복사에 실패했어요. 수동으로 복사해주세요: ' + addressText);
                     });
             }
+        }
+        
+        // 피드백 버튼 처리 함수 (실제 기능 없이 알림창만 띄웁니다.)
+        function handleFeedback(type, name) {
+            let message = '';
+            if (type === '추천') {
+                message = `${name}을(를) 추천해 주셔서 감사합니다! 소중한 의견을 반영하겠습니다. 😊`;
+            } else if (type === '비추천') {
+                message = `${name}에 대한 비추천 의견을 접수했습니다. 불편하셨던 점을 참고하여 개선하겠습니다. 😔`;
+            } else if (type === '폐업') {
+                message = `${name}의 폐업 신고를 접수했습니다. 확인 후 리스트에서 제외하겠습니다. 감사합니다. 🙏`;
+            }
+            alert(message);
         }
     </script>
 </body>
