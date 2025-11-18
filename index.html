@@ -73,6 +73,7 @@
             font-weight: 500;
             margin-top: 15px;
             margin-bottom: 0px;
+            
         }
 
         h3 a {
@@ -145,27 +146,20 @@
             padding: 0 5px; /* 양 끝이 잘리지 않도록 약간의 패딩 */
         }
         
-        /* [수정] 이미지 컨테이너에 16:9 비율 적용 (9/16 = 0.5625 = 56.25%) */
+        /* 이미지가 잘리지 않고 전체가 보이도록 object-fit을 contain으로 변경 */
+        .category-image {
+            width: 100%; /* 부모 요소 너비에 맞춤 */
+            height: 200px; /* 고정 높이로 통일감 */
+            object-fit: contain; /* 이미지가 잘리지 않고 전체가 보이도록 변경 */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 변경: category-image-gallery 내의 각 링크(a)가 이미지의 크기를 결정하도록 함 */
         .category-image-link {
             min-width: calc(50% - 5px); /* 두 링크가 가로에 배치되도록 설정 */
             width: calc(50% - 5px);
             display: block; /* 링크가 전체 영역을 차지하도록 */
-            position: relative; /* 자식 이미지의 absolute 포지셔닝을 위한 기준점 */
-            padding-top: 56.25%; /* 16:9 비율 확보 (세로 크기 결정) */
-            border-radius: 10px;
-            overflow: hidden; /* 이미지 경계 정리 */
-        }
-        
-        /* [수정] 이미지 자체는 16:9 컨테이너 안에 꽉 채우고 비율 유지 */
-        .category-image {
-            position: absolute; /* 부모 요소(.category-image-link) 기준으로 위치 */
-            top: 0;
-            left: 0;
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; /* 이미지가 잘리지 않고 전체가 보이도록 유지 */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         /* 이미지가 링크 안에 있을 때 호버 효과 추가 */
@@ -269,10 +263,10 @@
 
         <div class="category-image-gallery">
             <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
-                <img src="https://d12zq4w4guyljn.cloudfront.net/20241103161332_photo1_172b41b9d6a5.webp" alt="다이너 스테이크/파스타" class="category-image">
+                <img src="../사진/규카츠정 나성점_1.jpg" alt="레스토랑 식사 장면" class="category-image">
             </a>
             <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
-                <img src="https://d12zq4w4guyljn.cloudfront.net/750_750_20250816085427_photo3_0e3cdde75a07.webp" alt="다이너 내부 인테리어" class="category-image">
+                <img src="../사진/다이너_2.jpg" alt="접시에 담긴 고급 요리" class="category-image">
             </a>
             </div>
         
