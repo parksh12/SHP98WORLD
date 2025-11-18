@@ -146,13 +146,26 @@
             padding: 0 5px; /* 양 끝이 잘리지 않도록 약간의 패딩 */
         }
         
+        /* 이미지가 잘리지 않고 전체가 보이도록 object-fit을 contain으로 변경 */
         .category-image {
-            min-width: calc(50% - 5px); /* 두 이미지가 가로에 배치되도록 설정 */
-            width: calc(50% - 5px); 
+            width: 100%; /* 부모 요소 너비에 맞춤 */
             height: 200px; /* 고정 높이로 통일감 */
-            object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+            object-fit: contain; /* 이미지가 잘리지 않고 전체가 보이도록 변경 */
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 변경: category-image-gallery 내의 각 링크(a)가 이미지의 크기를 결정하도록 함 */
+        .category-image-link {
+            min-width: calc(50% - 5px); /* 두 링크가 가로에 배치되도록 설정 */
+            width: calc(50% - 5px);
+            display: block; /* 링크가 전체 영역을 차지하도록 */
+        }
+
+        /* 이미지가 링크 안에 있을 때 호버 효과 추가 */
+        .category-image-link:hover .category-image {
+            opacity: 0.85;
+            transition: opacity 0.3s;
         }
 
 
@@ -249,9 +262,13 @@
         </h2>
 
         <div class="category-image-gallery">
-            <img src="https://picsum.photos/id/1084/400/200" alt="레스토랑 식사 장면" class="category-image">
-            <img src="https://picsum.photos/id/119/400/200" alt="접시에 담긴 고급 요리" class="category-image">
-        </div>
+            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
+                <img src="https://picsum.photos/id/1084/400/200" alt="레스토랑 식사 장면" class="category-image">
+            </a>
+            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
+                <img src="https://picsum.photos/id/119/400/200" alt="접시에 담긴 고급 요리" class="category-image">
+            </a>
+            </div>
         
         <a href="먹거리/레스토랑&맛집.html" class="article-link">
             <h3>레스토랑 & 맛집</h3>
@@ -263,9 +280,13 @@
         </h2>
         
         <div class="category-image-gallery">
-            <img src="https://picsum.photos/id/400/400/200" alt="감성적인 인테리어 카페" class="category-image">
-            <img src="https://picsum.photos/id/225/400/200" alt="커피와 달콤한 디저트" class="category-image">
-        </div>
+            <a href="카페/카페.html" class="category-image-link">
+                <img src="https://picsum.photos/id/400/400/200" alt="감성적인 인테리어 카페" class="category-image">
+            </a>
+            <a href="카페/카페.html" class="category-image-link">
+                <img src="https://picsum.photos/id/225/400/200" alt="커피와 달콤한 디저트" class="category-image">
+            </a>
+            </div>
 
         <a href="카페/카페.html" class="article-link">
             <h3>감성 카페 & 뷰 맛집</h3>
@@ -278,9 +299,13 @@
         </h2>
         
         <div class="category-image-gallery">
-            <img src="https://picsum.photos/id/354/400/200" alt="실내 체험 활동" class="category-image">
-            <img src="https://picsum.photos/id/802/400/200" alt="레저 액티비티 장면" class="category-image">
-        </div>
+            <a href="놀거리/놀거리.html" class="category-image-link">
+                <img src="https://picsum.photos/id/354/400/200" alt="실내 체험 활동" class="category-image">
+            </a>
+            <a href="놀거리/놀거리.html" class="category-image-link">
+                <img src="https://picsum.photos/id/802/400/200" alt="레저 액티비티 장면" class="category-image">
+            </a>
+            </div>
 
         <a href="놀거리/놀거리.html" class="article-link">
             <h3>액티비티 & 체험</h3>
@@ -292,9 +317,13 @@
         </h2>
         
         <div class="category-image-gallery">
-            <img src="https://picsum.photos/id/1054/400/200" alt="푸른 공원에서 산책" class="category-image">
-            <img src="https://picsum.photos/id/231/400/200" alt="야외 피크닉" class="category-image">
-        </div>
+            <a href="자연/공원.html" class="category-image-link">
+                <img src="https://picsum.photos/id/1054/400/200" alt="푸른 공원에서 산책" class="category-image">
+            </a>
+            <a href="자연/공원.html" class="category-image-link">
+                <img src="https://picsum.photos/id/231/400/200" alt="야외 피크닉" class="category-image">
+            </a>
+            </div>
 
         <a href="자연/공원.html" class="article-link">
             <h3>공원</h3>
@@ -306,9 +335,13 @@
         </h2>
         
         <div class="category-image-gallery">
-            <img src="https://picsum.photos/id/163/400/200" alt="고급 호텔 객실" class="category-image">
-            <img src="https://picsum.photos/id/366/400/200" alt="아늑한 펜션 인테리어" class="category-image">
-        </div>
+            <a href="숙소/숙소.html" class="category-image-link">
+                <img src="https://picsum.photos/id/163/400/200" alt="고급 호텔 객실" class="category-image">
+            </a>
+            <a href="숙소/숙소.html" class="category-image-link">
+                <img src="https://picsum.photos/id/366/400/200" alt="아늑한 펜션 인테리어" class="category-image">
+            </a>
+            </div>
 
         <a href="숙소/숙소.html" class="article-link">
             <h3>호텔 & 펜션</h3>
@@ -320,9 +353,13 @@
         </h2>
         
         <div class="category-image-gallery">
-            <img src="https://picsum.photos/id/433/400/200" alt="자연 속 캠핑 텐트" class="category-image">
-            <img src="https://picsum.photos/id/405/400/200" alt="밤하늘 아래 글램핑 바비큐" class="category-image">
-        </div>
+            <a href="캠핑/캠핑.html" class="category-image-link">
+                <img src="https://picsum.photos/id/433/400/200" alt="자연 속 캠핑 텐트" class="category-image">
+            </a>
+            <a href="캠핑/캠핑.html" class="category-image-link">
+                <img src="https://picsum.photos/id/405/400/200" alt="밤하늘 아래 글램핑 바비큐" class="category-image">
+            </a>
+            </div>
 
         <a href="캠핑/캠핑.html" class="article-link">
             <h3>캠핑 사이트</h3>
@@ -337,4 +374,3 @@
     </div>
 </body>
 </html>
-ㅇㄹㅇㄹㅇㄹ
