@@ -111,14 +111,31 @@
             opacity: 0.8; /* 호버 시 약간 투명하게 만들어서 클릭 가능함을 암시 */
         }
 
-
-        /* 메인 인사말 스타일 */
-        .welcome-message {
-            font-size: 1.1em;
+        /* 새로운 스타일: 환영 메시지 박스 */
+        .welcome-box {
+            background-color: #ffe0eb; /* 연한 핑크 배경 */
+            border: 2px solid #ff69b4; /* 로즈 핑크 테두리 */
+            border-radius: 15px;
+            padding: 25px;
             margin-bottom: 40px;
-            color: #333333;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            line-height: 1.6;
+            color: #4a4a4a;
+            font-size: 1.1em;
             font-weight: 500;
         }
+        .welcome-box strong {
+            color: #ff69b4; /* 강조 색상 */
+            font-weight: 700;
+        }
+        .welcome-box p {
+            margin: 10px 0;
+        }
+        .welcome-box .emoji {
+            font-size: 1.2em;
+        }
+
 
         /* [6] 콘텐츠 박스 스타일 */
         article {
@@ -202,19 +219,12 @@
     <div class="content">
 
     <article>
-
-        <h1> 세종 데이트, 이제 고민 끝! <br> 세종 데이트 지도에 오신 걸 환영해요! </h1>
-
-        <p class="welcome-message">
-            세종에 사는 현지인으로서 예쁜 카페나 맛집 찾을 때마다 "대체 세종은 갈 데가 왜 이렇게 없지?" 하고 답답했던 경험, 다들 있으시죠?
-            
-            세종에 살면서 제가 직접 가보고 경험했던 장소와, 인스타그램, 블로그 등 정보를 싹싹 모아 세종 데이트 지도를 만들게 되었어요!🥳
-            
-            분위기 좋은 레스토랑부터 인생샷 남길 수 있는 카페, 주말에 가기 좋은 특별한 스폿까지! 저희 커플의 노하우를 담아 A부터 Z까지 모두 알려드릴게요!
-            
-            세종에서 데이트할 땐 저희 사이트를 방문해서 오늘의 핫플을 찜해보세요!🎀 
-        </p>
-
+        <div class="welcome-box">
+            <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
+            <p>세종 커플의 찐 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
+            <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
+        </div>
+        
         <h2 style="margin-bottom: 0px;">
             <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
         </h2>
