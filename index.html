@@ -14,7 +14,7 @@
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
-     crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script>
 
     <link rel="icon" type="image/png" href="사진.png">
 
@@ -55,6 +55,18 @@
             padding-left: 10px;
         }
 
+        /* h2 내의 a 태그 스타일 (링크로 변경) */
+        h2 a {
+            color: #2c3e50; /* 짙은 네이비 색상 (기존 h2 색상 유지) */
+            text-decoration: none;
+            display: block; /* 전체 영역 클릭 가능하도록 */
+        }
+
+        h2 a:hover {
+            color: #ff5733; /* 마우스 오버 시 강렬한 주황-핑크 */
+            text-decoration: none; /* 밑줄 제거 */
+        }
+
         /* [4] 세부 카테고리 링크 스타일 */
         h3 {
             font-size: 1.2em;
@@ -83,8 +95,23 @@
             color: #7f8c8d; /* 부드러운 회색 */
             line-height: 1.5;
             padding-left: 5px;
+            margin-left: -5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
+            padding-left: 5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
         }
         
+        /* 새로운 스타일: .category-intro를 감싼 a 태그 스타일 (링크처럼 보이지 않도록 설정) */
+        .article-link {
+            text-decoration: none;
+            color: inherit;
+            display: block; /* 클릭 영역 확보 */
+            transition: opacity 0.3s;
+        }
+
+        .article-link:hover {
+            opacity: 0.8; /* 호버 시 약간 투명하게 만들어서 클릭 가능함을 암시 */
+        }
+
+
         /* 메인 인사말 스타일 */
         .welcome-message {
             font-size: 1.1em;
@@ -188,47 +215,66 @@
             세종에서 데이트할 땐 저희 사이트를 방문해서 오늘의 핫플을 찜해보세요!🎀 
         </p>
 
-        <h2>🍽️ 먹거리</h2>
-
+        <h2 style="margin-bottom: 0px;">
+            <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
+        </h2>
         <h3>
             <a href="먹거리/레스토랑&맛집.html">레스토랑 & 맛집</a>
         </h3>
-        <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
+        <a href="먹거리/레스토랑&맛집.html" class="article-link">
+            <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
+        </a>
 
-        <h2>☕ 카페</h2>
-
+        <h2 style="margin-bottom: 0px;">
+             <a href="카페/카페.html">☕ 카페</a>
+        </h2>
         <h3>
             <a href="카페/카페.html">감성 카페 & 뷰 맛집</a>
         </h3>
-        <p class="category-intro">📸 멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트 🍰까지!<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
+        <a href="카페/카페.html" class="article-link">
+            <p class="category-intro">📸 멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트 🍰까지!<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
+        </a>
 
 
-        <h2>🤸 놀거리</h2>
-
+        <h2 style="margin-bottom: 0px;">
+            <a href="놀거리/액티비티&체험.html">🤸 놀거리</a>
+        </h2>
         <h3>
             <a href="놀거리/액티비티&체험.html">액티비티 & 체험</a>
         </h3>
-        <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
+        <a href="놀거리/액티비티&체험.html" class="article-link">
+            <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
+        </a>
 
-        <h2>🏞️ 자연&힐링</h2>
-
+        <h2 style="margin-bottom: 0px;">
+            <a href="자연/공원.html">🏞️ 자연&힐링</a>
+        </h2>
         <h3>
             <a href="자연/공원.html">공원</a>
         </h3>
-        <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
+        <a href="자연/공원.html" class="article-link">
+            <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
+        </a>
 
-               <h2>🏠 숙소</h2>
-
+        <h2 style="margin-bottom: 0px;">
+            <a href="숙소/호텔&펜션.html">🏠 숙소</a>
+        </h2>
         <h3>
             <a href="숙소/호텔&펜션.html">호텔 & 펜션</a>
         </h3>
-        <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요!<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
+        <a href="숙소/호텔&펜션.html" class="article-link">
+            <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요!<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
+        </a>
 
-    <h2>🏕️ 캠핑</h2>
+        <h2 style="margin-bottom: 0px;">
+            <a href="숙소/캠핑사이트.html">🏕️ 캠핑</a>
+        </h2>
         <h3>
             <a href="숙소/캠핑사이트.html">캠핑 사이트</a>
         </h3>
-        <p class="category-intro">자연 속에서 온전히 휴식하는 시간! <br>바쁜 일상에서 벗어나 캠핑장, 글램핑장에서 편안하게 힐링해 보세요.</p>
+        <a href="숙소/캠핑사이트.html" class="article-link">
+            <p class="category-intro">자연 속에서 온전히 휴식하는 시간! <br>바쁜 일상에서 벗어나 캠핑장, 글램핑장에서 편안하게 힐링해 보세요.</p>
+        </a>
     </article>
     <div class="button-container">
         <button>
@@ -238,4 +284,3 @@
     </div>
 </body>
 </html>
-
