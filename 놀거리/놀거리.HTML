@@ -2,375 +2,254 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>세종시 데이트 지도</title>
+    <title>세종시 데이트 지도 | 놀거리: 액티비티 & 체험</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-D6CDR67DM4');
-    </script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
-      crossorigin="anonymous"></script>
-
-    <link rel="icon" type="image/png" href="사진.png">
-
     <style>
-        /* [1] 기본 설정 및 폰트 변경 */
-        body {
-            margin: 0;
-            font-family: 'Noto Sans KR', sans-serif; /* 폰트 변경 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            background: #f4f4f4; /* 부드러운 아이보리 배경 */
-            color: #333333; /* 기본 글자색 (짙은 회색) */
-        }
-
-        /* [2] 상단 제목 스타일 */
-        h1 {
-            font-size: 2.5em;
-            font-weight: 700; /* 굵게 */
-            text-align: center;
-            margin: 0;
-            padding: 15px 0;
-            color: #ffffff; /* 흰색 글자 */
-            background-color: #ff69b4; /* 로즈 핑크 배경 */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* [3] 카테고리 대분류 스타일 */
-        h2 {
-            font-size: 1.8em;
-            font-weight: 700;
-            text-align: left;
-            margin-top: 40px;
-            margin-bottom: 10px;
-            color: #2c3e50; /* 짙은 네이비 색상 */
-            border-left: 5px solid #ff69b4; /* 로즈 핑크 포인트 */
-            padding-left: 10px;
-        }
-
-        /* h2 내의 a 태그 스타일 (링크로 변경) */
-        h2 a {
-            color: #2c3e50; /* 짙은 네이비 색상 (기존 h2 색상 유지) */
-            text-decoration: none;
-            display: block; /* 전체 영역 클릭 가능하도록 */
-        }
-
-        h2 a:hover {
-            color: #ff5733; /* 마우스 오버 시 강렬한 주황-핑크 */
-            text-decoration: none; /* 밑줄 제거 */
-        }
-
-        /* [4] 세부 카테고리 링크 스타일 */
-        h3 {
-            font-size: 1.2em;
-            font-weight: 500;
-            margin-top: 15px;
-            margin-bottom: 0px;
-            
-        }
-
-        h3 a {
-            color: #4a4a4a; /* 기본 링크 색상 (어두운 회색) */
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        h3 a:hover {
-            color: #ff5733 !important; /* 마우스 오버 시 강렬한 주황-핑크 */
-            text-decoration: underline;
-        }
-
-        /* [5] 소개글 스타일 */
-        .category-intro {
-            font-size: 1em;
-            margin-top: 5px;
-            margin-bottom: 30px;
-            color: #7f8c8d; /* 부드러운 회색 */
-            line-height: 1.5;
-            padding-left: 5px;
-            margin-left: -5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
-            padding-left: 5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
-        }
-        
-        /* 새로운 스타일: .category-intro를 감싼 a 태그 스타일 (링크처럼 보이지 않도록 설정) */
-        .article-link {
-            text-decoration: none;
-            color: inherit;
-            display: block; /* 클릭 영역 확보 */
-            transition: opacity 0.3s;
-        }
-
-        .article-link:hover {
-            opacity: 0.8; /* 호버 시 약간 투명하게 만들어서 클릭 가능함을 암시 */
-        }
-
-        /* 새로운 스타일: 환영 메시지 박스 */
-        .welcome-box {
-            background-color: #ffe0eb; /* 연한 핑크 배경 */
-            border: 2px solid #ff69b4; /* 로즈 핑크 테두리 */
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            line-height: 1.6;
-            color: #4a4a4a;
-            font-size: 1.1em;
-            font-weight: 500;
-        }
-        .welcome-box strong {
-            color: #ff69b4; /* 강조 색상 */
-            font-weight: 700;
-        }
-        .welcome-box p {
-            margin: 10px 0;
-        }
-        .welcome-box .emoji {
-            font-size: 1.2em;
-        }
-        
-        /* [New] 카테고리 이미지 갤러리 스타일 추가 */
-        .category-image-gallery {
-            display: flex; /* 이미지를 가로로 나열 */
-            gap: 10px; /* 이미지 간 간격 */
-            margin-top: 10px;
-            margin-bottom: 10px; 
-            overflow-x: auto; 
-            padding: 0 5px; /* 양 끝이 잘리지 않도록 약간의 패딩 */
-        }
-        
-        /* 이미지가 잘리지 않고 전체가 보이도록 object-fit을 contain으로 변경 */
-        .category-image {
-            width: 100%; /* 부모 요소 너비에 맞춤 */
-            height: 200px; /* 고정 높이로 통일감 */
-            object-fit: contain; /* 이미지가 잘리지 않고 전체가 보이도록 변경 */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 변경: category-image-gallery 내의 각 링크(a)가 이미지의 크기를 결정하도록 함 */
-        .category-image-link {
-            min-width: calc(50% - 5px); /* 두 링크가 가로에 배치되도록 설정 */
-            width: calc(50% - 5px);
-            display: block; /* 링크가 전체 영역을 차지하도록 */
-        }
-
-        /* 이미지가 링크 안에 있을 때 호버 효과 추가 */
-        .category-image-link:hover .category-image {
-            opacity: 0.85;
-            transition: opacity 0.3s;
-        }
-
-
-        /* [6] 콘텐츠 박스 스타일 */
-        article {
-            text-align: left;
-            background-color: #ffffff; /* 흰색 배경 */
-            padding: 30px;
-            margin: 20px;
-            border-radius: 15px; /* 더 둥근 모서리 */
-            color: #2c3e50;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* 은은하고 깊은 그림자 */
-        }
-
-        /* [7] 버튼 스타일 */
-        .button-container {
-            text-align: center;
-        }
-
-        button {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 15px 30px;
-            cursor: pointer;
-            border: none;
-            background-color: #ff69b4; /* 로즈 핑크 버튼 */
-            color: white;
-            border-radius: 30px; /* 알약 모양 버튼 */
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            margin: 40px 0;
-            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
-        }
-
-        button:hover {
-            background-color: #e55a9e; /* hover 시 약간 어두운 핑크 */
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
-        }
-
-        /* [8] 고정 요소 및 애니메이션 */
-        .fixed-title {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .fixed-image {
-            position: fixed;
-            top: 15px; /* 제목 아래로 조정 */
-            right: 20px;
-            width: 80px; /* 크기 조정 */
-            height: auto;
-            z-index: 1001;
-            border-radius: 50%; /* 원형 이미지 */
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .content {
-            padding-top: 80px; /* 고정된 제목 영역 높이만큼 패딩 추가 */
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        /* (이전 코드와 동일한 스타일 정의) */
+        body { margin: 0; font-family: 'Noto Sans KR', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; background: #f4f4f4; color: #333333; }
+        h1 { font-size: 2.5em; font-weight: 700; text-align: center; margin: 0; padding: 15px 0; color: #ffffff; background-color: #ff69b4; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+        h2 { font-size: 1.8em; font-weight: 700; text-align: left; margin-top: 40px; margin-bottom: 10px; color: #2c3e50; border-left: 5px solid #ff69b4; padding-left: 10px; }
+        .category-intro { font-size: 1em; margin-top: 5px; margin-bottom: 30px; color: #7f8c8d; line-height: 1.5; padding-left: 5px; }
+        .fixed-title { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+        .fixed-image { position: fixed; top: 15px; right: 20px; width: 80px; height: auto; z-index: 1001; border-radius: 50%; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+        .content { padding-top: 80px; animation: fadeIn 1.5s ease-out; width: 90%; max-width: 800px; }
+        article { text-align: left; background-color: #ffffff; padding: 30px; margin: 20px 0; border-radius: 15px; color: #2c3e50; width: 100%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+        .list-area { background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #eee; margin-top: 20px; }
+        .restaurant-item { padding: 15px 0; border-bottom: 3px solid #ffdae5; }
+        .restaurant-item:last-child { border-bottom: none; }
+        .restaurant-description { font-size: 0.9em; color: #7f8c8d; margin-top: 10px; margin-bottom: 10px; line-height: 1.4; padding-left: 5px; border-left: 3px solid #f990c7; }
+        .detail-info { font-size: 0.9em; color: #2980b9; font-weight: 500; margin-top: 10px; padding-left: 5px; border-left: 3px solid #3498db; }
+        .restaurant-image-gallery { display: flex; gap: 10px; margin-top: 10px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
+        .restaurant-gallery-img { min-width: calc(50% - 5px); width: calc(50% - 5px); height: 150px; border-radius: 8px; object-fit: cover; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); background-color: #e0e0e0; cursor: pointer; transition: transform 0.2s; }
+        .restaurant-gallery-img:hover { transform: scale(1.02); }
+        .parking-info { font-size: 0.9em; color: #27ae60; font-weight: 500; margin-bottom: 15px; padding-left: 5px; border-left: 3px solid #2ecc71; }
+        .restaurant-item h4 { font-size: 1.2em; color: #ff69b4; margin-top: 5px; margin-bottom: 5px; font-weight: 700; }
+        .link-text { font-size: 0.55em; color: #ff69b4; font-weight: 500; }
+        .address-row { display: flex; align-items: center; margin-top: 5px; margin-bottom: 5px; }
+        .address-text { font-size: 0.95em; color: #555; margin-right: 10px; font-weight: 300; flex-grow: 1; }
+        .copy-button { padding: 4px 10px; background-color: #ffdae5; color: #ff69b4; border: none; border-radius: 5px; cursor: pointer; font-size: 0.8em; font-weight: 500; transition: background-color 0.2s; flex-shrink: 0; }
+        .copy-button:hover { background-color: #ff69b4; color: white; }
+        .hashtag { display: inline-block; background-color: #ffebf2; color: #ff69b4; font-weight: 500; padding: 3px 8px; margin-right: 5px; border-radius: 5px; font-size: 0.9em; margin-top: 5px; margin-bottom: 15px; }
+        .feedback-buttons { display: flex; justify-content: space-between; gap: 5px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #e0e0e0; }
+        .feedback-button { flex-grow: 1; padding: 8px 10px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.85em; font-weight: 700; transition: opacity 0.2s, transform 0.2s; }
+        .feedback-button:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-recommend { background-color: #2ecc71; color: white; }
+        .btn-not-recommend { background-color: #f39c12; color: white; }
+        .btn-closed { background-color: #e74c3c; color: white; }
+        button { font-size: 18px; font-weight: bold; padding: 15px 30px; cursor: pointer; border: none; background-color: #ff69b4; color: white; border-radius: 30px; transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; margin: 40px 0; box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4); }
+        button:hover { background-color: #e55a9e; transform: scale(1.05); box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6); }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        /* 모달 스타일 생략 */
+        .modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); }
+        .modal-content { margin: auto; display: block; width: 80%; max-width: 700px; max-height: 90vh; object-fit: contain; }
+        .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
+        .close:hover, .close:focus { color: #bbb; text-decoration: none; cursor: pointer; }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -50px; color: white; font-weight: bold; font-size: 20px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; -webkit-user-select: none; background-color: rgba(0,0,0,0.5); }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
     </style>
-
-
 </head>
 
 <body>
     <h1 class="fixed-title">세종시 데이트 지도</h1>
 
-    <a href="../index.html">
-        <img src="../사진.png" class="fixed-image" alt="Logo">
+    <a href="../../index.html">
+        <img src="../../사진.png" class="fixed-image" alt="Logo">
     </a>
 
     <div class="content">
-
     <article>
-        <div class="welcome-box">
-            <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
-            <p>세종 커플의 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
-            <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
+
+        <h2>🤸 놀거리: 액티비티 & 체험</h2>
+        <p class="category-intro">
+            심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요! 같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!
+        </p>
+
+        <div class="list-area">
+            <h3>💖 추천 액티비티 & 체험 리스트 (구체적 업체 포함)</h3>
+            
+            <div class="restaurant-item">
+                <a href="https://search.naver.com/search.naver?query=세종 나무랄데 없는 목공방" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4> 1. 나무랄데 없는 목공방 (커플 우드 클래스) <span class="link-text">(클릭하여 네이버 정보 바로가기!)</span></h4>
+                </a>
+                
+                <div class="restaurant-description">
+                    직접 가구를 만들거나 원데이 클래스로 작은 소품을 만들 수 있는 감성 목공방입니다. 🪵 서로를 위한 특별한 나무 도마, 커트러리, 혹은 미니 가구를 만들며 **정성을 담은 기념품**을 남길 수 있어요. 차분하게 대화하며 집중하는 시간을 가지기 좋습니다.
+                </div>
+                
+                <div class="detail-info">
+                    ⏰ <strong>영업 시간:</strong> 화~토 10:00 ~ 18:00 (일/월 정기휴무, 예약 필수)<br>
+                    💰 <strong>가격대:</strong> 원데이 클래스 1인당 50,000원대부터 (체험 종류 및 재료별 상이)
+                </div>
+
+                <div class="address-row">
+                    <span class="address-text" id="play_address1">세종 아름서길 32 101호 (아름동)</span>
+                    <button class="copy-button" data-address-id="play_address1" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                
+                <div class="restaurant-image-gallery" data-item-index="0">
+                    <img src="../사진/나무랄데없는 목공방_1.jpg" alt="나무랄데 없는 목공방 내부" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/나무랄데없는 목공방_2.jpg" alt="우드 클래스 체험 모습" class="restaurant-gallery-img" loading="lazy">
+                </div>
+                
+                <div class="parking-info">
+                    🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능
+                </div>
+
+                <p>
+                    <span class="hashtag">#목공예</span>
+                    <span class="hashtag">#우드클래스</span>
+                    <span class="hashtag">#핸드메이드</span>
+                    <span class="hashtag">#실내데이트</span>
+                </p>
+
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '나무랄데 없는 목공방')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '나무랄데 없는 목공방')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '나무랄데 없는 목공방')">🚨 폐업했어요!</button>
+                </div>
+            </div>
+            
+            <div class="restaurant-item">
+                <a href="https://search.naver.com/search.naver?query=세종 별클라이밍" target="_blank" style="text-decoration: none; color: inherit;">
+                    <h4>2. 별클라이밍짐 (실내 암벽 등반) <span class="link-text">(클릭하여 네이버 정보 바로가기!)</span></h4>
+                </a>
+
+                <div class="restaurant-description">
+                    조치원에 위치한 쾌적한 시설의 실내 클라이밍장입니다. 💪 **초보자도 쉽게 배울 수 있는 강습**이 마련되어 있으며, 함께 문제를 풀고 서로 응원하며 이색적인 실내 스포츠 데이트를 즐길 수 있습니다. 짜릿함과 성취감을 동시에 느낄 수 있는 활동적인 커플에게 추천합니다.
+                </div>
+                
+                <div class="detail-info">
+                    ⏰ <strong>영업 시간:</strong> 평일 11:00 ~ 23:00, 주말/공휴일 11:00 ~ 21:00<br>
+                    💰 <strong>가격대:</strong> 일일 이용권 1인당 18,000원 내외 (강습료 별도)
+                </div>
+
+                <div class="address-row">
+                    <span class="address-text" id="play_address2">세종 조치원읍 새내로 156 A동 4층</span>
+                    <button class="copy-button" data-address-id="play_address2" onclick="copyAddress(this)">주소 복사</button>
+                </div>
+                
+                <div class="restaurant-image-gallery" data-item-index="1">
+                    <img src="../사진/별클라이밍_1.jpg" alt="별클라이밍짐 내부 전경" class="restaurant-gallery-img" loading="lazy">
+                    <img src="../사진/별클라이밍_2.jpg" alt="커플 클라이밍 체험 모습" class="restaurant-gallery-img" loading="lazy">
+                </div>
+                
+                <div class="parking-info">
+                    🅿️ <strong>주차:</strong> 건물 주차장 또는 인근 공영 주차장 이용
+                </div>
+
+                <p>
+                    <span class="hashtag">#실내액티비티</span>
+                    <span class="hashtag">#이색데이트</span>
+                    <span class="hashtag">#스포츠데이트</span>
+                    <span class="hashtag">#조치원</span>
+                </p>
+
+                <div class="feedback-buttons">
+                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '별클라이밍짐')">👍 이 장소를 추천해요!</button>
+                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '별클라이밍짐')">👎 이 장소 추천하지 않아요.</button>
+                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '별클라이밍짐')">🚨 폐업했어요!</button>
+                </div>
+            </div>
+            
         </div>
-        
-        <h2 style="margin-bottom: 0px;">
-            <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
-        </h2>
-
-        <div class="category-image-gallery">
-            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
-                <img src="../사진/규카츠정 나성점_1.jpg" alt="레스토랑 식사 장면" class="category-image">
-            </a>
-            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
-                <img src="../사진/다이너_2.jpg" alt="접시에 담긴 고급 요리" class="category-image">
-            </a>
-            </div>
-        
-        <a href="먹거리/레스토랑&맛집.html" class="article-link">
-            <h3>레스토랑 & 맛집</h3>
-            <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-             <a href="카페/카페.html">☕ 카페</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="카페/카페.html" class="category-image-link">
-                <img src="https://picsum.photos/id/400/400/200" alt="감성적인 인테리어 카페" class="category-image">
-            </a>
-            <a href="카페/카페.html" class="category-image-link">
-                <img src="https://picsum.photos/id/225/400/200" alt="커피와 달콤한 디저트" class="category-image">
-            </a>
-            </div>
-
-        <a href="카페/카페.html" class="article-link">
-            <h3>감성 카페 & 뷰 맛집</h3>
-            <p class="category-intro">📸 멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트 🍰까지!<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
-        </a>
-
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="놀거리/놀거리.html">🤸 놀거리</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="놀거리/놀거리.html" class="category-image-link">
-                <img src="https://picsum.photos/id/354/400/200" alt="실내 체험 활동" class="category-image">
-            </a>
-            <a href="놀거리/놀거리.html" class="category-image-link">
-                <img src="https://picsum.photos/id/802/400/200" alt="레저 액티비티 장면" class="category-image">
-            </a>
-            </div>
-
-        <a href="놀거리/놀거리.html" class="article-link">
-            <h3>액티비티 & 체험</h3>
-            <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="자연/공원.html">🏞️ 자연&힐링</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="자연/공원.html" class="category-image-link">
-                <img src="../사진/이응다리_1.JPG" alt="세종 야외 데이트" class="category-image">
-            </a>
-            <a href="자연/공원.html" class="category-image-link">
-                <img src="../사진/이응다리_2.JPG" alt="세종시 데이트 코스" class="category-image">
-            </a>
-            </div>
-
-        <a href="자연/공원.html" class="article-link">
-            <h3>공원</h3>
-            <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="숙소/숙소.html">🏠 숙소</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="숙소/숙소.html" class="category-image-link">
-                <img src="https://picsum.photos/id/163/400/200" alt="고급 호텔 객실" class="category-image">
-            </a>
-            <a href="숙소/숙소.html" class="category-image-link">
-                <img src="https://picsum.photos/id/366/400/200" alt="아늑한 펜션 인테리어" class="category-image">
-            </a>
-            </div>
-
-        <a href="숙소/숙소.html" class="article-link">
-            <h3>호텔 & 펜션</h3>
-            <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요!<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="캠핑/캠핑.html">🏕️ 캠핑</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="캠핑/캠핑.html" class="category-image-link">
-                <img src="https://picsum.photos/id/433/400/200" alt="자연 속 캠핑 텐트" class="category-image">
-            </a>
-            <a href="캠핑/캠핑.html" class="category-image-link">
-                <img src="https://picsum.photos/id/405/400/200" alt="밤하늘 아래 글램핑 바비큐" class="category-image">
-            </a>
-            </div>
-
-        <a href="캠핑/캠핑.html" class="article-link">
-            <h3>캠핑 사이트</h3>
-            <p class="category-intro">자연 속에서 온전히 휴식하는 시간! <br>바쁜 일상에서 벗어나 캠핑장, 글램핑장에서 편안하게 힐링해 보세요.</p>
-        </a>
     </article>
     <div class="button-container">
         <button>
-            <a href="../index.HTML" style="color: white; text-decoration: none;">Home</a>
+            <a href="../../index.html" style="color: white; text-decoration: none;">메인 카테고리로 돌아가기</a>
         </button>
     </div>
     </div>
+    
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <a class="prev" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</a>
+        <a class="next" onclick="event.stopPropagation(); changeImage(1)">&#10095;</a>
+    </div>
+
+    <script>
+        // 스크립트 함수는 이전과 동일하게 유지됩니다.
+        let currentItemIndex = -1;
+        let currentImageIndex = -1;
+        let galleryImages = []; 
+
+        document.addEventListener('DOMContentLoaded', initGallery);
+
+        function initGallery() {
+            const galleryContainers = document.querySelectorAll('.restaurant-image-gallery');
+            galleryImages = Array.from(galleryContainers).map(container => 
+                Array.from(container.querySelectorAll('.restaurant-gallery-img'))
+            );
+
+            galleryImages.forEach((images, itemIndex) => {
+                images.forEach((img, imageIndex) => {
+                    img.onclick = function(event) {
+                        event.stopPropagation(); 
+                        openModal(itemIndex, imageIndex);
+                    };
+                });
+            });
+        }
+        function openModal(itemIndex, imageIndex) {
+            currentItemIndex = itemIndex;
+            currentImageIndex = imageIndex;
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const selectedImage = galleryImages[currentItemIndex][currentImageIndex];
+            modal.style.display = 'block';
+            modalImg.src = selectedImage.src;
+            updateNavigationButtons();
+        }
+        function closeModal() { document.getElementById('imageModal').style.display = 'none'; }
+        function changeImage(direction) {
+            const currentImages = galleryImages[currentItemIndex];
+            let newIndex = currentImageIndex + direction;
+            if (newIndex < 0) { newIndex = currentImages.length - 1; } 
+            else if (newIndex >= currentImages.length) { newIndex = 0; }
+            currentImageIndex = newIndex;
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = currentImages[currentImageIndex].src;
+            updateNavigationButtons();
+        }
+        function updateNavigationButtons() {
+             const currentImages = galleryImages[currentItemIndex];
+             const prevBtn = document.querySelector('.prev');
+             const nextBtn = document.querySelector('.next');
+             if (currentImages && currentImages.length <= 1) {
+                 prevBtn.style.display = 'none';
+                 nextBtn.style.display = 'none';
+             } else {
+                 prevBtn.style.display = 'block';
+                 nextBtn.style.display = 'block';
+             }
+        }
+        function copyAddress(buttonElement) {
+            const addressId = buttonElement.getAttribute('data-address-id');
+            const addressElement = document.getElementById(addressId);
+            if (addressElement) {
+                const addressText = addressElement.textContent;
+                navigator.clipboard.writeText(addressText.trim())
+                    .then(() => {
+                        const originalText = buttonElement.textContent;
+                        buttonElement.textContent = '복사 완료! ✔️';
+                        setTimeout(() => { buttonElement.textContent = originalText; }, 1500);
+                    })
+                    .catch(err => {
+                        console.error('클립보드 복사 실패:', err);
+                        alert('주소 복사에 실패했어요. 수동으로 복사해주세요: ' + addressText);
+                    });
+            }
+        }
+        function handleFeedback(type, name) {
+            let message = '';
+            if (type === '추천') { message = `${name}을(를) 추천해 주셔서 감사합니다! 소중한 의견을 반영하겠습니다. 😊`; } 
+            else if (type === '비추천') { message = `${name}에 대한 비추천 의견을 접수했습니다. 불편하셨던 점을 참고하여 개선하겠습니다. 😔`; } 
+            else if (type === '폐업') { message = `${name}의 폐업 신고를 접수했습니다. 확인 후 리스트에서 제외하겠습니다. 감사합니다. 🙏`; }
+            alert(message);
+        }
+    </script>
 </body>
 </html>
+ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹ
