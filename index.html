@@ -135,6 +135,16 @@
         .welcome-box .emoji {
             font-size: 1.2em;
         }
+        
+        /* [New] 카테고리 이미지 스타일 */
+        .category-image {
+            width: 100%;
+            height: 200px; /* 고정 높이로 통일감 */
+            object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
 
         /* [6] 콘텐츠 박스 스타일 */
@@ -221,27 +231,27 @@
     <article>
         <div class="welcome-box">
             <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
-            <p>세종 커플의 찐 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
+            <p>**세종 커플**의 찐 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
             <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
         </div>
         
         <h2 style="margin-bottom: 0px;">
             <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
         </h2>
-        <h3>
-            <a href="먹거리/레스토랑&맛집.html">레스토랑 & 맛집</a>
-        </h3>
+        
         <a href="먹거리/레스토랑&맛집.html" class="article-link">
+            <img src="https://picsum.photos/id/1060/800/200" alt="고급 레스토랑의 메인 요리 사진" class="category-image" loading="lazy">
+            <h3>레스토랑 & 맛집</h3>
             <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
         </a>
 
         <h2 style="margin-bottom: 0px;">
              <a href="카페/카페.html">☕ 카페</a>
         </h2>
-        <h3>
-            <a href="카페/카페.html">감성 카페 & 뷰 맛집</a>
-        </h3>
+        
         <a href="카페/카페.html" class="article-link">
+            <img src="https://picsum.photos/id/225/800/200" alt="감성적인 디저트와 커피 사진" class="category-image" loading="lazy">
+            <h3>감성 카페 & 뷰 맛집</h3>
             <p class="category-intro">📸 멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트 🍰까지!<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
         </a>
 
@@ -249,40 +259,40 @@
         <h2 style="margin-bottom: 0px;">
             <a href="놀거리/놀거리.html">🤸 놀거리</a>
         </h2>
-        <h3>
-            <a href="놀거리/놀거리.html">액티비티 & 체험</a>
-        </h3>
+        
         <a href="놀거리/놀거리.html" class="article-link">
+            <img src="https://picsum.photos/id/257/800/200" alt="커플이 함께 체험하는 실내 액티비티 사진" class="category-image" loading="lazy">
+            <h3>액티비티 & 체험</h3>
             <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
         </a>
 
         <h2 style="margin-bottom: 0px;">
             <a href="자연/공원.html">🏞️ 자연&힐링</a>
         </h2>
-        <h3>
-            <a href="자연/공원.html">공원</a>
-        </h3>
+        
         <a href="자연/공원.html" class="article-link">
+            <img src="https://picsum.photos/id/1051/800/200" alt="넓은 잔디밭과 호수가 보이는 공원 전경 사진" class="category-image" loading="lazy">
+            <h3>공원</h3>
             <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
         </a>
 
         <h2 style="margin-bottom: 0px;">
             <a href="숙소/숙소.html">🏠 숙소</a>
         </h2>
-        <h3>
-            <a href="숙소/숙소.html">호텔 & 펜션</a>
-        </h3>
+        
         <a href="숙소/숙소.html" class="article-link">
+            <img src="https://picsum.photos/id/20/800/200" alt="깔끔하고 모던한 호텔 객실 내부 사진" class="category-image" loading="lazy">
+            <h3>호텔 & 펜션</h3>
             <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요!<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
         </a>
 
         <h2 style="margin-bottom: 0px;">
             <a href="캠핑/캠핑.html">🏕️ 캠핑</a>
         </h2>
-        <h3>
-            <a href="캠핑/캠핑.html">캠핑 사이트</a>
-        </h3>
+        
         <a href="캠핑/캠핑.html" class="article-link">
+            <img src="https://picsum.photos/id/351/800/200" alt="모닥불과 텐트가 있는 감성 캠핑장 밤 풍경 사진" class="category-image" loading="lazy">
+            <h3>캠핑 사이트</h3>
             <p class="category-intro">자연 속에서 온전히 휴식하는 시간! <br>바쁜 일상에서 벗어나 캠핑장, 글램핑장에서 편안하게 힐링해 보세요.</p>
         </a>
     </article>
