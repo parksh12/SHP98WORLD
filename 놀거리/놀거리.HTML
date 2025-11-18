@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>세종시 데이트 지도</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D6CDR67DM4');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
+      crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/png" href="사진.png">
+
+    <style>
+        /* [1] 기본 설정 및 폰트 변경 */
+        body {
+            margin: 0;
+            font-family: 'Noto Sans KR', sans-serif; /* 폰트 변경 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #f4f4f4; /* 부드러운 아이보리 배경 */
+            color: #333333; /* 기본 글자색 (짙은 회색) */
+        }
+
+        /* [2] 상단 제목 스타일 */
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700; /* 굵게 */
+            text-align: center;
+            margin: 0;
+            padding: 15px 0;
+            color: #ffffff; /* 흰색 글자 */
+            background-color: #ff69b4; /* 로즈 핑크 배경 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* [3] 카테고리 대분류 스타일 */
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            text-align: left;
+            margin-top: 40px;
+            margin-bottom: 10px;
+            color: #2c3e50; /* 짙은 네이비 색상 */
+            border-left: 5px solid #ff69b4; /* 로즈 핑크 포인트 */
+            padding-left: 10px;
+        }
+
+        /* h2 내의 a 태그 스타일 (링크로 변경) */
+        h2 a {
+            color: #2c3e50; /* 짙은 네이비 색상 (기존 h2 색상 유지) */
+            text-decoration: none;
+            display: block; /* 전체 영역 클릭 가능하도록 */
+        }
+
+        h2 a:hover {
+            color: #ff5733; /* 마우스 오버 시 강렬한 주황-핑크 */
+            text-decoration: none; /* 밑줄 제거 */
+        }
+
+        /* [4] 세부 카테고리 링크 스타일 */
+        h3 {
+            font-size: 1.2em;
+            font-weight: 500;
+            margin-top: 15px;
+            margin-bottom: 0px;
+            
+        }
+
+        h3 a {
+            color: #4a4a4a; /* 기본 링크 색상 (어두운 회색) */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        h3 a:hover {
+            color: #ff5733 !important; /* 마우스 오버 시 강렬한 주황-핑크 */
+            text-decoration: underline;
+        }
+
+        /* [5] 소개글 스타일 */
+        .category-intro {
+            font-size: 1em;
+            margin-top: 5px;
+            margin-bottom: 30px;
+            color: #7f8c8d; /* 부드러운 회색 */
+            line-height: 1.5;
+            padding-left: 5px;
+            margin-left: -5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
+            padding-left: 5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
+        }
+        
+        /* 새로운 스타일: .category-intro를 감싼 a 태그 스타일 (링크처럼 보이지 않도록 설정) */
+        .article-link {
+            text-decoration: none;
+            color: inherit;
+            display: block; /* 클릭 영역 확보 */
+            transition: opacity 0.3s;
+        }
+
+        .article-link:hover {
+            opacity: 0.8; /* 호버 시 약간 투명하게 만들어서 클릭 가능함을 암시 */
+        }
+
+        /* 새로운 스타일: 환영 메시지 박스 */
+        .welcome-box {
+            background-color: #ffe0eb; /* 연한 핑크 배경 */
+            border: 2px solid #ff69b4; /* 로즈 핑크 테두리 */
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            line-height: 1.6;
+            color: #4a4a4a;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        .welcome-box strong {
+            color: #ff69b4; /* 강조 색상 */
+            font-weight: 700;
+        }
+        .welcome-box p {
+            margin: 10px 0;
+        }
+        .welcome-box .emoji {
+            font-size: 1.2em;
+        }
+        
+        /* [New] 카테고리 이미지 갤러리 스타일 추가 */
+        .category-image-gallery {
+            display: flex; /* 이미지를 가로로 나열 */
+            gap: 10px; /* 이미지 간 간격 */
+            margin-top: 10px;
+            margin-bottom: 10px; 
+            overflow-x: auto; 
+            padding: 0 5px; /* 양 끝이 잘리지 않도록 약간의 패딩 */
+        }
+        
+        /* 이미지가 잘리지 않고 전체가 보이도록 object-fit을 contain으로 변경 */
+        .category-image {
+            width: 100%; /* 부모 요소 너비에 맞춤 */
+            height: 200px; /* 고정 높이로 통일감 */
+            object-fit: contain; /* 이미지가 잘리지 않고 전체가 보이도록 변경 */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 변경: category-image-gallery 내의 각 링크(a)가 이미지의 크기를 결정하도록 함 */
+        .category-image-link {
+            min-width: calc(50% - 5px); /* 두 링크가 가로에 배치되도록 설정 */
+            width: calc(50% - 5px);
+            display: block; /* 링크가 전체 영역을 차지하도록 */
+        }
+
+        /* 이미지가 링크 안에 있을 때 호버 효과 추가 */
+        .category-image-link:hover .category-image {
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+
+        /* [6] 콘텐츠 박스 스타일 */
+        article {
+            text-align: left;
+            background-color: #ffffff; /* 흰색 배경 */
+            padding: 30px;
+            margin: 20px;
+            border-radius: 15px; /* 더 둥근 모서리 */
+            color: #2c3e50;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* 은은하고 깊은 그림자 */
+        }
+
+        /* [7] 버튼 스타일 */
+        .button-container {
+            text-align: center;
+        }
+
+        button {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff69b4; /* 로즈 핑크 버튼 */
+            color: white;
+            border-radius: 30px; /* 알약 모양 버튼 */
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            margin: 40px 0;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+        }
+
+        button:hover {
+            background-color: #e55a9e; /* hover 시 약간 어두운 핑크 */
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
+        }
+
+        /* [8] 고정 요소 및 애니메이션 */
+        .fixed-title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .fixed-image {
+            position: fixed;
+            top: 15px; /* 제목 아래로 조정 */
+            right: 20px;
+            width: 80px; /* 크기 조정 */
+            height: auto;
+            z-index: 1001;
+            border-radius: 50%; /* 원형 이미지 */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding-top: 80px; /* 고정된 제목 영역 높이만큼 패딩 추가 */
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h1 class="fixed-title">세종시 데이트 지도</h1>
+
+    <a href="../index.html">
+        <img src="../사진.png" class="fixed-image" alt="Logo">
+    </a>
+
+    <div class="content">
+
+    <article>
+        <div class="welcome-box">
+            <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
+            <p>세종 커플의 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
+            <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
+        </div>
+        
+        <h2 style="margin-bottom: 0px;">
+            <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
+        </h2>
+
+        <div class="category-image-gallery">
+            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
+                <img src="../사진/규카츠정 나성점_1.jpg" alt="레스토랑 식사 장면" class="category-image">
+            </a>
+            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
+                <img src="../사진/다이너_2.jpg" alt="접시에 담긴 고급 요리" class="category-image">
+            </a>
+            </div>
+        
+        <a href="먹거리/레스토랑&맛집.html" class="article-link">
+            <h3>레스토랑 & 맛집</h3>
+            <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
+        </a>
+
+        <h2 style="margin-bottom: 0px;">
+             <a href="카페/카페.html">☕ 카페</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="카페/카페.html" class="category-image-link">
+                <img src="https://picsum.photos/id/400/400/200" alt="감성적인 인테리어 카페" class="category-image">
+            </a>
+            <a href="카페/카페.html" class="category-image-link">
+                <img src="https://picsum.photos/id/225/400/200" alt="커피와 달콤한 디저트" class="category-image">
+            </a>
+            </div>
+
+        <a href="카페/카페.html" class="article-link">
+            <h3>감성 카페 & 뷰 맛집</h3>
+            <p class="category-intro">📸 멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트 🍰까지!<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
+        </a>
+
+
+        <h2 style="margin-bottom: 0px;">
+            <a href="놀거리/놀거리.html">🤸 놀거리</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="놀거리/놀거리.html" class="category-image-link">
+                <img src="https://picsum.photos/id/354/400/200" alt="실내 체험 활동" class="category-image">
+            </a>
+            <a href="놀거리/놀거리.html" class="category-image-link">
+                <img src="https://picsum.photos/id/802/400/200" alt="레저 액티비티 장면" class="category-image">
+            </a>
+            </div>
+
+        <a href="놀거리/놀거리.html" class="article-link">
+            <h3>액티비티 & 체험</h3>
+            <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
+        </a>
+
+        <h2 style="margin-bottom: 0px;">
+            <a href="자연/공원.html">🏞️ 자연&힐링</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="자연/공원.html" class="category-image-link">
+                <img src="../사진/이응다리_1.JPG" alt="세종 야외 데이트" class="category-image">
+            </a>
+            <a href="자연/공원.html" class="category-image-link">
+                <img src="../사진/이응다리_2.JPG" alt="세종시 데이트 코스" class="category-image">
+            </a>
+            </div>
+
+        <a href="자연/공원.html" class="article-link">
+            <h3>공원</h3>
+            <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
+        </a>
+
+        <h2 style="margin-bottom: 0px;">
+            <a href="숙소/숙소.html">🏠 숙소</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="숙소/숙소.html" class="category-image-link">
+                <img src="https://picsum.photos/id/163/400/200" alt="고급 호텔 객실" class="category-image">
+            </a>
+            <a href="숙소/숙소.html" class="category-image-link">
+                <img src="https://picsum.photos/id/366/400/200" alt="아늑한 펜션 인테리어" class="category-image">
+            </a>
+            </div>
+
+        <a href="숙소/숙소.html" class="article-link">
+            <h3>호텔 & 펜션</h3>
+            <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요!<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
+        </a>
+
+        <h2 style="margin-bottom: 0px;">
+            <a href="캠핑/캠핑.html">🏕️ 캠핑</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="캠핑/캠핑.html" class="category-image-link">
+                <img src="https://picsum.photos/id/433/400/200" alt="자연 속 캠핑 텐트" class="category-image">
+            </a>
+            <a href="캠핑/캠핑.html" class="category-image-link">
+                <img src="https://picsum.photos/id/405/400/200" alt="밤하늘 아래 글램핑 바비큐" class="category-image">
+            </a>
+            </div>
+
+        <a href="캠핑/캠핑.html" class="article-link">
+            <h3>캠핑 사이트</h3>
+            <p class="category-intro">자연 속에서 온전히 휴식하는 시간! <br>바쁜 일상에서 벗어나 캠핑장, 글램핑장에서 편안하게 힐링해 보세요.</p>
+        </a>
+    </article>
+    <div class="button-container">
+        <button>
+            <a href="../index.HTML" style="color: white; text-decoration: none;">Home</a>
+        </button>
+    </div>
+    </div>
+</body>
+</html>
