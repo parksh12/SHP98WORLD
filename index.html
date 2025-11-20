@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>세종시 데이트 지도</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
     <script>
@@ -22,25 +22,35 @@
         /* [1] 기본 설정 및 폰트 변경 */
         body {
             margin: 0;
-            font-family: 'Noto Sans KR', sans-serif; /* 폰트 변경 */
+            font-family: 'Noto Sans KR', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            background: #f4f4f4; /* 부드러운 아이보리 배경 */
-            color: #333333; /* 기본 글자색 (짙은 회색) */
+            background: #f4f4f4;
+            color: #333333;
         }
 
         /* [2] 상단 제목 스타일 */
-        h1 {
-            font-size: 2.5em;
-            font-weight: 700; /* 굵게 */
-            text-align: center;
-            margin: 0;
-            padding: 15px 0;
-            color: #ffffff; /* 흰색 글자 */
-            background-color: #ff69b4; /* 로즈 핑크 배경 */
+        .fixed-title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #ffffff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        h1 {
+            font-size: 1.25em;
+            font-weight: 700;
+            margin: 0;
+            padding: 5px 10px;
+            color: #20b2aa;
         }
 
         /* [3] 카테고리 대분류 스타일 */
@@ -50,21 +60,18 @@
             text-align: left;
             margin-top: 40px;
             margin-bottom: 10px;
-            color: #2c3e50; /* 짙은 네이비 색상 */
-            border-left: 5px solid #ff69b4; /* 로즈 핑크 포인트 */
+            color: #2c3e50;
+            border-left: 5px solid #ff69b4;
             padding-left: 10px;
         }
-
-        /* h2 내의 a 태그 스타일 (링크로 변경) */
         h2 a {
-            color: #2c3e50; /* 짙은 네이비 색상 (기존 h2 색상 유지) */
+            color: #2c3e50;
             text-decoration: none;
-            display: block; /* 전체 영역 클릭 가능하도록 */
+            display: block;
         }
-
         h2 a:hover {
-            color: #ff5733; /* 마우스 오버 시 강렬한 주황-핑크 */
-            text-decoration: none; /* 밑줄 제거 */
+            color: #ff5733;
+            text-decoration: none;
         }
 
         /* [4] 세부 카테고리 링크 스타일 */
@@ -73,17 +80,14 @@
             font-weight: 500;
             margin-top: 15px;
             margin-bottom: 0px;
-            
         }
-
         h3 a {
-            color: #4a4a4a; /* 기본 링크 색상 (어두운 회색) */
+            color: #4a4a4a;
             text-decoration: none;
             transition: color 0.3s;
         }
-
         h3 a:hover {
-            color: #ff5733 !important; /* 마우스 오버 시 강렬한 주황-핑크 */
+            color: #ff5733 !important;
             text-decoration: underline;
         }
 
@@ -92,97 +96,165 @@
             font-size: 1em;
             margin-top: 5px;
             margin-bottom: 30px;
-            color: #7f8c8d; /* 부드러운 회색 */
+            color: #7f8c8d;
             line-height: 1.5;
             padding-left: 5px;
-            margin-left: -5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
-            padding-left: 5px; /* a태그가 p를 감쌀 때 왼쪽 패딩 맞추기 */
+            margin-left: -5px;
+            padding-left: 5px;
         }
         
-        /* 새로운 스타일: .category-intro를 감싼 a 태그 스타일 (링크처럼 보이지 않도록 설정) */
         .article-link {
             text-decoration: none;
             color: inherit;
-            display: block; /* 클릭 영역 확보 */
+            display: block;
             transition: opacity 0.3s;
         }
 
         .article-link:hover {
-            opacity: 0.8; /* 호버 시 약간 투명하게 만들어서 클릭 가능함을 암시 */
+            opacity: 0.8;
         }
 
-        /* 새로운 스타일: 환영 메시지 박스 */
-        .welcome-box {
-            background-color: #ffe0eb; /* 연한 핑크 배경 */
-            border: 2px solid #ff69b4; /* 로즈 핑크 테두리 */
+        /* ------------------------------------- */
+        /* 슬라이드 배너 (Carousel) 스타일 */
+        /* ------------------------------------- */
+
+        /* 배너를 감싸는 컨테이너: 가로가 긴 직사각형 (2:1 비율) */
+        .banner-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto 10px auto;
+            position: relative;
+            height: 0;
+            padding-top: 50%;
+        }
+        
+        /* 슬라이드 박스 */
+        .welcome-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* 박스 스타일: 테두리 제거 & 그림자 강화 */
+            background-color: #ffffff;
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 40px;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            line-height: 1.6;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            
+            /* 텍스트 스타일 */
+            line-height: 1.5;
             color: #4a4a4a;
             font-size: 1.1em;
             font-weight: 500;
+            
+            /* 슬라이드 전환 관련 스타일 */
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            /* [핵심 수정]: 슬라이드 자체의 z-index를 높여 내부 링크 클릭이 잘 되도록 설정 */
+            z-index: 5;
         }
-        .welcome-box strong {
-            color: #ff69b4; /* 강조 색상 */
-            font-weight: 700;
-        }
-        .welcome-box p {
-            margin: 10px 0;
-        }
-        .welcome-box .emoji {
-            font-size: 1.2em;
+
+        .welcome-slide.active {
+            opacity: 1;
+            z-index: 10; /* 활성화된 슬라이드를 가장 앞으로 */
         }
         
-        /* [New] 카테고리 이미지 갤러리 스타일 추가 */
+        /* 박스 내부 강조 텍스트 및 이모지 */
+        .welcome-slide strong {
+            color: #ff69b4;
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        .welcome-slide p {
+            margin: 5px 0;
+        }
+        .welcome-slide .emoji {
+            font-size: 1.6em;
+            margin: 0 5px;
+        }
+
+        /* [핵심 수정]: 링크 스타일 및 클릭 이벤트 보장 */
+        .welcome-slide a {
+            /* pointer-events: auto; 제거 (기본값인 auto로 작동하도록 둠) */
+            color: #20b2aa;
+            font-weight: 700;
+            text-decoration: underline;
+            /* 링크를 블록 요소로 만들어서 클릭 영역을 넓힘 */
+            display: block; 
+            width: 100%; 
+            padding: 5px 0;
+        }
+
+        /* 동그라미 인디케이터 스타일 */
+        .indicator-container {
+            text-align: center;
+            margin-bottom: 40px;
+            z-index: 15; /* 인디케이터를 슬라이드보다 항상 앞으로 */
+            position: relative; 
+        }
+
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #bbbbbb;
+            border-radius: 50%;
+            margin: 0 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: #ff69b4;
+        }
+
+
+        /* [6] 콘텐츠 박스 및 나머지 스타일 유지 */
+        article {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 15px;
+            color: #2c3e50;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 이하 기타 스타일 유지 */
         .category-image-gallery {
-            display: flex; /* 이미지를 가로로 나열 */
-            gap: 10px; /* 이미지 간 간격 */
+            display: flex;
+            gap: 10px;
             margin-top: 10px;
             margin-bottom: 10px; 
             overflow-x: auto; 
-            padding: 0 5px; /* 양 끝이 잘리지 않도록 약간의 패딩 */
+            padding: 0 5px;
         }
-        
-        /* 이미지가 잘리지 않고 전체가 보이도록 object-fit을 contain으로 변경 */
         .category-image {
-            width: 100%; /* 부모 요소 너비에 맞춤 */
-            height: 200px; /* 고정 높이로 통일감 */
-            object-fit: contain; /* 이미지가 잘리지 않고 전체가 보이도록 변경 */
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        /* 변경: category-image-gallery 내의 각 링크(a)가 이미지의 크기를 결정하도록 함 */
         .category-image-link {
-            min-width: calc(50% - 5px); /* 두 링크가 가로에 배치되도록 설정 */
+            min-width: calc(50% - 5px);
             width: calc(50% - 5px);
-            display: block; /* 링크가 전체 영역을 차지하도록 */
+            display: block;
         }
-
-        /* 이미지가 링크 안에 있을 때 호버 효과 추가 */
         .category-image-link:hover .category-image {
             opacity: 0.85;
             transition: opacity 0.3s;
         }
 
-
-        /* [6] 콘텐츠 박스 스타일 */
-        article {
-            text-align: left;
-            background-color: #ffffff; /* 흰색 배경 */
-            padding: 30px;
-            margin: 20px;
-            border-radius: 15px; /* 더 둥근 모서리 */
-            color: #2c3e50;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* 은은하고 깊은 그림자 */
-        }
-
-        /* [7] 버튼 스타일 */
         .button-container {
             text-align: center;
         }
@@ -193,42 +265,29 @@
             padding: 15px 30px;
             cursor: pointer;
             border: none;
-            background-color: #ff69b4; /* 로즈 핑크 버튼 */
+            background-color: #ff69b4;
             color: white;
-            border-radius: 30px; /* 알약 모양 버튼 */
+            border-radius: 30px;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
             margin: 40px 0;
             box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
         }
 
         button:hover {
-            background-color: #e55a9e; /* hover 시 약간 어두운 핑크 */
+            background-color: #e55a9e;
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
         }
 
-        /* [8] 고정 요소 및 애니메이션 */
-        .fixed-title {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
         .fixed-image {
-            position: fixed;
-            top: 15px; /* 제목 아래로 조정 */
-            right: 20px;
-            width: 80px; /* 크기 조정 */
-            height: auto;
-            z-index: 1001;
-            border-radius: 50%; /* 원형 이미지 */
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
-
+        
         .content {
-            padding-top: 80px; /* 고정된 제목 영역 높이만큼 패딩 추가 */
+            padding-top: 60px;
             animation: fadeIn 1.5s ease-out;
         }
 
@@ -242,20 +301,127 @@
 </head>
 
 <body>
-    <h1 class="fixed-title">세종시 데이트 지도</h1>
-
-    <a href="../index.html">
-        <img src="../사진.png" class="fixed-image" alt="Logo">
-    </a>
+    <div class="fixed-title">
+        <a href="../index.html">
+            <img src="../사진.png" class="fixed-image" alt="Logo">
+        </a>
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>세종시 데이트 지도</h1>
+        </a>
+    </div>
 
     <div class="content">
 
     <article>
-        <div class="welcome-box">
-            <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
-            <p>세종 커플의 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
-            <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
+        <div class="banner-container">
+            
+            <div class="welcome-slide" id="slide1">
+                <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
+                <p>세종 커플의 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
+                <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
+            </div>
+            
+            <div class="welcome-slide" id="slide2">
+                <p>
+                    <span class="emoji">✨</span> <strong>이번주 여기어때?!</strong> <span class="emoji">🥂</span>
+                </p>
+                
+                <p>
+                    <a href="https://search.naver.com/search.naver?query=세종 아름동 별클라이밍" target="_blank">
+                        1. 아름동 별클라이밍 
+                        <span class="link-text">(클릭하여 네이버로 이동!)</span>
+                    </a>
+                </p>
+
+                <p>
+                    <a href="https://search.naver.com/search.naver?query=세종 아름동 나무랄 데 없는 목공방" target="_blank">
+                        2. 아름동 나무랄 데 없는 목공방 
+                        <span class="link-text">(클릭하여 네이버로 이동!)</span>
+                    </a>
+                </p>
+            </div>
+            
+            <div class="welcome-slide" id="slide3">
+                <p><span class="emoji">🎁</span> <strong>세종시 데이트 팁!</strong> <span class="emoji">🎁</span></p>
+                <p>날씨가 좋을 땐 **세종호수공원** 피크닉 🧺</p>
+                <p>추운 날엔 **국립세종수목원** 힐링 데이트🌿</p>
+            </div>
         </div>
+        
+        <div class="indicator-container" id="indicatorContainer">
+            </div>
+
+        <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.welcome-slide');
+            const totalSlides = slides.length;
+            const indicatorContainer = document.getElementById('indicatorContainer');
+            let slideInterval;
+
+            // 1. 인디케이터 생성 함수
+            function createIndicators() {
+                indicatorContainer.innerHTML = '';
+                slides.forEach((slide, index) => {
+                    const indicator = document.createElement('span');
+                    indicator.classList.add('indicator');
+                    indicator.addEventListener('click', () => {
+                        moveToSlide(index);
+                    });
+                    
+                    indicatorContainer.appendChild(indicator);
+                });
+            }
+
+            // 2. 슬라이드 표시 및 인디케이터 업데이트 함수
+            function showSlide(index) {
+                // 슬라이드 활성화/비활성화
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+
+                // 인디케이터 활성화/비활성화
+                const indicators = document.querySelectorAll('.indicator');
+                indicators.forEach((indicator, i) => {
+                    if (i === index) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 3. 다음 슬라이드로 이동 함수
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            // 4. 특정 슬라이드로 이동 함수 (인디케이터 클릭 시)
+            function moveToSlide(index) {
+                // 기존 인터벌 중지
+                clearInterval(slideInterval);
+                // 현재 슬라이드 업데이트
+                currentSlide = index;
+                showSlide(currentSlide);
+                // 인터벌 재시작
+                startInterval();
+            }
+
+            // 5. 인터벌 시작 함수 (5초 간격)
+            function startInterval() {
+                slideInterval = setInterval(nextSlide, 5000); // 5000ms = 5초
+            }
+
+
+            // --- 초기화 ---
+            createIndicators();
+            showSlide(currentSlide);
+            startInterval();
+        </script>
         
         <h2 style="margin-bottom: 0px;">
             <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
@@ -329,43 +495,7 @@
             <h3>공원</h3>
             <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
         </a>
-<!--
-        <h2 style="margin-bottom: 0px;">
-            <a href="숙소/숙소.html">🏠 숙소</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="숙소/숙소.html" class="category-image-link">
-                <img src="../사진/규카츠정 나성점_1.jpg" alt="고급 호텔 객실" class="category-image">
-            </a>
-            <a href="숙소/숙소.html" class="category-image-link">
-                <img src="../사진/규카츠정 나성점_1.jpg" alt="아늑한 펜션 인테리어" class="category-image">
-            </a>
-            </div>
-
-        <a href="숙소/숙소.html" class="article-link">
-            <h3>호텔 & 펜션</h3>
-            <p class="category-intro">편안함은 기본! 🛌 깔끔하고 아늑한 숙소에서 꿀잠 자요!<br>여행의 피로를 싹 풀고 내일의 데이트를 준비할 수 있어요!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="캠핑/캠핑.html">🏕️ 캠핑</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="캠핑/캠핑.html" class="category-image-link">
-                <img src="../사진/규카츠정 나성점_1.jpg" alt="자연 속 캠핑 텐트" class="category-image">
-            </a>
-            <a href="캠핑/캠핑.html" class="category-image-link">
-                <img src="../사진/규카츠정 나성점_1.jpg" alt="밤하늘 아래 글램핑 바비큐" class="category-image">
-            </a>
-            </div>
-
-        <a href="캠핑/캠핑.html" class="article-link">
-            <h3>캠핑 사이트</h3>
-            <p class="category-intro">자연 속에서 온전히 휴식하는 시간! <br>바쁜 일상에서 벗어나 캠핑장, 글램핑장에서 편안하게 힐링해 보세요.</p>
-        </a>
-    -->
+    
     </article>
     <div class="button-container">
         <button>
