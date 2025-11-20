@@ -50,7 +50,7 @@
             font-weight: 700;
             margin: 0;
             padding: 5px 10px;
-            color: #20b2aa;
+            color: #20b2aa; /* 주된 청록색 */
         }
 
         /* [3] 카테고리 대분류 스타일 */
@@ -61,7 +61,7 @@
             margin-top: 40px;
             margin-bottom: 10px;
             color: #2c3e50;
-            border-left: 5px solid #ff69b4;
+            border-left: 5px solid #20b2aa; /* 청록색 경계선 */
             padding-left: 10px;
         }
         h2 a {
@@ -70,7 +70,7 @@
             display: block;
         }
         h2 a:hover {
-            color: #ff5733;
+            color: #1a9c94; /* 살짝 진한 청록색 hover */
             text-decoration: none;
         }
 
@@ -87,7 +87,7 @@
             transition: color 0.3s;
         }
         h3 a:hover {
-            color: #ff5733 !important;
+            color: #1a9c94 !important; /* 살짝 진한 청록색 hover */
             text-decoration: underline;
         }
 
@@ -115,7 +115,7 @@
         }
 
         /* ------------------------------------- */
-        /* 슬라이드 배너 (Carousel) 스타일 */
+        /* [UPDATED] 슬라이드 배너 (Carousel) 스타일 */
         /* ------------------------------------- */
 
         /* 배너를 감싸는 컨테이너: 가로가 긴 직사각형 (2:1 비율) */
@@ -136,12 +136,12 @@
             width: 100%;
             height: 100%;
             
-            /* 박스 스타일: 테두리 제거 & 그림자 강화 */
+            /* 박스 스타일: 그림자 완전히 제거 */
             background-color: #ffffff;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); <-- 제거됨 */
             
             /* 텍스트 스타일 */
             line-height: 1.5;
@@ -156,19 +156,17 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            
-            /* [핵심 수정]: 슬라이드 자체의 z-index를 높여 내부 링크 클릭이 잘 되도록 설정 */
             z-index: 5;
         }
 
         .welcome-slide.active {
             opacity: 1;
-            z-index: 10; /* 활성화된 슬라이드를 가장 앞으로 */
+            z-index: 10;
         }
         
         /* 박스 내부 강조 텍스트 및 이모지 */
         .welcome-slide strong {
-            color: #ff69b4;
+            color: #20b2aa; /* 청록색으로 변경 */
             font-weight: 900;
             font-size: 1.2em;
         }
@@ -178,15 +176,14 @@
         .welcome-slide .emoji {
             font-size: 1.6em;
             margin: 0 5px;
+            color: #20b2aa; /* 이모지 색상도 청록색으로 */
         }
 
         /* [핵심 수정]: 링크 스타일 및 클릭 이벤트 보장 */
         .welcome-slide a {
-            /* pointer-events: auto; 제거 (기본값인 auto로 작동하도록 둠) */
-            color: #20b2aa;
+            color: #1a9c94; /* 살짝 진한 청록색 링크 */
             font-weight: 700;
             text-decoration: underline;
-            /* 링크를 블록 요소로 만들어서 클릭 영역을 넓힘 */
             display: block; 
             width: 100%; 
             padding: 5px 0;
@@ -196,7 +193,7 @@
         .indicator-container {
             text-align: center;
             margin-bottom: 40px;
-            z-index: 15; /* 인디케이터를 슬라이드보다 항상 앞으로 */
+            z-index: 15;
             position: relative; 
         }
 
@@ -212,7 +209,7 @@
         }
 
         .indicator.active {
-            background-color: #ff69b4;
+            background-color: #20b2aa; /* 활성 인디케이터 청록색으로 변경 */
         }
 
 
@@ -265,18 +262,18 @@
             padding: 15px 30px;
             cursor: pointer;
             border: none;
-            background-color: #ff69b4;
+            background-color: #20b2aa; /* 버튼 색상 청록색으로 변경 */
             color: white;
             border-radius: 30px;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
             margin: 40px 0;
-            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 4px 8px rgba(32, 178, 170, 0.4); /* 버튼 그림자 색상도 청록색 계열로 */
         }
 
         button:hover {
-            background-color: #e55a9e;
+            background-color: #1a9c94; /* 버튼 hover 시 살짝 진한 청록색 */
             transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 6px 12px rgba(32, 178, 170, 0.6);
         }
 
         .fixed-image {
@@ -505,3 +502,4 @@
     </div>
 </body>
 </html>
+```http://googleusercontent.com/image_generation_content/2
