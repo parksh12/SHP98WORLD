@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <style>
+        /* ... (이전 CSS 코드는 간결성을 위해 생략) ... */
+
         /* --- [1] 기본 레이아웃 (INDEX.HTML 기반) --- */
         body {
             margin: 0;
@@ -54,7 +56,6 @@
         }
         
         .title-link {
-             /* [확인] index.html 링크 유지 */
              text-decoration: none; 
              color: inherit;
         }
@@ -84,37 +85,32 @@
             font-weight: 700;
             text-align: left;
             margin-top: 40px;
-            /* [변경] 제목 아래 간격 5줄 (70px) */
-            margin-bottom: 70px; 
+            margin-bottom: 70px; /* 5줄 간격 */
             color: #2c3e50;
             border-left: 5px solid #20b2aa;
             padding-left: 10px;
         }
         
-        /* 새로운 소개 문구 스타일 (제거됨 - 주석 처리 또는 제거) 
-        .new-intro-text {
-            ... (제거)
-        }*/
-        
         /* 개별 식당 항목 컨테이너 */
         .restaurant-item {
             padding: 25px 0; 
             border-bottom: 3px solid #b2e6e6;
-            margin-bottom: 100px; /* 항목별 간격 7줄 유지 */
+            margin-bottom: 100px;
         }
         
         .restaurant-item:first-of-type {
-            padding-top: 0; /* 첫 번째 항목 상단 패딩 제거 */
+            padding-top: 0;
         }
         
         .restaurant-item:last-child {
             border-bottom: none;
-            margin-bottom: 0; /* article 하단 패딩을 위해 0으로 변경 */
+            margin-bottom: 0;
         }
 
         .restaurant-item h4 {
-            font-size: 1.5em; 
-            color: #20b2aa;
+            /* [수정] 1.5em * 1.15 = 1.725em (시각적으로 1.75em로 설정) */
+            font-size: 1.75em; 
+            color: #20b2aa; /* 글자색 유지 */
             margin-top: 5px;
             margin-bottom: 5px;
             font-weight: 700;
@@ -408,7 +404,7 @@
 
         <h2>🍽️ 레스토랑 & 맛집</h2>
         
-        <div class="restaurant-item">
+            <div class="restaurant-item">
                 <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
                     <h4> 1. 으뜸스시 세종아름점 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
                 </a>
@@ -504,7 +500,7 @@
             
             <div class="restaurant-item">
                 <a href="https://search.naver.com/search.naver?query=세종 수미순두부 왕코다리 화덕생선구이" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>3. 수미순두부&왕코다리&화덕생선구이 (든든한 한식 💪) <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
+                    <h4>3. 수미순두부&왕코다리&화덕생선구이 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
                 </a>
 
                 <div class="restaurant-description">
@@ -551,7 +547,7 @@
 
             <div class="restaurant-item">
                 <a href="https://search.naver.com/search.naver?query=다이너 세종점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>4. 다이너 세종점 (DINER) - (기념일 추천 🥂) <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
+                    <h4>4. 다이너 세종점 (DINER) <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
                 </a>
             
                 <div class="restaurant-description">
@@ -598,7 +594,7 @@
             
             <div class="restaurant-item">
                 <a href="https://search.naver.com/search.naver?query=믹스토랑+세종나성점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>5. 믹스토랑 세종나성점 (가성비 좋은 양식) <span class="link-text">(클릭하여 네이버 정보 바로가기!)</span></h4>
+                    <h4>5. 믹스토랑 세종나성점 <span class="link-text">(클릭하여 네이버 정보 바로가기!)</span></h4>
                 </a>
                 
                 <div class="restaurant-description">
@@ -660,7 +656,6 @@
     </div>
 
     <script>
-        // ... (스크립트 부분은 변경 없음)
         let currentItemIndex = -1;
         let currentImageIndex = -1;
         let galleryImages = []; 
@@ -669,7 +664,7 @@
 
         function initGallery() {
             const galleryContainers = document.querySelectorAll('.restaurant-image-gallery');
-            galleryImages = Array.from(containers).map(container => 
+            galleryImages = Array.from(galleryContainers).map(container => 
                 Array.from(container.querySelectorAll('.restaurant-gallery-img'))
             );
 
