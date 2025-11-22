@@ -2,11 +2,24 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>세종시 데이트 지도 | 레스토랑 & 맛집</title>
+    <title>세종시 데이트 지도</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D6CDR67DM4');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
+      crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/png" href="사진.png">
+
     <style>
-        /* --- [1] 기본 레이아웃 (INDEX.HTML 기반) --- */
+        /* [1] 기본 설정 및 폰트 변경 */
         body {
             margin: 0;
             font-family: 'Noto Sans KR', sans-serif;
@@ -14,12 +27,12 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            background: #f4f4f4; 
+            background: #f4f4f4;
             color: #333333;
         }
 
-        /* --- [2] FIXED TITLE 스타일 (INDEX.HTML 형식 준수) --- */
-        .fixed-title-container {
+        /* [2] 상단 제목 스타일 */
+        .fixed-title {
             position: fixed;
             top: 0;
             left: 0;
@@ -31,764 +44,461 @@
             align-items: center;
             padding: 10px 20px;
         }
-        
-        .fixed-image-link {
-            flex-shrink: 0;
-        }
-        
-        .fixed-image {
-            width: 40px; 
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            margin-right: 10px;
-        }
 
-        .fixed-title {
-            font-size: 1.6em; 
+        h1 {
+            font-size: 1.25em;
             font-weight: 700;
             margin: 0;
             padding: 5px 10px;
-            color: #20b2aa; 
-            text-align: left;
-        }
-        
-        .title-link {
-             text-decoration: none; 
-             color: inherit;
+            color: #20b2aa; /* 주된 청록색 */
         }
 
-        /* --- [3] 콘텐츠 영역 --- */
-        .content {
-            padding-top: 60px;
-            animation: fadeIn 1.5s ease-out;
-            width: 90%;
-            max-width: 800px;
-        }
-
-        article {
-            text-align: left;
-            background-color: #ffffff; 
-            padding: 30px;
-            margin: 20px 0;
-            border-radius: 15px;
-            color: #2c3e50;
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* --- [4] 섹션 타이틀 스타일 --- */
+        /* [3] 카테고리 대분류 스타일 */
         h2 {
-            font-size: 2.04em; 
+            font-size: 1.8em;
             font-weight: 700;
             text-align: left;
             margin-top: 40px;
-            margin-bottom: 25px; 
+            margin-bottom: 10px;
             color: #2c3e50;
-            border-left: 5px solid #20b2aa;
+            border-left: 5px solid #20b2aa; /* 청록색 경계선 */
             padding-left: 10px;
         }
-        
-        /* 새로운 소개 문구 스타일 */
-        .new-intro-text {
-            font-size: 2.04em; 
-            font-weight: 700; 
-            color: #333333; 
-            margin-top: 15px; 
-            margin-bottom: 30px;
-            line-height: 1.5;
-            padding: 5px 0; 
-            text-align: left; 
+        h2 a {
+            color: #2c3e50;
+            text-decoration: none;
+            display: block;
         }
-        
-        /* --- [5] 리스트 영역 스타일 --- */
-        .list-area {
-            background-color: #f9f9f9; 
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #eee;
-            margin-top: 20px;
-        }
-        
-        /* 개별 식당 항목 컨테이너 */
-        .restaurant-item {
-            padding: 15px 0;
-            border-bottom: 3px solid #b2e6e6;
-            margin-bottom: 15px; 
-        }
-        
-        .restaurant-item:last-child {
-            border-bottom: none;
-            margin-bottom: 15px; 
+        h2 a:hover {
+            color: #1a9c94; /* 살짝 진한 청록색 hover */
+            text-decoration: none;
         }
 
-        .restaurant-item h4 {
-            font-size: 1.5em; 
-            color: #20b2aa;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-        
-        .restaurant-item h4 .link-text {
-            font-size: 0.7em; 
-            color: #1a9c94;
+        /* [4] 세부 카테고리 링크 스타일 */
+        h3 {
+            font-size: 1.2em;
             font-weight: 500;
-        }
-
-        /* 항목별 간단 설명 스타일 - 크기 및 색상 통일 (1.3em, 검은색) */
-        .restaurant-description {
-            font-size: 1.3em; 
-            color: #333333; 
-            margin-top: 15px; 
-            margin-bottom: 15px; 
-            line-height: 1.6; 
-            padding-left: 5px;
-            border-left: 3px solid #79d7d3;
-        }
-        .restaurant-description p { 
-            margin-bottom: 1em; 
-            text-indent: 1em; 
-        }
-        .restaurant-description p:last-child {
-            margin-bottom: 0; 
-        }
-        
-        /* 추천 메뉴를 감싸는 div에 크기 통일 적용 */
-        .recommend-menu-container {
-            font-size: 1.3em; 
-            margin-bottom: 15px; 
-            color: #333333; 
-        }
-        .recommend-menu {
-            font-weight: 700;
-            color: #e67e22; 
-        }
-
-        /* 상세 정보 컨테이너 */
-        .detail-info {
-            font-size: 1.3em; 
-            color: #2980b9; 
-            font-weight: 500;
-            margin-top: 15px; 
-            padding: 10px;
-            border-left: 3px solid #3498db;
-            background-color: #f4fafa;
-            border-radius: 5px;
-            margin-bottom: 15px; 
-        }
-
-        /* 주차 정보 스타일 */
-        .parking-info {
-            font-size: 1.3em; 
-            color: #27ae60; 
-            font-weight: 500;
-            margin-bottom: 15px; 
-            padding: 10px;
-            border-left: 3px solid #2ecc71;
-            background-color: #f4fafa;
-            border-radius: 5px;
-            margin-top: 15px; 
-        }
-        
-        /* 해시태그 */
-        .hashtag-container {
-            margin-top: 15px; 
-            margin-bottom: 15px;
-        }
-        .hashtag {
-            display: inline-block;
-            background-color: #e0f2f2;
-            color: #20b2aa;
-            font-weight: 500;
-            padding: 4px 7px;
-            margin-right: 5px; 
-            border-radius: 5px;
-            font-size: 1.1em; 
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-        
-        /* 주소 및 복사 버튼 스타일 */
-        .address-row {
-            display: flex;
-            align-items: center;
-            margin-top: 15px; 
-            margin-bottom: 15px; 
-        }
-        
-        .address-text {
-            font-size: 1.3em; 
-            color: #555;
-            margin-right: 10px;
-            font-weight: 300;
-            flex-grow: 1;
-            word-break: break-word;
-        }
-
-        .copy-button {
-            padding: 7px 13px; 
-            background-color: #b2e6e6;
-            color: #20b2aa;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em; 
-            font-weight: 500;
-            transition: background-color 0.2s;
-            flex-shrink: 0;
-        }
-
-        /* 모바일 주소 행 분리 (600px 이하) - 내부 폰트 크기 및 패딩 조정 */
-        @media (max-width: 600px) {
-            .address-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .address-text {
-                margin-bottom: 10px;
-                font-size: 1.4em; 
-            }
-            .copy-button {
-                width: 100%;
-                max-width: 200px; 
-                font-size: 1.3em; 
-                padding: 10px 15px;
-            }
-        }
-
-        /* 이미지 갤러리 컨테이너 */
-        .restaurant-image-gallery {
-            display: flex;  
-            gap: 10px;  
-            margin-top: 15px; 
-            margin-bottom: 15px; 
-            overflow-x: auto;  
-            padding-bottom: 5px;  
-        }
-
-        .restaurant-gallery-img {
-            min-width: calc(50% - 5px);  
-            width: calc(50% - 5px);  
-            height: 150px;  
-            border-radius: 8px;
-            object-fit: cover; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #e0e0e0; 
-            cursor: pointer; 
-            transition: transform 0.2s;
-        }
-        
-        .restaurant-gallery-img:hover {
-            transform: scale(1.02);
-        }
-
-        /* 피드백 버튼 그룹 */
-        .feedback-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 5px;
             margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #e0e0e0;
-            margin-bottom: 0; 
+            margin-bottom: 0px;
+        }
+        h3 a {
+            color: #4a4a4a;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        h3 a:hover {
+            color: #1a9c94 !important; /* 살짝 진한 청록색 hover */
+            text-decoration: underline;
         }
 
-        .feedback-button {
-            flex-grow: 1;
-            padding: 10px 10px; 
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em; 
-            font-weight: 700;
-            transition: opacity 0.2s, transform 0.2s;
-            background-color: #e0f2f2;
-            color: #20b2aa;
-            border: 1px solid #b2e6e6;
-        }
-
-        .feedback-button:hover {
-            background-color: #b2e6e6; 
-            transform: translateY(-1px);
+        /* [5] 소개글 스타일 */
+        .category-intro {
+            font-size: 1em;
+            margin-top: 5px;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+            line-height: 1.5;
+            padding-left: 5px;
+            margin-left: -5px;
+            padding-left: 5px;
         }
         
-        /* 메인으로 돌아가기 버튼 (INDEX.HTML 기반) */
-        .button-container {
+        .article-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .article-link:hover {
+            opacity: 0.8;
+        }
+
+        /* ------------------------------------- */
+        /* [UPDATED] 슬라이드 배너 (Carousel) 스타일 */
+        /* ------------------------------------- */
+
+        /* 배너를 감싸는 컨테이너: 가로가 긴 직사각형 (2:1 비율) */
+        .banner-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto 10px auto;
+            position: relative;
+            height: 0;
+            padding-top: 50%;
+        }
+        
+        /* 슬라이드 박스 */
+        .welcome-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* 박스 스타일: 그림자 완전히 제거 */
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); <-- 제거됨 */
+            
+            /* 텍스트 스타일 */
+            line-height: 1.5;
+            color: #4a4a4a;
+            font-size: 1.1em;
+            font-weight: 500;
+            
+            /* 슬라이드 전환 관련 스타일 */
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .welcome-slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+        
+        /* 박스 내부 강조 텍스트 및 이모지 */
+        .welcome-slide strong {
+            color: #20b2aa; /* 청록색으로 변경 */
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        .welcome-slide p {
+            margin: 5px 0;
+        }
+        .welcome-slide .emoji {
+            font-size: 1.6em;
+            margin: 0 5px;
+            color: #20b2aa; /* 이모지 색상도 청록색으로 */
+        }
+
+        /* [핵심 수정]: 링크 스타일 및 클릭 이벤트 보장 */
+        .welcome-slide a {
+            color: #1a9c94; /* 살짝 진한 청록색 링크 */
+            font-weight: 700;
+            text-decoration: underline;
+            display: block; 
+            width: 100%; 
+            padding: 5px 0;
+        }
+
+        /* 동그라미 인디케이터 스타일 */
+        .indicator-container {
+            text-align: center;
+            margin-bottom: 40px;
+            z-index: 15;
+            position: relative; 
+        }
+
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #bbbbbb;
+            border-radius: 50%;
+            margin: 0 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: #20b2aa; /* 활성 인디케이터 청록색으로 변경 */
+        }
+
+
+        /* [6] 콘텐츠 박스 및 나머지 스타일 유지 */
+        article {
+            text-align: left;
+            background-color: #ffffff;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 15px;
+            color: #2c3e50;
             width: 90%;
             max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 이하 기타 스타일 유지 */
+        .category-image-gallery {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px; 
+            overflow-x: auto; 
+            padding: 0 5px;
+        }
+        .category-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .category-image-link {
+            min-width: calc(50% - 5px);
+            width: calc(50% - 5px);
+            display: block;
+        }
+        .category-image-link:hover .category-image {
+            opacity: 0.85;
+            transition: opacity 0.3s;
+        }
+
+        .button-container {
             text-align: center;
         }
 
-        .button-container button {
-            font-size: 22px; 
+        button {
+            font-size: 18px;
             font-weight: bold;
-            padding: 18px 30px; 
+            padding: 15px 30px;
             cursor: pointer;
             border: none;
-            background-color: #20b2aa;
+            background-color: #20b2aa; /* 버튼 색상 청록색으로 변경 */
             color: white;
             border-radius: 30px;
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
             margin: 40px 0;
-            box-shadow: 0 4px 8px rgba(32, 178, 170, 0.4);
+            box-shadow: 0 4px 8px rgba(32, 178, 170, 0.4); /* 버튼 그림자 색상도 청록색 계열로 */
         }
 
-        .button-container button:hover {
-            background-color: #1a9c94;
+        button:hover {
+            background-color: #1a9c94; /* 버튼 hover 시 살짝 진한 청록색 */
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(32, 178, 170, 0.6);
         }
+
+        .fixed-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
         
+        .content {
+            padding-top: 60px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        /* --- 모달(이미지 확대) 스타일은 변경 없음 --- */
-        .modal {
-            display: none; 
-            position: fixed;
-            z-index: 2000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.9); 
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            max-height: 90vh;
-            object-fit: contain; 
-        }
-
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -50px;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            -webkit-user-select: none;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
     </style>
+
+
 </head>
 
 <body>
-    <div class="fixed-title-container">
-        <a href="../../index.html" class="fixed-image-link">
+    <div class="fixed-title">
+        <a href="../index.html">
             <img src="../사진.png" class="fixed-image" alt="Logo">
         </a>
-        <a href="../../index.html" class="title-link">
-             <h1 class="fixed-title">세종시 데이트 지도</h1>
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>세종시 데이트 지도</h1>
         </a>
     </div>
 
     <div class="content">
+
     <article>
-
-        <h2>🍽️ 레스토랑 & 맛집</h2>
-        
-        <p class="new-intro-text">
-            안녕하세요 👋<br>
-            오늘은 이런 데이트 어떠세요?
-        </p>
-
-        <div class="list-area">
-            <div class="restaurant-item">
-                <a href="https://search.naver.com/search.naver?query=세종 으뜸스시 세종아름점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4> 1. 으뜸스시 세종아름점 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
-                </a>
-                
-                <div class="restaurant-description">
-                    <p> 새로 오픈한 후 인기가 많아 웨이팅이 있을 수 있는 회전초밥 프렌차이즈예요. 한 접시에 2,200원으로 가격이 매우 저렴한 편이에요. 특히 양념이 자극적이면서도 맛있는 초밥으로 유명하며, 새우초밥이 인기 메뉴예요.</p>
-                    <p> 가성비 좋은 초밥 데이트를 즐기고 싶다면 이곳을 추천해 드려요.</p>
-                </div>
-                
-                <div class="recommend-menu-container">
-                    👍주인장 추천메뉴: <span class="recommend-menu">치즈구운새우롤 & 키조개관자</span>
-                </div>
-                
-                <div class="detail-info">
-                    ⏰ <strong>운영 시간:</strong> 매일 11:30 - 21:00 (브레이크 타임 15:00 - 17:00)<br>
-                    💰 <strong>가격대:</strong> 전 접시 2,200원 균일가 (매우 합리적)
-                </div>
-
-                <div class="address-row">
-                    <span class="address-text" id="address1">세종특별자치시 보듬3로 158 (아름메디컬센터 1층, 아름동)</span>
-                    <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="0">
-                    <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 내부" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 초밥" class="restaurant-gallery-img" loading="lazy">
-                </div>
-                
-                <div class="parking-info">
-                    🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (아름메디컬센터, 주차 등록 필요)
-                </div>
-
-                <p class="hashtag-container">
-                    <span class="hashtag">#회전초밥</span>
-                    <span class="hashtag">#가성비맛집</span>
-                    <span class="hashtag">#혼밥가능</span>
-                    <span class="hashtag">#새우초밥맛집</span>
-                </p>
-
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '으뜸스시 세종아름점')">👍 추천</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '으뜸스시 세종아름점')">👎 비추천</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '으뜸스시 세종아름점')">🚨 폐업한거같아요</button>
-                </div>
+        <div class="banner-container">
+            
+            <div class="welcome-slide" id="slide1">
+                <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
+                <p>세종 커플의 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
+                <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
             </div>
             
-            <div class="restaurant-item">
-                <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>2. 규카츠정 나성점 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
-                </a>
-
-                <div class="restaurant-description">
-                    <p> 깔끔하고 아담한 일본 가정식 느낌의 가게예요. 겉은 바삭하고 속은 레어인 규카츠를 내 테이블 미니 화로에 원하는 만큼 구워 먹는 재미가 있어요. 고기가 정말 부드럽고 육즙이 살아있어 특별한 음식을 먹고 싶을 때 강력 추천해 드려요. 바 테이블이 있어 혼밥하기에도 좋아요. </p>
-                    <p> 오픈런은 필수이며, 입에서 녹는 소고기 맛에 기분까지 좋아지는 곳이에요.</p>
-                </div>
-                
-                <div class="recommend-menu-container">
-                    👍주인장 추천메뉴: <span class="recommend-menu">규카츠 타마고텐동 정식</span>
-                </div>
-
-                <div class="detail-info">
-                    ⏰ <strong>운영 시간:</strong> 매일 11:30 - 21:00 (재료 소진 시 조기 마감, 브레이크 타임 15:00 - 17:00)<br>
-                    💰 <strong>가격대:</strong> 규카츠 정식 15,000원대
-                </div>
-
-                <div class="address-row">
-                    <span class="address-text" id="address2">세종특별자치시 나성로 133-15 애플타워 1층 113호 (나성동)</span>
-                    <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="1">
-                    <img src="../사진/규카츠정 나성점_1.jpg" alt="규카츠정 규카츠" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/규카츠정 나성점_2.jpg" alt="규카츠정 내부" class="restaurant-gallery-img" loading="lazy">
-                </div>
-                
-                <div class="parking-info">
-                    🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (2시간 무료 주차)
-                </div>
-
-                <p class="hashtag-container">
-                    <span class="hashtag">#규카츠정식</span>
-                    <span class="hashtag">#미니화로</span>
-                    <span class="hashtag">#데이트추천</span>
-                    <span class="hashtag">#나성동맛집</span>
-                </p>
-
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '규카츠정 나성점')">👍 추천</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '규카츠정 나성점')">👎 비추천</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '규카츠정 나성점')">🚨 폐업한거같아요</button>
-                </div>
-            </div>
-            
-            <div class="restaurant-item">
-                <a href="https://search.naver.com/search.naver?query=세종 수미순두부 왕코다리 화덕생선구이" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>3. 수미순두부&왕코다리&화덕생선구이 (든든한 한식 💪) <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
-                </a>
-
-                <div class="restaurant-description">
-                    <p> 한식 러버들을 위한 순두부찌개, 화덕 생선구이, 코다리조림 등 맛있는 메뉴를 한곳에 모아놓은 든든한 한정식집이에요. 화덕에 구워 기름기가 쪽 빠지고 바삭하며 냄새가 전혀 나지 않는 생선구이가 일품이에요.</p>
-                    <p> 푸짐하고 정갈한 반찬은 무한 리필이 가능하며, 개별 룸이 있어 부모님이나 친구 커플과 함께 와서 푸짐하게 식사하거나 가족 모임하기 아주 좋아요. 1인분 순두부 메뉴도 있어 편리하게 이용할 수 있어요.</p>
-                </div>
-                
-                <div class="recommend-menu-container">
-                    👍주인장 추천메뉴: <span class="recommend-menu">고등어구이 & 햄치즈순두부찌개</span>
-                </div>
-
-                <div class="detail-info">
-                    ⏰ <strong>운영 시간:</strong> 매일 10:00 - 21:00 (주말/공휴일은 브레이크 타임 없음)<br>
-                    💰 <strong>가격대:</strong> 순두부찌개 9,000원대, 생선구이 정식 12,000원대부터
-                </div>
-
-                <div class="address-row">
-                    <span class="address-text" id="address3">세종특별자치시 고운로 69 1층 (고운동)</span>
-                    <button class="copy-button" data-address-id="address3" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="2">
-                    <img src="../사진/수미순두부_1.jpg" alt="순두부찌개" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/수미순두부_2.jpg" alt="화덕생선구이" class="restaurant-gallery-img" loading="lazy">
-                </div>
-
-                <div class="parking-info">
-                    🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (무료 주차)
-                </div>
-
-                <p class="hashtag-container">
-                    <span class="hashtag">#순두부</span>
-                    <span class="hashtag">#화덕생선</span>
-                    <span class="hashtag">#푸짐한한정식</span>
-                    <span class="hashtag">#고운동맛집</span>
+            <div class="welcome-slide" id="slide2">
+                <p>
+                    <span class="emoji">✨</span> <strong>이번주 여기어때?!</strong> <span class="emoji">🥂</span>
                 </p>
                 
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '수미순두부')">👍 추천</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '수미순두부')">👎 비추천</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '수미순두부')">🚨 폐업한거같아요</button>
-                </div>
-            </div>
-
-            <div class="restaurant-item">
-                <a href="https://search.naver.com/search.naver?query=다이너 세종점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>4. 다이너 세종점 (DINER) - (기념일 추천 🥂) <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
-                </a>
-            
-                <div class="restaurant-description">
-                    <p> 고급스러운 분위기의 이탈리안 & 스테이크 전문점으로, 깔끔하고 쾌적한 공간 덕분에 기념일 데이트 장소로 강력 추천해요. 파스타, 리조또, 스테이크 등 다양한 메뉴의 맛이 훌륭하다는 평가가 많으며, 특히 샐러드와 빵 소스가 인기가 좋아요. </p>
-                    <p> 음식 나오는 속도가 빠르며, 콜키지(유료)와 반려동물 동반도 가능해요.</p>
-                </div>
-                
-                <div class="recommend-menu-container">
-                    👍주인장 추천메뉴: <span class="recommend-menu">갈비 리조또 & 단호박 크림치킨 스튜</span>
-                </div>
-
-                <div class="detail-info">
-                    ⏰ <strong>운영 시간:</strong> 매일 11:30 - 22:00 (브레이크 타임 15:30 - 17:30, 월요일 휴무)<br>
-                    💰 <strong>가격대:</strong> 파스타/리조또 18,000원대부터, 스테이크 35,000원대부터
-                </div>
-
-                <div class="address-row">
-                    <span class="address-text" id="address4">세종특별자치시 마음안1로 137 2층 (고운동)</span>
-                    <button class="copy-button" data-address-id="address4" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="3">
-                    <img src="../사진/다이너_1.jpg" alt="다이너 스테이크/파스타" class="restaurant-gallery-img">
-                    <img src="../사진/다이너_2.jpg" alt="다이너 내부 인테리어" class="restaurant-gallery-img">
-                </div>
-            
-                <div class="parking-info">
-                    🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (5시간 무료 주차)
-                </div>
-            
-                <p class="hashtag-container">
-                    <span class="hashtag">#이탈리안</span>
-                    <span class="hashtag">#스테이크</span>
-                    <span class="hashtag">#기념일데이트</span>
-                    <span class="hashtag">#개별룸</span>
-                </p>
-                
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '다이너 세종점')">👍 추천</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '다이너 세종점')">👎 비추천</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '다이너 세종점')">🚨 폐업한거같아요</button>
-                </div>
-            </div>
-            
-            <div class="restaurant-item">
-                <a href="https://search.naver.com/search.naver?query=믹스토랑+세종나성점" target="_blank" style="text-decoration: none; color: inherit;">
-                    <h4>5. 믹스토랑 세종나성점 (가성비 좋은 양식) <span class="link-text">(클릭하여 네이버 정보 바로가기!)</span></h4>
-                </a>
-                
-                <div class="restaurant-description">
-                    <p> 나성동 세종 예술의 전당 앞에 위치하여, 훌륭한 가성비로 스테이크와 파스타를 즐길 수 있는 양식 레스토랑이에요. 작지만 놀이방이 있어 아이 동반 가족 외식에도 적합하며, 직원들이 친절하다는 후기가 많아요.</p>
-                    <p> 깔끔하고 트렌디한 분위기 덕분에 가족 외식이나 연인과의 부담 없는 데이트 장소로 인기가 많아요. 런치와 디너 모두 웨이팅이 있을 정도로 인기가 높으니 서둘러 방문하는 것을 추천해요.</p>
-                </div>
-                
-                <div class="recommend-menu-container">
-                    </div>
-                
-                <div class="detail-info">
-                    ⏰ <strong>영업 시간:</strong> 매일 11:00 ~ 22:00 (라스트 오더 21:00, 연중무휴)<br>
-                    💰 <strong>가격대:</strong> 목살 스테이크(300g) 15,900원, 파스타/필라프류 13,900원대
-                </div>
-
-                <div class="address-row">
-                    <span class="address-text" id="food_address3">세종 나성동 288-4</span>
-                    <button class="copy-button" data-address-id="food_address3" onclick="copyAddress(this)">주소 복사</button>
-                </div>
-                
-                <div class="restaurant-image-gallery" data-item-index="4">
-                    <img src="../사진/믹스토랑_1.jpg" alt="믹스토랑 스테이크" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/믹스토랑_2.jpg" alt="믹스토랑 파스타" class="restaurant-gallery-img" loading="lazy">
-                    <img src="../사진/믹스토랑_3.jpg" alt="믹스토랑 샐러드" class="restaurant-gallery-img" loading="lazy">
-                </div>
-                
-                <div class="parking-info">
-                    🅿️ <strong>주차:</strong> 무료 주차 가능 (건물 주차장 이용)
-                </div>
-
-                <p class="hashtag-container">
-                    <span class="hashtag">#나성동맛집</span>
-                    <span class="hashtag">#가성비양식</span>
-                    <span class="hashtag">#스테이크</span>
-                    <span class="hashtag">#파스타맛집</span>
+                <p>
+                    <a href="https://search.naver.com/search.naver?query=세종 아름동 별클라이밍" target="_blank">
+                        1. 아름동 별클라이밍 
+                        <span class="link-text">바로가기</span>
+                    </a>
                 </p>
 
-                <div class="feedback-buttons">
-                    <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '믹스토랑 세종나성점')">👍 추천</button>
-                    <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '믹스토랑 세종나성점')">👎 비추천</button>
-                    <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '믹스토랑 세종나성점')">🚨 폐업한거같아요</button>
-                </div>
+                <p>
+                    <a href="https://search.naver.com/search.naver?query=세종 아름동 나무랄 데 없는 목공방" target="_blank">
+                        2. 아름동 나무랄 데 없는 목공방 
+                        <span class="link-text">바로가기</span>
+                    </a>
+                </p>
             </div>
-
+            
+            <div class="welcome-slide" id="slide3">
+                <p><span class="emoji">🎁</span> <strong>세종시 데이트 팁!</strong> <span class="emoji">🎁</span></p>
+                <p>날씨가 좋을 땐 세종호수공원 피크닉 🧺</p>
+                <p>추운 날엔 국립세종수목원 힐링 데이트🌿</p>
+            </div>
         </div>
+        
+        <div class="indicator-container" id="indicatorContainer">
+            </div>
+
+        <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.welcome-slide');
+            const totalSlides = slides.length;
+            const indicatorContainer = document.getElementById('indicatorContainer');
+            let slideInterval;
+
+            // 1. 인디케이터 생성 함수
+            function createIndicators() {
+                indicatorContainer.innerHTML = '';
+                slides.forEach((slide, index) => {
+                    const indicator = document.createElement('span');
+                    indicator.classList.add('indicator');
+                    indicator.addEventListener('click', () => {
+                        moveToSlide(index);
+                    });
+                    
+                    indicatorContainer.appendChild(indicator);
+                });
+            }
+
+            // 2. 슬라이드 표시 및 인디케이터 업데이트 함수
+            function showSlide(index) {
+                // 슬라이드 활성화/비활성화
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+
+                // 인디케이터 활성화/비활성화
+                const indicators = document.querySelectorAll('.indicator');
+                indicators.forEach((indicator, i) => {
+                    if (i === index) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 3. 다음 슬라이드로 이동 함수
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            // 4. 특정 슬라이드로 이동 함수 (인디케이터 클릭 시)
+            function moveToSlide(index) {
+                // 기존 인터벌 중지
+                clearInterval(slideInterval);
+                // 현재 슬라이드 업데이트
+                currentSlide = index;
+                showSlide(currentSlide);
+                // 인터벌 재시작
+                startInterval();
+            }
+
+            // 5. 인터벌 시작 함수 (5초 간격)
+            function startInterval() {
+                slideInterval = setInterval(nextSlide, 5000); // 5000ms = 5초
+            }
+
+
+            // --- 초기화 ---
+            createIndicators();
+            showSlide(currentSlide);
+            startInterval();
+        </script>
+        
+        <h2 style="margin-bottom: 0px;">
+            <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
+        </h2>
+
+        <div class="category-image-gallery">
+            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
+                <img src="../사진/규카츠정 나성점_1.jpg" alt="레스토랑 식사 장면" class="category-image">
+            </a>
+            <a href="먹거리/레스토랑&맛집.html" class="category-image-link">
+                <img src="../사진/다이너_1.jpg" alt="접시에 담긴 고급 요리" class="category-image">
+            </a>
+            </div>
+        
+        <a href="먹거리/레스토랑&맛집.html" class="article-link">
+            <h3>레스토랑 & 맛집</h3>
+            <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
+        </a>
+
+        <h2 style="margin-bottom: 0px;">
+             <a href="카페/카페.html">☕ 카페</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="카페/카페.html" class="category-image-link">
+                <img src="../사진/다올카페_1.jpg" alt="감성적인 인테리어 카페" class="category-image">
+            </a>
+            <a href="카페/카페.html" class="category-image-link">
+                <img src="../사진/다올카페_2.jpg" alt="커피와 달콤한 디저트" class="category-image">
+            </a>
+            </div>
+
+        <a href="카페/카페.html" class="article-link">
+            <h3>감성 카페 & 뷰 맛집</h3>
+            <p class="category-intro">📸 멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트 🍰까지!<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
+        </a>
+
+
+        <h2 style="margin-bottom: 0px;">
+            <a href="놀거리/놀거리.html">🤸 놀거리</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="놀거리/놀거리.html" class="category-image-link">
+                <img src="../사진/세종예술의전당_1.jpg" alt="실내 체험 활동" class="category-image">
+            </a>
+            <a href="놀거리/놀거리.html" class="category-image-link">
+                <img src="../사진/세종예술의전당_2.jpg" alt="레저 액티비티 장면" class="category-image">
+            </a>
+            </div>
+
+        <a href="놀거리/놀거리.html" class="article-link">
+            <h3>액티비티 & 체험</h3>
+            <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
+        </a>
+
+        <h2 style="margin-bottom: 0px;">
+            <a href="자연/공원.html">🏞️ 자연&힐링</a>
+        </h2>
+        
+        <div class="category-image-gallery">
+            <a href="자연/공원.html" class="category-image-link">
+                <img src="../사진/세종호수공원_1.JPG" alt="세종 야외 데이트" class="category-image">
+            </a>
+            <a href="자연/공원.html" class="category-image-link">
+                <img src="../사진/세종호수공원_2.JPG" alt="세종시 데이트 코스" class="category-image">
+            </a>
+            </div>
+
+        <a href="자연/공원.html" class="article-link">
+            <h3>공원</h3>
+            <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
+        </a>
+    
     </article>
     <div class="button-container">
         <button>
-            <a href="../../index.html" style="color: white; text-decoration: none;">메인 카테고리로 돌아가기</a>
+            <a href="../index.HTML" style="color: white; text-decoration: none;">Home</a>
         </button>
     </div>
     </div>
-    
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <a class="prev" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</a>
-        <a class="next" onclick="event.stopPropagation(); changeImage(1)">&#10095;</a>
-    </div>
-
-    <script>
-        // ... (스크립트 부분은 변경 없음)
-        let currentItemIndex = -1;
-        let currentImageIndex = -1;
-        let galleryImages = []; 
-
-        document.addEventListener('DOMContentLoaded', initGallery);
-
-        function initGallery() {
-            const galleryContainers = document.querySelectorAll('.restaurant-image-gallery');
-            galleryImages = Array.from(galleryContainers).map(container => 
-                Array.from(container.querySelectorAll('.restaurant-gallery-img'))
-            );
-
-            galleryImages.forEach((images, itemIndex) => {
-                images.forEach((img, imageIndex) => {
-                    img.onclick = function(event) {
-                        event.stopPropagation(); 
-                        openModal(itemIndex, imageIndex);
-                    };
-                });
-            });
-        }
-
-        function openModal(itemIndex, imageIndex) {
-            currentItemIndex = itemIndex;
-            currentImageIndex = imageIndex;
-            
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-
-            const selectedImage = galleryImages[currentItemIndex][currentImageIndex];
-            
-            modal.style.display = 'block';
-            modalImg.src = selectedImage.src;
-
-            updateNavigationButtons();
-        }
-
-        function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
-        }
-
-        function changeImage(direction) {
-            const currentImages = galleryImages[currentItemIndex];
-            let newIndex = currentImageIndex + direction;
-
-            if (newIndex < 0) {
-                newIndex = currentImages.length - 1; 
-            } else if (newIndex >= currentImages.length) {
-                newIndex = 0; 
-            }
-
-            currentImageIndex = newIndex;
-            const modalImg = document.getElementById('modalImage');
-            modalImg.src = currentImages[currentImageIndex].src;
-
-            updateNavigationButtons();
-        }
-        
-        function updateNavigationButtons() {
-             const currentImages = galleryImages[currentItemIndex];
-             const prevBtn = document.querySelector('.prev');
-             const nextBtn = document.querySelector('.next');
-             
-             if (currentImages && currentImages.length <= 1) {
-                 prevBtn.style.display = 'none';
-                 nextBtn.style.display = 'none';
-             } else {
-                 prevBtn.style.display = 'block';
-                 nextBtn.style.display = 'block';
-             }
-        }
-
-
-        function copyAddress(buttonElement) {
-            const addressId = buttonElement.getAttribute('data-address-id');
-            const addressElement = document.getElementById(addressId);
-            
-            if (addressElement) {
-                const addressText = addressElement.textContent;
-
-                navigator.clipboard.writeText(addressText.trim())
-                    .then(() => {
-                        const originalText = buttonElement.textContent;
-                        // [변경] 알림 문구 말투 수정
-                        buttonElement.textContent = '복사 완료! ✔️'; 
-                        
-                        setTimeout(() => {
-                            buttonElement.textContent = originalText;
-                        }, 1500);
-                        
-                    })
-                    .catch(err => {
-                        console.error('클립보드 복사 실패:', err);
-                        alert('주소 복사에 실패했어요. 수동으로 복사해 주세요: ' + addressText);
-                    });
-            }
-        }
-        
-        function handleFeedback(type, name) {
-            let message = '';
-            if (type === '추천') {
-                // [변경] 알림 문구 말투 수정
-                message = `${name}을(를) 추천해 주셔서 감사해요! 소중한 의견을 반영할게요. 😊`;
-            } else if (type === '비추천') {
-                // [변경] 알림 문구 말투 수정
-                message = `${name}에 대한 비추천 의견을 접수했어요. 불편하셨던 점을 참고하여 개선할게요. 😔`;
-            } else if (type === '폐업') {
-                // [변경] 알림 문구 말투 수정
-                message = `${name}의 폐업 신고를 접수했어요. 확인 후 리스트에서 제외할게요. 감사해요. 🙏`;
-            }
-            alert(message);
-        }
-    </script>
 </body>
 </html>
