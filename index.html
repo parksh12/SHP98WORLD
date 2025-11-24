@@ -130,29 +130,38 @@
         }
 
         /* ------------------------------------- */
-        /* [수정] 슬라이드 배너 (Carousel) 스타일 */
+        /* [핵심 수정 1] 슬라이드 배너 (Carousel) 스타일 - 화면 꽉 채우기 */
         /* ------------------------------------- */
+        
+        /* 배너 컨테이너: article의 padding을 무시하고 좌우를 꽉 채우도록 설정 */
+        .banner-wrapper {
+            /* article의 좌우 padding 30px을 상쇄시키기 위한 음수 마진 */
+            margin: 0 -30px 10px -30px; 
+            overflow: hidden; 
+            position: relative;
+            border-radius: 15px; /* article의 모서리 둥글게 유지 */
+        }
 
         .banner-container {
-            width: 90%;
-            max-width: 400px;
-            margin: 10px auto 10px auto; 
-            position: relative;
+            /* 배너 영역이 가로로 나열되도록 설정 */
+            display: flex; 
+            width: 100%;
             height: 0;
-            padding-top: 50%;
-            overflow: hidden; 
-            border-radius: 15px; 
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
-            /* 모바일 스와이프를 위해 터치 이벤트 활성화 */
+            padding-top: 50%; /* 높이를 너비의 50%로 설정 (가로가 긴 직사각형 비율 유지) */
+            position: relative;
+            /* [핵심 수정 2] 슬라이드 모션 적용 */
+            transition: transform 0.5s ease-in-out; 
             touch-action: pan-y;
         }
         
         .welcome-slide {
+            /* 기존 absolute 대신 flex item으로 설정 */
+            flex-shrink: 0; 
+            width: 100%; /* 슬라이드가 컨테이너 너비의 100%를 차지 */
+            height: 100%; 
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             
             background-color: #ffffff;
             background-size: cover; 
@@ -165,8 +174,6 @@
             font-weight: 500;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
             
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -175,6 +182,12 @@
             
             cursor: pointer;
         }
+        
+        /* 슬라이드들이 가로로 배치되도록 위치 조정 (JS가 이를 덮어씀) */
+        #slide1 { left: 0%; }
+        #slide2 { left: 100%; }
+        #slide3 { left: 200%; }
+        #slide4 { left: 300%; }
 
         .slide-overlay {
             position: absolute;
@@ -191,10 +204,7 @@
             background-color: rgba(0, 0, 0, 0.3); 
         }
         
-        .welcome-slide.active {
-            opacity: 1;
-            z-index: 10;
-        }
+        /* 이전 .active 스타일은 필요 없음. 위치 조정은 JS가 처리 */
 
         .slide-content {
             position: relative;
@@ -234,15 +244,13 @@
             background-color: #1a9c94;
         }
         
-        /* ------------------------------------- */
-        /* [수정] 슬라이드 탐색 버튼 스타일 (움직임 방지 및 투명도 증가) */
-        /* ------------------------------------- */
+        /* 슬라이드 탐색 버튼 스타일 */
         .slide-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 30; /* 1. 가장 위로 올려 클릭 오류 방지 */
-            background-color: rgba(0, 0, 0, 0.15); /* 1. 투명도 증가 (15%) */
+            z-index: 30; 
+            background-color: rgba(0, 0, 0, 0.15); 
             color: white;
             border: none;
             padding: 10px;
@@ -253,7 +261,7 @@
             opacity: 0; 
         }
         
-        .banner-container:hover .slide-button {
+        .banner-wrapper:hover .slide-button { /* banner-container -> banner-wrapper로 변경 */
             opacity: 1; 
         }
         
@@ -273,13 +281,13 @@
             border-bottom-left-radius: 10px;
         }
         
-        /* 1. 모바일 기기에서는 버튼을 항상 표시 및 더 투명하게 */
+        /* 모바일 기기에서는 버튼을 항상 표시 */
         @media (max-width: 600px) {
             .slide-button {
                 opacity: 0.8; 
                 background-color: rgba(0, 0, 0, 0.1); 
             }
-            .banner-container:hover .slide-button {
+            .banner-wrapper:hover .slide-button {
                 opacity: 0.8; 
             }
         }
@@ -313,7 +321,7 @@
         article {
             text-align: left;
             background-color: #ffffff;
-            padding: 30px;
+            padding: 30px; /* 기존 padding 유지 */
             margin: 20px;
             border-radius: 15px;
             color: #2c3e50;
@@ -413,49 +421,51 @@
             오늘 이런 데이트 어때요?
         </h2>
         
-        <div class="banner-container" id="bannerContainer">
-            
-            <a href="먹거리/레스토랑&맛집.html" class="welcome-slide" id="slide1" 
-                style="background-image: url('../사진/규카츠정 나성점_1.jpg');">
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <p><span class="emoji">🍽️</span> <strong>먹거리 카테고리</strong></p>
-                    <p class="sub-text">분위기 좋은 레스토랑 & 맛집을 찾아보세요!</p>
-                    <span class="slide-link-button">식사하러 가기</span>
-                </div>
-            </a>
-            
-            <a href="카페/카페.html" class="welcome-slide" id="slide2"
-                style="background-image: url('../사진/다올카페_1.jpg');">
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <p><span class="emoji">☕</span> <strong>카페 카테고리</strong></p>
-                    <p class="sub-text">예쁜 감성 카페에서 달콤한 시간을!</p>
-                    <span class="slide-link-button">카페 탐방하기</span>
-                </div>
-            </a>
-            
-            <a href="놀거리/놀거리.html" class="welcome-slide" id="slide3"
-                style="background-image: url('../사진/세종예술의전당_1.jpg');">
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <p><span class="emoji">🤸</span> <strong>놀거리 카테고리</strong></p>
-                    <p class="sub-text">심심할 틈 없는 액티비티 & 체험 공간</p>
-                    <span class="slide-link-button">신나게 놀기</span>
-                </div>
-            </a>
+        <div class="banner-wrapper"> 
 
-            <a href="자연/공원.html" class="welcome-slide" id="slide4"
-                style="background-image: url('../사진/세종호수공원_1.JPG');">
-                <div class="slide-overlay"></div>
-                <div class="slide-content">
-                    <p><span class="emoji">🏞️</span> <strong>자연 & 힐링 카테고리</strong></p>
-                    <p class="sub-text">힐링이 필요하다면 아름다운 공원으로</p>
-                    <span class="slide-link-button">산책하러 가기</span>
-                </div>
-            </a>
-            
-            <button class="slide-button prev-button" id="prevButton" aria-label="이전 슬라이드">
+            <div class="banner-container" id="bannerContainer">
+                
+                <a href="먹거리/레스토랑&맛집.html" class="welcome-slide" id="slide1" 
+                    style="background-image: url('../사진/규카츠정 나성점_1.jpg');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <p><span class="emoji">🍽️</span> <strong>먹거리 카테고리</strong></p>
+                        <p class="sub-text">분위기 좋은 레스토랑 & 맛집을 찾아보세요!</p>
+                        <span class="slide-link-button">식사하러 가기</span>
+                    </div>
+                </a>
+                
+                <a href="카페/카페.html" class="welcome-slide" id="slide2"
+                    style="background-image: url('../사진/다올카페_1.jpg');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <p><span class="emoji">☕</span> <strong>카페 카테고리</strong></p>
+                        <p class="sub-text">예쁜 감성 카페에서 달콤한 시간을!</p>
+                        <span class="slide-link-button">카페 탐방하기</span>
+                    </div>
+                </a>
+                
+                <a href="놀거리/놀거리.html" class="welcome-slide" id="slide3"
+                    style="background-image: url('../사진/세종예술의전당_1.jpg');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <p><span class="emoji">🤸</span> <strong>놀거리 카테고리</strong></p>
+                        <p class="sub-text">심심할 틈 없는 액티비티 & 체험 공간</p>
+                        <span class="slide-link-button">신나게 놀기</span>
+                    </div>
+                </a>
+
+                <a href="자연/공원.html" class="welcome-slide" id="slide4"
+                    style="background-image: url('../사진/세종호수공원_1.JPG');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <p><span class="emoji">🏞️</span> <strong>자연 & 힐링 카테고리</strong></p>
+                        <p class="sub-text">힐링이 필요하다면 아름다운 공원으로</p>
+                        <span class="slide-link-button">산책하러 가기</span>
+                    </div>
+                </a>
+                
+            </div> <button class="slide-button prev-button" id="prevButton" aria-label="이전 슬라이드">
                 <i class="fas fa-chevron-left"></i>
             </button>
             
@@ -463,9 +473,7 @@
                 <i class="fas fa-chevron-right"></i>
             </button>
             
-        </div>
-        
-        <div class="indicator-container" id="indicatorContainer">
+        </div> <div class="indicator-container" id="indicatorContainer">
             </div>
 
         <script>
@@ -473,18 +481,37 @@
             const slides = document.querySelectorAll('.welcome-slide');
             const totalSlides = slides.length;
             const indicatorContainer = document.getElementById('indicatorContainer');
+            const bannerContainer = document.getElementById('bannerContainer');
             let slideInterval;
             
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
-            const bannerContainer = document.getElementById('bannerContainer'); /* [2] 스와이프를 위해 추가 */
 
             // 스와이프 관련 변수
             let touchstartX = 0;
             let touchendX = 0;
-            const swipeThreshold = 50; // 50픽셀 이상 움직여야 스와이프로 인식
+            const swipeThreshold = 50; 
+            
+            /* ------------------------------------- */
+            /* [핵심 수정] 슬라이드 위치 업데이트 함수 (모션 적용) */
+            /* ------------------------------------- */
+            function updateSlidePosition() {
+                // bannerContainer의 translateX 속성을 변경하여 슬라이딩 효과 적용
+                const offset = -currentSlide * 100;
+                bannerContainer.style.transform = `translateX(${offset}%)`;
 
-            // 1. 인디케이터 생성 함수 (기존과 동일)
+                // 인디케이터 업데이트
+                const indicators = document.querySelectorAll('.indicator');
+                indicators.forEach((indicator, i) => {
+                    if (i === currentSlide) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+
+            // 1. 인디케이터 생성 함수 
             function createIndicators() {
                 indicatorContainer.innerHTML = '';
                 slides.forEach((slide, index) => {
@@ -498,52 +525,32 @@
                 });
             }
 
-            // 2. 슬라이드 표시 및 인디케이터 업데이트 함수 (기존과 동일)
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    if (i === index) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-
-                const indicators = document.querySelectorAll('.indicator');
-                indicators.forEach((indicator, i) => {
-                    if (i === index) {
-                        indicator.classList.add('active');
-                    } else {
-                        indicator.classList.remove('active');
-                    }
-                });
-            }
-            
-            // 3. 다음 슬라이드로 이동 함수 (기존과 동일)
+            // 2. 다음 슬라이드로 이동 함수
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % totalSlides;
-                showSlide(currentSlide);
+                updateSlidePosition();
             }
             
-            // 이전 슬라이드로 이동 함수 (기존과 동일)
+            // 이전 슬라이드로 이동 함수
             function prevSlide() {
                 currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                showSlide(currentSlide);
+                updateSlidePosition();
             }
 
-            // 4. 특정 슬라이드로 이동 함수 (인디케이터 클릭 시)
+            // 3. 특정 슬라이드로 이동 함수 (인디케이터/버튼 클릭 시)
             function moveToSlide(index) {
                 clearInterval(slideInterval);
                 currentSlide = index;
-                showSlide(currentSlide);
+                updateSlidePosition();
                 startInterval();
             }
 
-            // 5. 인터벌 시작 함수 (5초 간격) (기존과 동일)
+            // 4. 인터벌 시작 함수 (5초 간격)
             function startInterval() {
                 slideInterval = setInterval(nextSlide, 5000); // 5000ms = 5초
             }
             
-            // 버튼 이벤트 리스너 추가 (기존과 동일)
+            // 버튼 이벤트 리스너 추가
             prevButton.addEventListener('click', (e) => {
                 e.preventDefault(); 
                 clearInterval(slideInterval);
@@ -559,39 +566,53 @@
             });
 
             /* ------------------------------------- */
-            /* [NEW] 스와이프 (Swipe) 기능 구현 */
+            /* 스와이프 (Swipe) 기능 구현 */
             /* ------------------------------------- */
             
             bannerContainer.addEventListener('touchstart', e => {
                 touchstartX = e.changedTouches[0].screenX;
-                clearInterval(slideInterval); // 스와이프 시작 시 자동 전환 중지
+                clearInterval(slideInterval); 
+                bannerContainer.style.transition = 'none'; // 스와이프 중에는 애니메이션 끄기
+            }, false);
+
+            bannerContainer.addEventListener('touchmove', e => {
+                const currentTouchX = e.changedTouches[0].screenX;
+                const diff = currentTouchX - touchstartX;
+                const currentOffset = -currentSlide * 100;
+                const dragOffset = (diff / bannerContainer.offsetWidth) * 100;
+                
+                // 터치 드래그에 따라 슬라이드 위치를 실시간으로 업데이트
+                bannerContainer.style.transform = `translateX(${currentOffset + dragOffset}%)`;
             }, false);
 
             bannerContainer.addEventListener('touchend', e => {
                 touchendX = e.changedTouches[0].screenX;
+                bannerContainer.style.transition = 'transform 0.5s ease-in-out'; // 애니메이션 다시 켜기
                 handleGesture();
-                startInterval(); // 스와이프 종료 후 자동 전환 재시작
+                updateSlidePosition(); // 스와이프 완료 후 최종 위치로 이동
+                startInterval(); 
             }, false);
 
             function handleGesture() {
                 const diff = touchstartX - touchendX;
                 
-                if (Math.abs(diff) > swipeThreshold) { // 임계값(50px) 이상 움직였을 때만 처리
+                if (Math.abs(diff) > swipeThreshold) { 
                     if (diff > 0) {
                         // 왼쪽으로 스와이프 (다음 슬라이드)
-                        nextSlide();
+                        currentSlide = (currentSlide + 1) % totalSlides;
                     } else {
                         // 오른쪽으로 스와이프 (이전 슬라이드)
-                        prevSlide();
+                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                     }
                 }
+                // 스와이프가 약하면 제자리로 돌아오게 함 (updateSlidePosition()이 처리)
             }
             // -------------------------------------
 
 
             // --- 초기화 ---
             createIndicators();
-            showSlide(currentSlide);
+            updateSlidePosition(); // showSlide 대신 사용
             startInterval();
         </script>
         
