@@ -6,8 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* ... (이전 CSS 코드는 간결성을 위해 생략) ... */
-
         /* --- [1] 기본 레이아웃 (INDEX.HTML 기반) --- */
         body {
             margin: 0;
@@ -38,16 +36,18 @@
             flex-shrink: 0;
         }
         
+        /* [수정 1] 로고 크기 통일: 50px */
         .fixed-image {
-            width: 40px; 
-            height: 40px;
+            width: 50px; 
+            height: 50px;
             border-radius: 50%;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            margin-right: 10px;
+            margin-right: 15px; /* 간격 조정 */
         }
 
+        /* [수정 1] 타이틀 크기 통일: 1.8em */
         .fixed-title {
-            font-size: 1.6em; 
+            font-size: 1.8em; 
             font-weight: 700;
             margin: 0;
             padding: 5px 10px;
@@ -62,7 +62,8 @@
 
         /* --- [3] 콘텐츠 영역 --- */
         .content {
-            padding-top: 60px;
+            /* 로고 및 타이틀 크기에 맞춰 상단 패딩 조정 */
+            padding-top: 70px; 
             animation: fadeIn 1.5s ease-out;
             width: 90%;
             max-width: 800px;
@@ -108,9 +109,8 @@
         }
 
         .restaurant-item h4 {
-            /* [수정] 1.5em * 1.15 = 1.725em (시각적으로 1.75em로 설정) */
             font-size: 1.75em; 
-            color: #20b2aa; /* 글자색 유지 */
+            color: #20b2aa; 
             margin-top: 5px;
             margin-bottom: 5px;
             font-weight: 700;
@@ -306,7 +306,7 @@
         }
         
         /* ---------------------------------------------------- */
-        /* --- [NEW] 식당 항목별 이미지 슬라이드 (Carousel) 스타일 --- */
+        /* --- 이미지 슬라이드 (Carousel) 스타일 (이전 수정 사항 유지) --- */
         /* ---------------------------------------------------- */
         .slider-wrapper {
             margin: 15px 0; 
@@ -323,15 +323,23 @@
         .slide {
             flex-shrink: 0; 
             width: 100%; 
-            height: 200px; 
-            /* ---------- [수정] 원본 비율 유지 (contain) ---------- */
-            background-size: contain; 
-            background-position: center; 
-            background-repeat: no-repeat;
-            background-color: #f0f0f0; /* contain 시 여백이 생길 경우 배경색 지정 */
+            position: relative; 
+            padding-bottom: 56.25%; /* 16:9 비율 유지 */
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden; 
+            background-color: #f0f0f0; 
+        }
+        
+        .slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 원본 비율 유지하면서 컨테이너에 맞춤 */
+            object-position: center;
         }
 
         /* 슬라이드 탐색 버튼 스타일 */
@@ -395,12 +403,7 @@
             border: 1px solid #ffffff;
         }
         
-        /* 기존 갤러리 스타일 및 JS 초기화 기능 제거 */
-        .restaurant-image-gallery, .restaurant-gallery-img {
-            display: none !important; 
-        }
-
-        /* --- 모달(이미지 확대) 스타일은 변경 없음 --- */
+        /* 모달 스타일 (이전 수정 사항 유지) */
         .modal {
             display: none; 
             position: fixed;
@@ -417,10 +420,12 @@
         .modal-content {
             margin: auto;
             display: block;
-            width: 80%;
-            max-width: 700px;
-            max-height: 90vh;
+            width: 90%; 
+            max-width: 900px; 
+            height: auto; 
+            max-height: 85vh; 
             object-fit: contain; 
+            object-position: center;
         }
 
         .close {
@@ -479,12 +484,12 @@
             </a>
             
             <div class="restaurant-description">
-                <p> 새로 오픈한 후 인기가 많아 웨이팅이 있을 수 있는 회전초밥 프렌차이즈예요. 한 접시에 2,200원으로 가격이 매우 저렴한 편이에요. 특히 양념이 자극적이면서도 맛있는 초밥으로 유명하며, 새우초밥이 인기 메뉴예요.</p>
-                <p> 가성비 좋은 초밥 데이트를 즐기고 싶다면 이곳을 추천해 드려요.</p>
+                <p> 🍣 회전 레일 위의 행복! 이곳은 가성비와 맛, 두 마리 토끼를 모두 잡는 초밥 데이트 성지예요. 막 오픈한 후부터 입소문을 타고 인기가 폭발해서, 붐비는 시간대에는 잠깐의 웨이팅도 감수해야 할 정도랍니다. </p>
+                <p> 매 접시 2,200원이라는 놀라운 가격이지만, 퀄리티만큼은 훌륭해요. 특히 이곳의 양념 초밥들은 자극적이면서도 중독성 강한 맛으로 유명해요. 친구와 연인과 함께 회전 레일 앞에서 오늘은 몇 접시를 먹을지 내기하며 즐거운 시간을 보내 보세요. </p>
             </div>
             
             <div class="recommend-menu-container">
-                👍주인장 추천메뉴: <span class="recommend-menu">치즈구운새우롤 & 키조개관자</span>
+                👍추천메뉴: <span class="recommend-menu">치즈구운새우롤 & 키조개관자</span>
             </div>
             
             <div class="detail-info">
@@ -499,15 +504,11 @@
             
             <div class="slider-wrapper" data-item-index="0">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/으뜸스시 아름점_1.JPG');" 
-                         data-image-index="0"
-                         onclick="openModal(0, 0)">
+                    <div class="slide" onclick="openModal(0, 0)">
+                         <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/으뜸스시 아름점_2.JPG');" 
-                         data-image-index="1"
-                         onclick="openModal(0, 1)">
+                    <div class="slide" onclick="openModal(0, 1)">
+                         <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 이미지 2">
                     </div>
                 </div>
 
@@ -545,12 +546,12 @@
             </a>
 
             <div class="restaurant-description">
-                <p> 깔끔하고 아담한 일본 가정식 느낌의 가게예요. 겉은 바삭하고 속은 레어인 규카츠를 내 테이블 미니 화로에 원하는 만큼 구워 먹는 재미가 있어요. 고기가 정말 부드럽고 육즙이 살아있어 특별한 음식을 먹고 싶을 때 강력 추천해 드려요. 바 테이블이 있어 혼밥하기에도 좋아요. </p>
-                <p> 오픈런은 필수이며, 입에서 녹는 소고기 맛에 기분까지 좋아지는 곳이에요.</p>
+                <p> 🥩 나만의 미니 화로에서 즐기는 완벽한 한 점! 이곳은 깔끔한 인테리어와 아담한 분위기로 일본 여행 온 듯한 기분을 느끼게 해주는 곳이에요. 겉은 바삭, 속은 선홍빛 레어인 규카츠를 내 테이블에 놓인 미니 화로에 올려 내가 원하는 굽기로 조절해 먹는 재미가 특별하답니다. </p>
+                <p> 후기가 증명하듯 고기가 정말 부드럽고 육즙이 살아있어 입에 넣는 순간 사르르 녹는 경험을 할 수 있어요. 특별한 날, 연인에게 '이색적인 맛집'을 선물하고 싶다면 오픈런을 해서라도 꼭 방문해 보세요! 바 테이블도 마련되어 있어 혼밥족에게도 완벽해요.</p>
             </div>
             
             <div class="recommend-menu-container">
-                👍주인장 추천메뉴: <span class="recommend-menu">규카츠 타마고텐동 정식</span>
+                👍추천메뉴: <span class="recommend-menu">규카츠 타마고텐동 정식</span>
             </div>
 
             <div class="detail-info">
@@ -565,15 +566,11 @@
             
             <div class="slider-wrapper" data-item-index="1">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/규카츠정 나성점_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(1, 0)">
+                    <div class="slide" onclick="openModal(1, 0)">
+                         <img src="../사진/규카츠정 나성점_1.jpg" alt="규카츠정 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/규카츠정 나성점_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(1, 1)">
+                    <div class="slide" onclick="openModal(1, 1)">
+                         <img src="../사진/규카츠정 나성점_2.jpg" alt="규카츠정 이미지 2">
                     </div>
                 </div>
 
@@ -611,12 +608,12 @@
             </a>
 
             <div class="restaurant-description">
-                <p> 한식 러버들을 위한 순두부찌개, 화덕 생선구이, 코다리조림 등 맛있는 메뉴를 한곳에 모아놓은 든든한 한정식집이에요. 화덕에 구워 기름기가 쪽 빠지고 바삭하며 냄새가 전혀 나지 않는 생선구이가 일품이에요.</p>
-                <p> 푸짐하고 정갈한 반찬은 무한 리필이 가능하며, 개별 룸이 있어 부모님이나 친구 커플과 함께 와서 푸짐하게 식사하거나 가족 모임하기 아주 좋아요. 1인분 순두부 메뉴도 있어 편리하게 이용할 수 있어요.</p>
+                <p> 🐟 엄마의 손맛이 그리울 때, 든든한 한정식! 이곳은 데이트뿐만 아니라, 양가 부모님을 모시고 가기에도 완벽한 푸짐한 한정식 전문점이에요. 메뉴 구성 자체가 정갈하고 든든해서, 속 편안하고 맛있는 식사를 하고 싶을 때 최고랍니다. </p>
+                <p> 특히 화덕에서 구워 기름기가 쫙 빠진 생선구이는 겉바속촉의 정석으로, 냄새 걱정 없이 즐길 수 있어요. 순두부찌개, 코다리 등 메인 메뉴도 훌륭하지만, 무한 리필 가능한 정갈한 반찬 덕분에 만족도가 높아요. 개별 룸도 마련되어 있어 조용하고 오붓한 식사 시간을 보낼 수 있습니다.</p>
             </div>
             
             <div class="recommend-menu-container">
-                👍주인장 추천메뉴: <span class="recommend-menu">고등어구이 & 햄치즈순두부찌개</span>
+                👍추천메뉴: <span class="recommend-menu">고등어구이 & 햄치즈순두부찌개</span>
             </div>
 
             <div class="detail-info">
@@ -631,15 +628,11 @@
             
             <div class="slider-wrapper" data-item-index="2">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/수미순두부_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(2, 0)">
+                    <div class="slide" onclick="openModal(2, 0)">
+                         <img src="../사진/수미순두부_1.jpg" alt="수미순두부 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/수미순두부_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(2, 1)">
+                    <div class="slide" onclick="openModal(2, 1)">
+                         <img src="../사진/수미순두부_2.jpg" alt="수미순두부 이미지 2">
                     </div>
                 </div>
 
@@ -677,12 +670,12 @@
             </a>
             
             <div class="restaurant-description">
-                <p> 고급스러운 분위기의 이탈리안 & 스테이크 전문점으로, 깔끔하고 쾌적한 공간 덕분에 기념일 데이트 장소로 강력 추천해요. 파스타, 리조또, 스테이크 등 다양한 메뉴의 맛이 훌륭하다는 평가가 많으며, 특히 샐러드와 빵 소스가 인기가 좋아요. </p>
-                <p> 음식 나오는 속도가 빠르며, 콜키지(유료)와 반려동물 동반도 가능해요.</p>
+                <p> 🥂 사랑하는 연인과의 특별한 밤! 고급스럽고 깔끔한 분위기가 돋보이는 프리미엄 이탈리안 & 스테이크 레스토랑이에요. 기념일이나 특별한 날을 위한 데이트 장소로 이견 없이 1순위로 꼽히는 곳이랍니다. </p>
+                <p> 메뉴 하나하나 정성이 느껴지지만, 특히 스테이크와 시그니처 갈비 리조또에 대한 후기가 폭발적이에요. 아름다운 인테리어와 훌륭한 맛 덕분에 행복한 추억을 만들 수 있습니다. 콜키지(유료) 서비스와 반려동물 동반도 가능하니 필요하다면 미리 확인해 보세요.</p>
             </div>
             
             <div class="recommend-menu-container">
-                👍주인장 추천메뉴: <span class="recommend-menu">갈비 리조또 & 단호박 크림치킨 스튜</span>
+                👍추천메뉴: <span class="recommend-menu">갈비 리조또 & 단호박 크림치킨 스튜</span>
             </div>
 
             <div class="detail-info">
@@ -697,15 +690,11 @@
             
             <div class="slider-wrapper" data-item-index="3">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/다이너_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(3, 0)">
+                    <div class="slide" onclick="openModal(3, 0)">
+                         <img src="../사진/다이너_1.jpg" alt="다이너 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/다이너_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(3, 1)">
+                    <div class="slide" onclick="openModal(3, 1)">
+                         <img src="../사진/다이너_2.jpg" alt="다이너 이미지 2">
                     </div>
                 </div>
 
@@ -719,6 +708,7 @@
                 <div class="slide-indicator-container" data-item-index="3">
                     </div>
             </div>
+            
             <div class="parking-info">
                 🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (5시간 무료 주차)
             </div>
@@ -743,12 +733,12 @@
             </a>
             
             <div class="restaurant-description">
-                <p> 나성동 세종 예술의 전당 앞에 위치하여, 훌륭한 가성비로 스테이크와 파스타를 즐길 수 있는 양식 레스토랑이에요. 작지만 놀이방이 있어 아이 동반 가족 외식에도 적합하며, 직원들이 친절하다는 후기가 많아요.</p>
-                <p> 깔끔하고 트렌디한 분위기 덕분에 가족 외식이나 연인과의 부담 없는 데이트 장소로 인기가 많아요. 런치와 디너 모두 웨이팅이 있을 정도로 인기가 높으니 서둘러 방문하는 것을 추천해요.</p>
+                <p> 🍝 가성비와 트렌디함이 만난 캐주얼 다이닝! 세종 예술의 전당 인근에 위치해 공연 전후로 방문하기 좋은 양식 레스토랑입니다. 이곳은 스테이크, 파스타, 필라프 등 다양한 양식 메뉴를 놀라운 가성비로 즐길 수 있어 젊은 연인들에게 특히 인기가 높아요.</p>
+                <p> 깔끔하고 트렌디한 인테리어는 물론, 직원들의 친절한 서비스에 만족했다는 후기가 많습니다. 심지어 작지만 놀이방이 마련되어 있어 아이를 동반한 가족 외식으로도 손색이 없어요. 런치든 디너든 늘 활기찬 곳이니, 방문 시점에는 웨이팅을 고려하여 조금 서두르는 것을 추천합니다.</p>
             </div>
             
             <div class="recommend-menu-container">
-                👍주인장 추천메뉴: <span class="recommend-menu">목살 스테이크 & 상하이 해물 파스타</span> (추천메뉴가 HTML에 누락되어 임의로 추가했습니다.)
+                👍추천메뉴: <span class="recommend-menu">목살 스테이크 & 상하이 해물 파스타</span>
             </div>
             
             <div class="detail-info">
@@ -763,20 +753,14 @@
             
             <div class="slider-wrapper" data-item-index="4">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/믹스토랑_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(4, 0)">
+                    <div class="slide" onclick="openModal(4, 0)">
+                         <img src="../사진/믹스토랑_1.jpg" alt="믹스토랑 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/믹스토랑_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(4, 1)">
+                    <div class="slide" onclick="openModal(4, 1)">
+                         <img src="../사진/믹스토랑_2.jpg" alt="믹스토랑 이미지 2">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/믹스토랑_3.jpg');" 
-                         data-image-index="2"
-                         onclick="openModal(4, 2)">
+                    <div class="slide" onclick="openModal(4, 2)">
+                         <img src="../사진/믹스토랑_3.jpg" alt="믹스토랑 이미지 3">
                     </div>
                 </div>
 
@@ -790,6 +774,7 @@
                 <div class="slide-indicator-container" data-item-index="4">
                     </div>
             </div>
+            
             <div class="parking-info">
                 🅿️ <strong>주차:</strong> 무료 주차 가능 (건물 주차장 이용)
             </div>
@@ -819,7 +804,7 @@
     
     <div id="imageModal" class="modal" onclick="closeModal()">
         <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
+        <img class="modal-content" id="modalImage" alt="확대된 이미지">
         <a class="prev" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</a>
         <a class="next" onclick="event.stopPropagation(); changeImage(1)">&#10095;</a>
     </div>
@@ -934,7 +919,7 @@
         }
 
         /* ------------------------------------- */
-        /* --- 이미지 확대 모달 기능 (기존 로직 유지) --- */
+        /* --- 이미지 확대 모달 기능 --- */
         /* ------------------------------------- */
 
         let currentItemIndex = -1;
@@ -942,15 +927,12 @@
         let galleryImages = []; // 슬라이드 이미지 URL을 저장할 배열
 
         function initModalGallery() {
-            // 모든 .slider-wrapper 내의 .slide 요소를 찾아서 galleryImages 배열 구성
+            // 모든 .slider-wrapper 내의 .slide 내부 img 요소를 찾아서 galleryImages 배열 구성
             const wrappers = document.querySelectorAll('.slider-wrapper');
             galleryImages = Array.from(wrappers).map(wrapper =>
-                Array.from(wrapper.querySelectorAll('.slide')).map(slide => {
-                    // style 속성에서 background-image URL 추출
-                    const style = slide.style.backgroundImage;
-                    const urlMatch = style.match(/url\(['"]?(.*?)['"]?\)/);
-                    return urlMatch ? urlMatch[1] : '';
-                }).filter(url => url !== '') 
+                Array.from(wrapper.querySelectorAll('.slide img')).map(img => 
+                    img.getAttribute('src') 
+                ).filter(url => url !== '') 
             );
         }
 
