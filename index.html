@@ -55,13 +55,13 @@
             color: #20b2aa; /* 주된 청록색 */
         }
         
-        /* [NEW/수정] 환영 문구 h2 스타일 (왼쪽 세로 바 제거) */
+        /* [핵심 수정] 환영 문구 h2 스타일: 아래 마진을 0으로 설정 */
         .welcome-text-title {
             font-size: 1.8em;
             font-weight: 700;
             text-align: left;
             margin-top: 40px;
-            margin-bottom: 20px;
+            margin-bottom: 0px; /* 기존 10px에서 0px로 수정 */
             color: #2c3e50;
             border-left: none;
             padding-left: 0;
@@ -73,11 +73,15 @@
             font-size: 1.8em;
             font-weight: 700;
             text-align: left;
-            margin-top: 40px;
+            margin-top: 50px; /* 카테고리 간격 50px 유지 */
             margin-bottom: 10px;
             color: #2c3e50;
             border-left: 5px solid #20b2aa; /* 청록색 경계선 */
             padding-left: 10px;
+        }
+        /* 첫 번째 카테고리 (먹거리) 마진 0 유지 */
+        h2:first-of-type {
+            margin-top: 0;
         }
         h2 a {
             color: #2c3e50;
@@ -130,34 +134,29 @@
         }
 
         /* ------------------------------------- */
-        /* [핵심 수정 1] 슬라이드 배너 (Carousel) 스타일 - 화면 꽉 채우기 */
+        /* 슬라이드 배너 (Carousel) 스타일 */
         /* ------------------------------------- */
         
-        /* 배너 컨테이너: article의 padding을 무시하고 좌우를 꽉 채우도록 설정 */
+        /* [핵심 수정] banner-wrapper 상단 마진 100px 적용 */
         .banner-wrapper {
-            /* article의 좌우 padding 30px을 상쇄시키기 위한 음수 마진 */
-            margin: 0 -30px 10px -30px; 
+            margin: 100px -30px 80px -30px; /* 상 100px, 좌우 -30px, 하 80px */
             overflow: hidden; 
             position: relative;
-            border-radius: 15px; /* article의 모서리 둥글게 유지 */
         }
 
         .banner-container {
-            /* 배너 영역이 가로로 나열되도록 설정 */
             display: flex; 
             width: 100%;
             height: 0;
-            padding-top: 50%; /* 높이를 너비의 50%로 설정 (가로가 긴 직사각형 비율 유지) */
+            padding-top: 50%; 
             position: relative;
-            /* [핵심 수정 2] 슬라이드 모션 적용 */
             transition: transform 0.5s ease-in-out; 
             touch-action: pan-y;
         }
         
         .welcome-slide {
-            /* 기존 absolute 대신 flex item으로 설정 */
             flex-shrink: 0; 
-            width: 100%; /* 슬라이드가 컨테이너 너비의 100%를 차지 */
+            width: 100%; 
             height: 100%; 
             position: absolute;
             top: 0;
@@ -183,7 +182,6 @@
             cursor: pointer;
         }
         
-        /* 슬라이드들이 가로로 배치되도록 위치 조정 (JS가 이를 덮어씀) */
         #slide1 { left: 0%; }
         #slide2 { left: 100%; }
         #slide3 { left: 200%; }
@@ -197,15 +195,12 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.4); 
             z-index: 6; 
-            border-radius: 15px;
             transition: background-color 0.3s;
         }
         .welcome-slide:hover .slide-overlay {
             background-color: rgba(0, 0, 0, 0.3); 
         }
         
-        /* 이전 .active 스타일은 필요 없음. 위치 조정은 JS가 처리 */
-
         .slide-content {
             position: relative;
             z-index: 7; 
@@ -261,7 +256,7 @@
             opacity: 0; 
         }
         
-        .banner-wrapper:hover .slide-button { /* banner-container -> banner-wrapper로 변경 */
+        .banner-wrapper:hover .slide-button { 
             opacity: 1; 
         }
         
@@ -271,14 +266,10 @@
 
         .prev-button {
             left: 0;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
         }
 
         .next-button {
             right: 0;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
         }
         
         /* 모바일 기기에서는 버튼을 항상 표시 */
@@ -296,7 +287,7 @@
         /* 동그라미 인디케이터 스타일 유지 */
         .indicator-container {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 40px; 
             z-index: 15;
             position: relative; 
         }
@@ -317,13 +308,13 @@
         }
 
 
-        /* [6] 콘텐츠 박스 및 나머지 스타일 유지 */
+        /* [6] 콘텐츠 박스 및 나머지 스타일 */
         article {
             text-align: left;
             background-color: #ffffff;
-            padding: 30px; /* 기존 padding 유지 */
+            padding: 30px; 
             margin: 20px;
-            border-radius: 15px;
+            border-radius: 15px; 
             color: #2c3e50;
             width: 90%;
             max-width: 800px;
@@ -415,7 +406,8 @@
 
     <article>
         
-        <h2 class="welcome-text-title">
+        <h2 class="welcome-text-title">   
+            <br>
             안녕하세요👋
             <br>
             오늘 이런 데이트 어때요?
@@ -487,20 +479,14 @@
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
 
-            // 스와이프 관련 변수
             let touchstartX = 0;
             let touchendX = 0;
             const swipeThreshold = 50; 
             
-            /* ------------------------------------- */
-            /* [핵심 수정] 슬라이드 위치 업데이트 함수 (모션 적용) */
-            /* ------------------------------------- */
             function updateSlidePosition() {
-                // bannerContainer의 translateX 속성을 변경하여 슬라이딩 효과 적용
                 const offset = -currentSlide * 100;
                 bannerContainer.style.transform = `translateX(${offset}%)`;
 
-                // 인디케이터 업데이트
                 const indicators = document.querySelectorAll('.indicator');
                 indicators.forEach((indicator, i) => {
                     if (i === currentSlide) {
@@ -511,7 +497,6 @@
                 });
             }
 
-            // 1. 인디케이터 생성 함수 
             function createIndicators() {
                 indicatorContainer.innerHTML = '';
                 slides.forEach((slide, index) => {
@@ -525,19 +510,16 @@
                 });
             }
 
-            // 2. 다음 슬라이드로 이동 함수
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % totalSlides;
                 updateSlidePosition();
             }
             
-            // 이전 슬라이드로 이동 함수
             function prevSlide() {
                 currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                 updateSlidePosition();
             }
 
-            // 3. 특정 슬라이드로 이동 함수 (인디케이터/버튼 클릭 시)
             function moveToSlide(index) {
                 clearInterval(slideInterval);
                 currentSlide = index;
@@ -545,12 +527,10 @@
                 startInterval();
             }
 
-            // 4. 인터벌 시작 함수 (5초 간격)
             function startInterval() {
-                slideInterval = setInterval(nextSlide, 5000); // 5000ms = 5초
+                slideInterval = setInterval(nextSlide, 5000); 
             }
             
-            // 버튼 이벤트 리스너 추가
             prevButton.addEventListener('click', (e) => {
                 e.preventDefault(); 
                 clearInterval(slideInterval);
@@ -572,7 +552,7 @@
             bannerContainer.addEventListener('touchstart', e => {
                 touchstartX = e.changedTouches[0].screenX;
                 clearInterval(slideInterval); 
-                bannerContainer.style.transition = 'none'; // 스와이프 중에는 애니메이션 끄기
+                bannerContainer.style.transition = 'none'; 
             }, false);
 
             bannerContainer.addEventListener('touchmove', e => {
@@ -581,15 +561,14 @@
                 const currentOffset = -currentSlide * 100;
                 const dragOffset = (diff / bannerContainer.offsetWidth) * 100;
                 
-                // 터치 드래그에 따라 슬라이드 위치를 실시간으로 업데이트
                 bannerContainer.style.transform = `translateX(${currentOffset + dragOffset}%)`;
             }, false);
 
             bannerContainer.addEventListener('touchend', e => {
                 touchendX = e.changedTouches[0].screenX;
-                bannerContainer.style.transition = 'transform 0.5s ease-in-out'; // 애니메이션 다시 켜기
+                bannerContainer.style.transition = 'transform 0.5s ease-in-out'; 
                 handleGesture();
-                updateSlidePosition(); // 스와이프 완료 후 최종 위치로 이동
+                updateSlidePosition(); 
                 startInterval(); 
             }, false);
 
@@ -598,25 +577,22 @@
                 
                 if (Math.abs(diff) > swipeThreshold) { 
                     if (diff > 0) {
-                        // 왼쪽으로 스와이프 (다음 슬라이드)
                         currentSlide = (currentSlide + 1) % totalSlides;
                     } else {
-                        // 오른쪽으로 스와이프 (이전 슬라이드)
                         currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                     }
                 }
-                // 스와이프가 약하면 제자리로 돌아오게 함 (updateSlidePosition()이 처리)
             }
             // -------------------------------------
 
 
             // --- 초기화 ---
             createIndicators();
-            updateSlidePosition(); // showSlide 대신 사용
+            updateSlidePosition(); 
             startInterval();
         </script>
         
-        <h2 style="margin-bottom: 0px;">
+        <h2 style="margin-bottom: 0px;"> 
             <a href="먹거리/레스토랑&맛집.html">🍽️ 먹거리</a>
         </h2>
 
