@@ -6,8 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* ... (이전 CSS 코드는 간결성을 위해 생략) ... */
-
         /* --- [1] 기본 레이아웃 (INDEX.HTML 기반) --- */
         body {
             margin: 0;
@@ -320,17 +318,30 @@
             touch-action: pan-y;
         }
 
+        /* ---------- [수정] .slide 스타일: 높이를 가로 비율에 맞춤 ---------- */
         .slide {
             flex-shrink: 0; 
             width: 100%; 
-            height: 200px; 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
+            position: relative; /* 내부 img 태그 위치 지정을 위해 */
+            padding-bottom: 56.25%; /* 16:9 비율 유지 (높이 = 너비 * 0.5625). 필요에 따라 75%(4:3) 등으로 변경 가능 */
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* 이미지 넘치는 부분 숨김 */
+            background-color: #f0f0f0; /* 이미지가 로드되기 전이나 여백이 생길 경우 대비 */
         }
+        
+        /* ---------- [NEW] .slide 내부 img 스타일: 원본 비율 유지 (contain) ---------- */
+        .slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* 원본 비율 유지하면서 컨테이너에 맞춤 (여백 발생 가능) */
+            object-position: center;
+        }
+
 
         /* 슬라이드 탐색 버튼 스타일 */
         .slide-nav-button {
@@ -398,7 +409,7 @@
             display: none !important; 
         }
 
-        /* --- 모달(이미지 확대) 스타일은 변경 없음 --- */
+        /* --- 모달(이미지 확대) 스타일 --- */
         .modal {
             display: none; 
             position: fixed;
@@ -412,13 +423,16 @@
             background-color: rgba(0,0,0,0.9); 
         }
 
+        /* ---------- [수정] 모달 이미지 스타일 (원본 비율 유지) ---------- */
         .modal-content {
             margin: auto;
             display: block;
-            width: 80%;
-            max-width: 700px;
-            max-height: 90vh;
+            width: 90%; 
+            max-width: 900px; 
+            height: auto; 
+            max-height: 85vh; 
             object-fit: contain; 
+            object-position: center;
         }
 
         .close {
@@ -497,15 +511,11 @@
             
             <div class="slider-wrapper" data-item-index="0">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/으뜸스시 아름점_1.JPG');" 
-                         data-image-index="0"
-                         onclick="openModal(0, 0)">
+                    <div class="slide" onclick="openModal(0, 0)">
+                         <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/으뜸스시 아름점_2.JPG');" 
-                         data-image-index="1"
-                         onclick="openModal(0, 1)">
+                    <div class="slide" onclick="openModal(0, 1)">
+                         <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 이미지 2">
                     </div>
                 </div>
 
@@ -563,15 +573,11 @@
             
             <div class="slider-wrapper" data-item-index="1">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/규카츠정 나성점_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(1, 0)">
+                    <div class="slide" onclick="openModal(1, 0)">
+                         <img src="../사진/규카츠정 나성점_1.jpg" alt="규카츠정 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/규카츠정 나성점_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(1, 1)">
+                    <div class="slide" onclick="openModal(1, 1)">
+                         <img src="../사진/규카츠정 나성점_2.jpg" alt="규카츠정 이미지 2">
                     </div>
                 </div>
 
@@ -629,15 +635,11 @@
             
             <div class="slider-wrapper" data-item-index="2">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/수미순두부_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(2, 0)">
+                    <div class="slide" onclick="openModal(2, 0)">
+                         <img src="../사진/수미순두부_1.jpg" alt="수미순두부 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/수미순두부_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(2, 1)">
+                    <div class="slide" onclick="openModal(2, 1)">
+                         <img src="../사진/수미순두부_2.jpg" alt="수미순두부 이미지 2">
                     </div>
                 </div>
 
@@ -695,15 +697,11 @@
             
             <div class="slider-wrapper" data-item-index="3">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/다이너_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(3, 0)">
+                    <div class="slide" onclick="openModal(3, 0)">
+                         <img src="../사진/다이너_1.jpg" alt="다이너 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/다이너_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(3, 1)">
+                    <div class="slide" onclick="openModal(3, 1)">
+                         <img src="../사진/다이너_2.jpg" alt="다이너 이미지 2">
                     </div>
                 </div>
 
@@ -761,20 +759,14 @@
             
             <div class="slider-wrapper" data-item-index="4">
                 <div class="slider-container">
-                    <div class="slide" 
-                         style="background-image: url('../사진/믹스토랑_1.jpg');" 
-                         data-image-index="0"
-                         onclick="openModal(4, 0)">
+                    <div class="slide" onclick="openModal(4, 0)">
+                         <img src="../사진/믹스토랑_1.jpg" alt="믹스토랑 이미지 1">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/믹스토랑_2.jpg');" 
-                         data-image-index="1"
-                         onclick="openModal(4, 1)">
+                    <div class="slide" onclick="openModal(4, 1)">
+                         <img src="../사진/믹스토랑_2.jpg" alt="믹스토랑 이미지 2">
                     </div>
-                    <div class="slide" 
-                         style="background-image: url('../사진/믹스토랑_3.jpg');" 
-                         data-image-index="2"
-                         onclick="openModal(4, 2)">
+                    <div class="slide" onclick="openModal(4, 2)">
+                         <img src="../사진/믹스토랑_3.jpg" alt="믹스토랑 이미지 3">
                     </div>
                 </div>
 
@@ -817,7 +809,7 @@
     
     <div id="imageModal" class="modal" onclick="closeModal()">
         <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
+        <img class="modal-content" id="modalImage" alt="확대된 이미지">
         <a class="prev" onclick="event.stopPropagation(); changeImage(-1)">&#10094;</a>
         <a class="next" onclick="event.stopPropagation(); changeImage(1)">&#10095;</a>
     </div>
@@ -932,7 +924,7 @@
         }
 
         /* ------------------------------------- */
-        /* --- 이미지 확대 모달 기능 (기존 로직 유지) --- */
+        /* --- 이미지 확대 모달 기능 (img 태그 사용에 맞게 수정) --- */
         /* ------------------------------------- */
 
         let currentItemIndex = -1;
@@ -940,15 +932,12 @@
         let galleryImages = []; // 슬라이드 이미지 URL을 저장할 배열
 
         function initModalGallery() {
-            // 모든 .slider-wrapper 내의 .slide 요소를 찾아서 galleryImages 배열 구성
+            // 모든 .slider-wrapper 내의 .slide 내부 img 요소를 찾아서 galleryImages 배열 구성
             const wrappers = document.querySelectorAll('.slider-wrapper');
             galleryImages = Array.from(wrappers).map(wrapper =>
-                Array.from(wrapper.querySelectorAll('.slide')).map(slide => {
-                    // style 속성에서 background-image URL 추출
-                    const style = slide.style.backgroundImage;
-                    const urlMatch = style.match(/url\(['"]?(.*?)['"]?\)/);
-                    return urlMatch ? urlMatch[1] : '';
-                }).filter(url => url !== '') 
+                Array.from(wrapper.querySelectorAll('.slide img')).map(img => 
+                    img.getAttribute('src') 
+                ).filter(url => url !== '') 
             );
         }
 
