@@ -541,36 +541,65 @@
         </div>
         
         <div class="restaurant-item">
-            <a href="https://search.naver.com/search.naver?query=세종 규카츠정 나성점" target="_blank" style="text-decoration: none; color: inherit;">
-                <h4>2. 규카츠정 나성점 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
+            <a href="https://search.naver.com/search.naver?query=세종               <div class="slider-container">
+                    <div class="slide" onclick="openModal(0, 0)">
+                         <img src="../사진/이응다리_1.JPG" alt="으뜸스시 이미지 1">
+                    </div>
+                    <div class="slide" onclick="openModal(0, 1)">
+                         <img src="../사진/이응다리_2.JPG" alt="으뜸스시 이미지 2">
+                    </div>
+                </div>
+
+                <button class="slide-nav-button slide-prev-button" data-item-index="0" onclick="event.stopPropagation(); navigateSlide(0, -1)">
+                    &#10094;
+                </button>
+                <button class="slide-nav-button slide-next-button" data-item-index="0" onclick="event.stopPropagation(); navigateSlide(0, 1)">
+                    &#10095;
+                </button>
+                
+                <div class="slide-indicator-container" data-item-index="0">
+                    </div>
+            </div>
+            <div class="parking-info">
+                🅿️ <strong>주차:</strong> 세종특별자치시 중앙녹지로 456 (주차장 기준)
+            </div>
+
+            <p class="hashtag-container">
+                <span class="hashtag">#세종 랜드마크</span>
+                <span class="hashtag">#야경명소</span>
+                <span class="hashtag">#산책</span>
+                <span class="hashtag">#자전거 데이트</span>
+            </p>
+
+            <div class="feedback-buttons">
+                <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '이응다리')">👍 추천</button>
+                <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '이응다리')">👎 비추천</button>
+                <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '이응다리')">🚨 폐업한거같아요</button>
+            </div>
+        </div>
+        
+        <div class="restaurant-item">
+            <a href="https://search.naver.com/search.naver?query=세종+중앙공원" target="_blank" style="text-decoration: none; color: inherit;">
+                <h4>2. 세종 호수공원 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
             </a>
 
             <div class="restaurant-description">
-                <p> 깔끔하고 아담한 일본 가정식 느낌의 가게예요. 겉은 바삭하고 속은 레어인 규카츠를 내 테이블 미니 화로에 원하는 만큼 구워 먹는 재미가 있어요. 고기가 정말 부드럽고 육즙이 살아있어 특별한 음식을 먹고 싶을 때 강력 추천해 드려요. 바 테이블이 있어 혼밥하기에도 좋아요. </p>
-                <p> 오픈런은 필수이며, 입에서 녹는 소고기 맛에 기분까지 좋아지는 곳이에요.</p>
-            </div>
-            
-            <div class="recommend-menu-container">
-                👍 추천메뉴: <span class="recommend-menu">규카츠 타마고텐동 정식</span>
-            </div>
+                <p>세종 호수공원 설명 </p>
 
-            <div class="detail-info">
-                ⏰ <strong>운영 시간:</strong> 매일 11:30 - 21:00 (재료 소진 시 조기 마감, 브레이크 타임 15:00 - 17:00)<br>
-                💰 <strong>가격대:</strong> 규카츠 정식 15,000원대
             </div>
 
             <div class="address-row">
-                <span class="address-text" id="address2">세종특별자치시 나성로 133-15 애플타워 1층 113호 (나성동)</span>
+                <span class="address-text" id="address2">세종 중앙공원로 60 </span>
                 <button class="copy-button" data-address-id="address2" onclick="copyAddress(this)">주소 복사</button>
             </div>
             
             <div class="slider-wrapper" data-item-index="1">
                 <div class="slider-container">
                     <div class="slide" onclick="openModal(1, 0)">
-                         <img src="../사진/규카츠정 나성점_1.jpg" alt="규카츠정 이미지 1">
+                         <img src="../사진/세종호수공원_1.jpg" alt="세종호수공원 이미지 1">
                     </div>
                     <div class="slide" onclick="openModal(1, 1)">
-                         <img src="../사진/규카츠정 나성점_2.jpg" alt="규카츠정 이미지 2">
+                         <img src="../사진/세종호수공원_2.jpg" alt="세종호수공원 이미지 2">
                     </div>
                 </div>
 
@@ -585,41 +614,32 @@
                     </div>
             </div>
             <div class="parking-info">
-                🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (2시간 무료 주차)
+                🅿️ <strong>주차:</strong> 무료 공영주차장
             </div>
 
             <p class="hashtag-container">
-                <span class="hashtag">#규카츠정식</span>
-                <span class="hashtag">#미니화로</span>
-                <span class="hashtag">#데이트추천</span>
-                <span class="hashtag">#나성동맛집</span>
+                <span class="hashtag">#세종 호수공원</span>
+                <span class="hashtag">#세종 중앙공원</span>
+                <span class="hashtag">#호수공원 데이트</span>
             </p>
 
             <div class="feedback-buttons">
-                <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '규카츠정 나성점')">👍 추천</button>
-                <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '규카츠정 나성점')">👎 비추천</button>
-                <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '규카츠정 나성점')">🚨 폐업한거같아요</button>
+                <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '세종호수공원')">👍 추천</button>
+                <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '세종호수공원')">👎 비추천</button>
+                <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '세종호수공원')">🚨 폐업한거같아요</button>
             </div>
         </div>
         
         <div class="restaurant-item">
             <a href="https://search.naver.com/search.naver?query=세종 수미순두부 왕코다리 화덕생선구이" target="_blank" style="text-decoration: none; color: inherit;">
-                <h4>3. 수미순두부&왕코다리&화덕생선구이 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
+                <h4>3. 세종 국립수목원 <span class="link-text">(클릭하여 네이버 바로가기!)</span></h4>
             </a>
 
             <div class="restaurant-description">
-                <p> 한식 러버들을 위한 순두부찌개, 화덕 생선구이, 코다리조림 등 맛있는 메뉴를 한곳에 모아놓은 든든한 한정식집이에요. 화덕에 구워 기름기가 쪽 빠지고 바삭하며 냄새가 전혀 나지 않는 생선구이가 일품이에요.</p>
-                <p> 푸짐하고 정갈한 반찬은 무한 리필이 가능하며, 개별 룸이 있어 부모님이나 친구 커플과 함께 와서 푸짐하게 식사하거나 가족 모임하기 아주 좋아요. 1인분 순두부 메뉴도 있어 편리하게 이용할 수 있어요.</p>
+                <p> 수목원 설명</p>
+
             </div>
             
-            <div class="recommend-menu-container">
-                👍 추천메뉴: <span class="recommend-menu">고등어구이 & 햄치즈순두부찌개</span>
-            </div>
-
-            <div class="detail-info">
-                ⏰ <strong>운영 시간:</strong> 매일 10:00 - 21:00 (주말/공휴일은 브레이크 타임 없음)<br>
-                💰 <strong>가격대:</strong> 순두부찌개 9,000원대, 생선구이 정식 12,000원대부터
-            </div>
 
             <div class="address-row">
                 <span class="address-text" id="address3">세종특별자치시 고운로 69 1층 (고운동)</span>
@@ -629,10 +649,10 @@
             <div class="slider-wrapper" data-item-index="2">
                 <div class="slider-container">
                     <div class="slide" onclick="openModal(2, 0)">
-                         <img src="../사진/수미순두부_1.jpg" alt="수미순두부 이미지 1">
+                         <img src="../사진/세종국립수목원_1.jpg" alt="세종국립수목원 이미지 1">
                     </div>
                     <div class="slide" onclick="openModal(2, 1)">
-                         <img src="../사진/수미순두부_2.jpg" alt="수미순두부 이미지 2">
+                         <img src="../사진/세종국립수목원_2.jpg" alt="세종국립수목원 이미지 2">
                     </div>
                 </div>
 
@@ -647,20 +667,20 @@
                     </div>
             </div>
             <div class="parking-info">
-                🅿️ <strong>주차:</strong> 건물 지하 주차장 이용 가능 (무료 주차)
+                🅿️ <strong>주차:</strong> 모르겠다?
             </div>
 
             <p class="hashtag-container">
-                <span class="hashtag">#순두부</span>
-                <span class="hashtag">#화덕생선</span>
-                <span class="hashtag">#푸짐한한정식</span>
-                <span class="hashtag">#고운동맛집</span>
+                <span class="hashtag">#해</span>
+                <span class="hashtag">#시</span>
+                <span class="hashtag">#태</span>
+                <span class="hashtag">#그</span>
             </p>
             
             <div class="feedback-buttons">
-                <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '수미순두부')">👍 추천</button>
-                <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '수미순두부')">👎 비추천</button>
-                <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '수미순두부')">🚨 폐업한거같아요</button>
+                <button class="feedback-button btn-recommend" onclick="handleFeedback('추천', '세종국립수목원')">👍 추천</button>
+                <button class="feedback-button btn-not-recommend" onclick="handleFeedback('비추천', '세종국립수목원')">👎 비추천</button>
+                <button class="feedback-button btn-closed" onclick="handleFeedback('폐업', '세종국립수목원')">🚨 폐업한거같아요</button>
             </div>
         </div>
             
