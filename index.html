@@ -5,6 +5,8 @@
     <title>세종시 데이트 지도</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -59,10 +61,10 @@
             font-weight: 700;
             text-align: left;
             margin-top: 40px;
-            margin-bottom: 20px; /* 카테고리 h2와 달리 마진 조정 */
+            margin-bottom: 20px;
             color: #2c3e50;
-            border-left: none; /* 핵심: 기존 h2 스타일의 세로 바 제거 */
-            padding-left: 0; /* 핵심: 기존 h2 스타일의 패딩 제거 */
+            border-left: none;
+            padding-left: 0;
         }
 
 
@@ -128,10 +130,9 @@
         }
 
         /* ------------------------------------- */
-        /* [UPDATED] 슬라이드 배너 (Carousel) 스타일 */
+        /* [수정] 슬라이드 배너 (Carousel) 스타일 - 배경 이미지 및 오버레이 추가 */
         /* ------------------------------------- */
 
-        /* 배너를 감싸는 컨테이너: 가로가 긴 직사각형 (2:1 비율) */
         .banner-container {
             width: 90%;
             max-width: 400px;
@@ -139,9 +140,11 @@
             position: relative;
             height: 0;
             padding-top: 50%;
+            overflow: hidden; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
         }
         
-        /* 슬라이드 박스 */
         .welcome-slide {
             position: absolute;
             top: 0;
@@ -149,19 +152,17 @@
             width: 100%;
             height: 100%;
             
-            /* 박스 스타일 */
             background-color: #ffffff;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
             
-            /* 텍스트 스타일 */
             line-height: 1.5;
-            color: #4a4a4a;
+            color: white; 
             font-size: 1.1em;
             font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
             
-            /* 슬라이드 전환 관련 스타일 */
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
             display: flex;
@@ -169,39 +170,109 @@
             justify-content: center;
             align-items: center;
             z-index: 5;
+            
+            cursor: pointer;
         }
 
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 6; 
+            border-radius: 15px;
+            transition: background-color 0.3s;
+        }
+        .welcome-slide:hover .slide-overlay {
+            background-color: rgba(0, 0, 0, 0.3); 
+        }
+        
         .welcome-slide.active {
             opacity: 1;
             z-index: 10;
         }
+
+        .slide-content {
+            position: relative;
+            z-index: 7; 
+            text-align: center;
+            padding: 20px;
+        }
         
-        /* 박스 내부 강조 텍스트 및 이모지 */
         .welcome-slide strong {
             color: #20b2aa; 
             font-weight: 900;
-            font-size: 1.2em;
+            font-size: 1.5em; 
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
         }
-        .welcome-slide p {
-            margin: 5px 0;
+        .welcome-slide .sub-text {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin: 5px 0 10px;
         }
         .welcome-slide .emoji {
-            font-size: 1.6em;
+            font-size: 1.8em;
             margin: 0 5px;
-            color: #20b2aa; 
         }
 
-        /* [핵심 수정]: 링크 스타일 및 클릭 이벤트 보장 */
-        .welcome-slide a {
-            color: #1a9c94; 
+        .slide-link-button {
+            color: white; 
+            background-color: rgba(32, 178, 170, 0.8); 
             font-weight: 700;
-            text-decoration: underline;
-            display: block; 
-            width: 100%; 
-            padding: 5px 0;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .slide-link-button:hover {
+            background-color: #1a9c94;
+        }
+        
+        /* ------------------------------------- */
+        /* [NEW] 슬라이드 탐색 버튼 스타일 */
+        /* ------------------------------------- */
+        .slide-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20; /* 모든 슬라이드 콘텐츠 위에 오도록 */
+            background-color: rgba(0, 0, 0, 0.25); /* 25% 투명한 검은색 */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+            line-height: 1;
+            transition: background-color 0.3s, opacity 0.3s;
+            opacity: 0; /* 평소에는 숨김 */
+        }
+        
+        .banner-container:hover .slide-button {
+            opacity: 1; /* 호버 시 나타남 */
+        }
+        
+        .slide-button:hover {
+            background-color: rgba(0, 0, 0, 0.5); /* 호버 시 좀 더 진하게 */
         }
 
-        /* 동그라미 인디케이터 스타일 */
+        .prev-button {
+            left: 0;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .next-button {
+            right: 0;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+
+        /* 동그라미 인디케이터 스타일 유지 */
         .indicator-container {
             text-align: center;
             margin-bottom: 40px;
@@ -331,37 +402,54 @@
         
         <div class="banner-container">
             
-            <div class="welcome-slide" id="slide1">
-                <p><span class="emoji">💖</span> <strong>세종 데이트, 이제 고민 끝!</strong> <span class="emoji">💖</span></p>
-                <p>세종 커플의 노하우로 엄선한 <strong>인생 데이트 코스</strong>를 만나보세요!</p>
-                <p>분위기 맛집부터 특별한 액티비티까지, <strong>우리만의 핫플</strong>을 지금 바로 찜해봐요! <span class="emoji">🎀</span></p>
-            </div>
+            <a href="먹거리/레스토랑&맛집.html" class="welcome-slide" id="slide1" 
+                style="background-image: url('../사진/규카츠정 나성점_1.jpg');">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <p><span class="emoji">🍽️</span> <strong>먹거리 카테고리</strong></p>
+                    <p class="sub-text">분위기 좋은 레스토랑 & 맛집을 찾아보세요!</p>
+                    <span class="slide-link-button">식사하러 가기</span>
+                </div>
+            </a>
             
-            <div class="welcome-slide" id="slide2">
-                <p>
-                    <span class="emoji">✨</span> <strong>이번주 여기어때?!</strong> <span class="emoji">🥂</span>
-                </p>
-                
-                <p>
-                    <a href="https://search.naver.com/search.naver?query=세종 아름동 별클라이밍" target="_blank">
-                        1. 아름동 별클라이밍 
-                        <span class="link-text">바로가기</span>
-                    </a>
-                </p>
+            <a href="카페/카페.html" class="welcome-slide" id="slide2"
+                style="background-image: url('../사진/다올카페_1.jpg');">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <p><span class="emoji">☕</span> <strong>카페 카테고리</strong></p>
+                    <p class="sub-text">예쁜 감성 카페에서 달콤한 시간을!</p>
+                    <span class="slide-link-button">카페 탐방하기</span>
+                </div>
+            </a>
+            
+            <a href="놀거리/놀거리.html" class="welcome-slide" id="slide3"
+                style="background-image: url('../사진/세종예술의전당_1.jpg');">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <p><span class="emoji">🤸</span> <strong>놀거리 카테고리</strong></p>
+                    <p class="sub-text">심심할 틈 없는 액티비티 & 체험 공간</p>
+                    <span class="slide-link-button">신나게 놀기</span>
+                </div>
+            </a>
 
-                <p>
-                    <a href="https://search.naver.com/search.naver?query=세종 아름동 나무랄 데 없는 목공방" target="_blank">
-                        2. 아름동 나무랄 데 없는 목공방 
-                        <span class="link-text">바로가기</span>
-                    </a>
-                </p>
-            </div>
+            <a href="자연/공원.html" class="welcome-slide" id="slide4"
+                style="background-image: url('../사진/세종호수공원_1.JPG');">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <p><span class="emoji">🏞️</span> <strong>자연 & 힐링 카테고리</strong></p>
+                    <p class="sub-text">힐링이 필요하다면 아름다운 공원으로</p>
+                    <span class="slide-link-button">산책하러 가기</span>
+                </div>
+            </a>
             
-            <div class="welcome-slide" id="slide3">
-                <p><span class="emoji">🎁</span> <strong>세종시 데이트 팁!</strong> <span class="emoji">🎁</span></p>
-                <p>날씨가 좋을 땐 세종호수공원 피크닉 🧺</p>
-                <p>추운 날엔 국립세종수목원 힐링 데이트🌿</p>
-            </div>
+            <button class="slide-button prev-button" id="prevButton" aria-label="이전 슬라이드">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <button class="slide-button next-button" id="nextButton" aria-label="다음 슬라이드">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
         </div>
         
         <div class="indicator-container" id="indicatorContainer">
@@ -373,8 +461,13 @@
             const totalSlides = slides.length;
             const indicatorContainer = document.getElementById('indicatorContainer');
             let slideInterval;
+            
+            // [NEW] 버튼 요소 가져오기
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
 
-            // 1. 인디케이터 생성 함수
+
+            // 1. 인디케이터 생성 함수 (기존과 동일)
             function createIndicators() {
                 indicatorContainer.innerHTML = '';
                 slides.forEach((slide, index) => {
@@ -388,9 +481,8 @@
                 });
             }
 
-            // 2. 슬라이드 표시 및 인디케이터 업데이트 함수
+            // 2. 슬라이드 표시 및 인디케이터 업데이트 함수 (기존과 동일)
             function showSlide(index) {
-                // 슬라이드 활성화/비활성화
                 slides.forEach((slide, i) => {
                     if (i === index) {
                         slide.classList.add('active');
@@ -399,7 +491,6 @@
                     }
                 });
 
-                // 인디케이터 활성화/비활성화
                 const indicators = document.querySelectorAll('.indicator');
                 indicators.forEach((indicator, i) => {
                     if (i === index) {
@@ -410,27 +501,45 @@
                 });
             }
             
-            // 3. 다음 슬라이드로 이동 함수
+            // 3. 다음 슬라이드로 이동 함수 (기존과 동일)
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+            
+            // [NEW] 이전 슬라이드로 이동 함수
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
                 showSlide(currentSlide);
             }
 
             // 4. 특정 슬라이드로 이동 함수 (인디케이터 클릭 시)
             function moveToSlide(index) {
-                // 기존 인터벌 중지
                 clearInterval(slideInterval);
-                // 현재 슬라이드 업데이트
                 currentSlide = index;
                 showSlide(currentSlide);
-                // 인터벌 재시작
                 startInterval();
             }
 
-            // 5. 인터벌 시작 함수 (5초 간격)
+            // 5. 인터벌 시작 함수 (5초 간격) (기존과 동일)
             function startInterval() {
                 slideInterval = setInterval(nextSlide, 5000); // 5000ms = 5초
             }
+            
+            // [NEW] 버튼 이벤트 리스너 추가
+            prevButton.addEventListener('click', (e) => {
+                e.preventDefault(); // 링크 이동 방지
+                clearInterval(slideInterval);
+                prevSlide();
+                startInterval();
+            });
+            
+            nextButton.addEventListener('click', (e) => {
+                e.preventDefault(); // 링크 이동 방지
+                clearInterval(slideInterval);
+                nextSlide();
+                startInterval();
+            });
 
 
             // --- 초기화 ---
