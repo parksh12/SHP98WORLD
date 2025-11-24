@@ -502,28 +502,38 @@
                 <button class="copy-button" data-address-id="address1" onclick="copyAddress(this)">주소 복사</button>
             </div>
             
-            <div class="slider-wrapper" data-item-index="0">
-                <div class="slider-container">
-                    <div class="slide" onclick="openModal(0, 0)">
-                         <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 이미지 1">
-                    </div>
-                    <div class="slide" onclick="openModal(0, 1)">
-                         <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 이미지 2">
-                    </div>
-                    <div class="slide" onclick="openModal(1, 2)">
-                         <img src="../사진/으뜸스시 아름점_3.JPG" alt="으뜸스시 이미지 3">
-                    </div>
-                    <div class="slide" onclick="openModal(2, 3)">
-                         <img src="../사진/으뜸스시 아름점_4.JPG" alt="으뜸스시 이미지 4">
-                    </div>
-                    <div class="slide" onclick="openModal(3, 4)">
-                         <img src="../사진/으뜸스시 아름점_5.JPG" alt="으뜸스시 이미지 5">
-                    </div>
-                    <div class="slide" onclick="openModal(4, 5)">
-                         <img src="../사진/으뜸스시 아름점_6.JPG" alt="으뜸스시 이미지 6">
-                    </div>
-                </div>
+         <div class="slider-wrapper" data-item-index="7">
+              <div class="slider-container">
+        <div class="slide" onclick="openModal(7, 0)">
+             <img src="../사진/으뜸스시 아름점_1.JPG" alt="으뜸스시 이미지 1">
+        </div>
+        <div class="slide" onclick="openModal(7, 1)">
+             <img src="../사진/으뜸스시 아름점_2.JPG" alt="으뜸스시 이미지 2">
+        </div>
+        <div class="slide" onclick="openModal(7, 2)">
+             <img src="../사진/으뜸스시 아름점_3.JPG" alt="으뜸스시 이미지 3">
+        </div>
+        <div class="slide" onclick="openModal(7, 3)">
+             <img src="../사진/으뜸스시 아름점_4.JPG" alt="으뜸스시 이미지 4">
+        </div>
+        <div class="slide" onclick="openModal(7, 4)">
+             <img src="../사진/으뜸스시 아름점_5.JPG" alt="으뜸스시 이미지 5">
+        </div>
+        <div class="slide" onclick="openModal(7, 5)">
+             <img src="../사진/으뜸스시 아름점_6.JPG" alt="으뜸스시 이미지 6">
+        </div>
+    </div>
 
+    <button class="slide-nav-button slide-prev-button" data-item-index="7" onclick="event.stopPropagation(); navigateSlide(7, -1)">
+        &#10094;
+    </button>
+    <button class="slide-nav-button slide-next-button" data-item-index="7" onclick="event.stopPropagation(); navigateSlide(7, 1)">
+        &#10095;
+    </button>
+    
+    <div class="slide-indicator-container" data-item-index="7">
+    </div>
+</div>
                 <button class="slide-nav-button slide-prev-button" data-item-index="0" onclick="event.stopPropagation(); navigateSlide(0, -1)">
                     &#10094;
                 </button>
