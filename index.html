@@ -1,684 +1,598 @@
 <!doctype html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>세종시 데이트 지도</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPGGIF</title>
     
+    <!-- 웹폰트 및 아이콘 라이브러리 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5127178209204980"
-     crossorigin="anonymous"></script>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D6CDR67DM4"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-D6CDR67DM4');
-    </script>
-
-
-
-    <link rel="icon" type="image/png" href="사진.png">
-
     <style>
-        /* [1] 기본 설정 및 폰트 변경 */
-        body {
-            margin: 0;
-            font-family: 'Noto Sans KR', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            background: #f4f4f4;
-            color: #333333;
+        /* [1] 테마 및 기본 초기화 */
+        :root {
+            --primary-color: #20b2aa; /* 청록 포인트 */
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-red: #ef4444; /* N 새글 뱃지 */
         }
 
-        /* [2] 상단 제목 스타일 */
-        .fixed-title {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.4;
+            padding-top: 55px; /* 헤더 공간 */
+            padding-bottom: 60px; /* 하단 툴바 공간 */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* [2] 상단 헤더 */
+        header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
+            height: 55px;
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
             z-index: 1000;
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 클릭 시 지정된 HTML 페이지로 이동하는 헤더 버튼 */
+        .header-link-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 5px;
             display: flex;
             align-items: center;
-            padding: 10px 20px;
+            justify-content: center;
         }
 
-        h1 {
-            font-size: 1.25em;
-            font-weight: 700;
-            margin: 0;
-            padding: 5px 10px;
-            color: #20b2aa; /* 주된 청록색 */
-        }
-        
-        /* [핵심 수정] 환영 문구 h2 스타일: 아래 마진을 0으로 설정 */
-        .welcome-text-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            text-align: left;
-            margin-top: 40px;
-            margin-bottom: 0px; /* 기존 10px에서 0px로 수정 */
-            color: #2c3e50;
-            border-left: none;
-            padding-left: 0;
+        .header-link-btn:hover {
+            color: var(--primary-color);
         }
 
-
-        /* [3] 카테고리 대분류 스타일 (환영 문구 제외) */
-        h2 {
-            font-size: 1.8em;
-            font-weight: 700;
-            text-align: left;
-            margin-top: 50px; /* 카테고리 간격 50px 유지 */
-            margin-bottom: 10px;
-            color: #2c3e50;
-            border-left: 5px solid #20b2aa; /* 청록색 경계선 */
-            padding-left: 10px;
-        }
-        /* 첫 번째 카테고리 (먹거리) 마진 0 유지 */
-        h2:first-of-type {
-            margin-top: 0;
-        }
-        h2 a {
-            color: #2c3e50;
-            text-decoration: none;
-            display: block;
-        }
-        h2 a:hover {
-            color: #1a9c94; /* 살짝 진한 청록색 hover */
-            text-decoration: none;
+        /* 중앙 상단 로고 (클릭 시 index.html로 이동) */
+        .logo-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
         }
 
-        /* [4] 세부 카테고리 링크 스타일 */
-        h3 {
-            font-size: 1.2em;
+        /* [3] 게시판 레이아웃 */
+        .container {
+            max-width: 600px;
+            margin: 10px auto;
+            padding: 0 10px;
+        }
+
+        .board-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        /* 게시판 타이틀 및 전체보기 */
+        .board-header {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #f8fafc;
+        }
+
+        .board-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        /* 전체보기 영역 */
+        .shortcut-btn {
+            font-size: 0.8rem;
+            color: var(--text-muted);
             font-weight: 500;
-            margin-top: 15px;
-            margin-bottom: 0px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 2px;
         }
-        h3 a {
-            color: #4a4a4a;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        h3 a:hover {
-            color: #1a9c94 !important; /* 살짝 진한 청록색 hover */
+
+        .shortcut-btn:hover {
+            color: var(--primary-color);
             text-decoration: underline;
         }
 
-        /* [5] 소개글 스타일 */
-        .category-intro {
-            font-size: 1em;
-            margin-top: 5px;
-            margin-bottom: 30px;
-            color: #7f8c8d;
-            line-height: 1.5;
-            padding-left: 5px;
-            margin-left: -5px;
-            padding-left: 5px;
-        }
-        
-        .article-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            transition: opacity 0.3s;
+        /* 게시글 목록 행 (클릭하면 상세 페이지로 이동하도록 a 태그로 변경) */
+        .post-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            gap: 12px;
+            transition: background-color 0.15s;
+            cursor: pointer;
         }
 
-        .article-link:hover {
-            opacity: 0.8;
+        .post-row:hover {
+            background-color: #f8fafc;
         }
 
-        /* ------------------------------------- */
-        /* 슬라이드 배너 (Carousel) 스타일 */
-        /* ------------------------------------- */
-        
-        /* banner-wrapper 상단 마진 100px 적용 */
-        .banner-wrapper {
-            margin: 100px -30px 80px -30px; /* 상 100px, 좌우 -30px, 하 80px */
-            overflow: hidden; 
-            position: relative;
+        .post-row:last-child {
+            border-bottom: none;
         }
 
-        .banner-container {
-            display: flex; 
-            width: 100%;
-            height: 0;
-            padding-top: 50%; 
-            position: relative;
-            transition: transform 0.5s ease-in-out; 
-            touch-action: pan-y;
+        /* 썸네일 박스 */
+        .thumbnail-box {
+            width: 55px;
+            height: 55px;
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            overflow: hidden;
+            text-align: center;
         }
-        
-        .welcome-slide {
-            flex-shrink: 0; 
-            width: 100%; 
-            height: 100%; 
-            position: absolute;
-            top: 0;
-            left: 0;
-            
-            background-color: #ffffff;
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
-            
-            line-height: 1.5;
-            color: white; 
-            font-size: 1.1em;
-            font-weight: 500;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
-            
+
+        /* 글 본문 정보 */
+        .post-info {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 5;
-            
-            cursor: pointer;
+            gap: 4px;
+            min-width: 0;
         }
-        
-        #slide1 { left: 0%; }
-        #slide2 { left: 100%; }
-        #slide3 { left: 200%; }
-        #slide4 { left: 300%; }
 
-        .slide-overlay {
-            position: absolute;
-            top: 0;
+        .post-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .post-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .post-row:hover .post-title {
+            color: var(--primary-color);
+        }
+
+        /* 새글 N 아이콘 */
+        .new-badge {
+            background-color: var(--accent-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 900;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* 메타데이터 */
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .author-logo {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-name {
+            font-weight: 500;
+        }
+
+        /* 타원형 페이지 표시 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-color);
+            background-color: #fafbfc;
+        }
+
+        .page-indicator {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* [4] 모바일 하단 내비바 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
             left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .bottom-nav-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            cursor: pointer;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); 
-            z-index: 6; 
-            transition: background-color 0.3s;
-        }
-        .welcome-slide:hover .slide-overlay {
-            background-color: rgba(0, 0, 0, 0.3); 
-        }
-        
-        .slide-content {
-            position: relative;
-            z-index: 7; 
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .welcome-slide strong {
-            color: #20b2aa; 
-            font-weight: 900;
-            font-size: 1.5em; 
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
-        }
-        .welcome-slide .sub-text {
-            font-size: 1.1em;
-            font-weight: 700;
-            margin: 5px 0 10px;
-        }
-        .welcome-slide .emoji {
-            font-size: 1.8em;
-            margin: 0 5px;
-        }
-
-        .slide-link-button {
-            color: white; 
-            background-color: rgba(32, 178, 170, 0.8); 
-            font-weight: 700;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin-top: 15px;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-        .slide-link-button:hover {
-            background-color: #1a9c94;
-        }
-        
-        /* 슬라이드 탐색 버튼 스타일 */
-        .slide-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 30; 
-            background-color: rgba(0, 0, 0, 0.15); 
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.5em;
-            line-height: 1;
-            transition: background-color 0.3s, opacity 0.3s;
-            opacity: 0; 
-        }
-        
-        .banner-wrapper:hover .slide-button { 
-            opacity: 1; 
-        }
-        
-        .slide-button:hover {
-            background-color: rgba(0, 0, 0, 0.3); 
-        }
-
-        .prev-button {
-            left: 0;
-        }
-
-        .next-button {
-            right: 0;
-        }
-        
-        /* 모바일 기기에서는 버튼을 항상 표시 */
-        @media (max-width: 600px) {
-            .slide-button {
-                opacity: 0.8; 
-                background-color: rgba(0, 0, 0, 0.1); 
-            }
-            .banner-wrapper:hover .slide-button {
-                opacity: 0.8; 
-            }
-        }
-
-
-        /* 동그라미 인디케이터 스타일 유지 */
-        .indicator-container {
-            text-align: center;
-            margin-bottom: 40px; 
-            z-index: 15;
-            position: relative; 
-        }
-
-        .indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: #bbbbbb;
-            border-radius: 50%;
-            margin: 0 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .indicator.active {
-            background-color: #20b2aa; 
-        }
-
-
-        /* [6] 콘텐츠 박스 및 나머지 스타일 */
-        article {
-            text-align: left;
-            background-color: #ffffff;
-            padding: 30px; 
-            margin: 20px;
-            border-radius: 15px; 
-            color: #2c3e50;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* 이하 기타 스타일 유지 */
-        .category-image-gallery {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px; 
-            overflow-x: auto; 
-            padding: 0 5px;
-        }
-        .category-image {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .category-image-link {
-            min-width: calc(50% - 5px);
-            width: calc(50% - 5px);
-            display: block;
-        }
-        .category-image-link:hover .category-image {
-            opacity: 0.85;
-            transition: opacity 0.3s;
+            align-items: center;
+            justify-content: center;
         }
 
-        .button-container {
-            text-align: center;
-        }
-
-        button {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 15px 30px;
-            cursor: pointer;
-            border: none;
-            background-color: #20b2aa; 
-            color: white;
-            border-radius: 30px;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            margin: 40px 0;
-            box-shadow: 0 4px 8px rgba(32, 178, 170, 0.4); 
-        }
-
-        button:hover {
-            background-color: #1a9c94; 
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(32, 178, 170, 0.6);
-        }
-
-        .fixed-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .content {
-            padding-top: 60px;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .bottom-nav-btn:hover {
+            color: var(--primary-color);
         }
     </style>
-
-
 </head>
-
 <body>
-    <div class="fixed-title">
-        <a href="/index.html">
-            <img src="/사진.png" class="fixed-image" alt="Logo">
+
+    <!-- [1] 상단 고정 헤더 -->
+    <header>
+        <!-- 좌측 상단 버튼: 클릭 시 banner.html로 이동 -->
+        <a href="banner.html" class="header-link-btn" aria-label="배너 열기">
+            <i class="fa-solid fa-bars"></i>
         </a>
-        <a href="index.html" style="text-decoration: none; color: inherit;">
-            <h1>세종시 데이트 지도</h1>
+        
+        <!-- 중앙 상단 로고: 클릭 시 index.html로 이동 -->
+        <a href="index.html" class="logo-center">
+            <i class="fa-solid fa-bolt"></i> JPGGIF
         </a>
+        
+        <!-- 우측 상단 버튼: 클릭 시 search.html로 이동 -->
+        <a href="search.html" class="header-link-btn" aria-label="검색창 열기">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+    </header>
+
+    <!-- [2] 메인 콘텐츠 컨테이너 (게시판당 글 4개씩 노출) -->
+    <div class="container">
+
+        <!-- 1. 공지사항 섹션 -->
+        <section class="board-section">
+            <div class="board-header">
+                <span class="board-title">공지사항</span>
+                <a href="공지사항.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
+            </div>
+            <div class="post-list">
+                <!-- 글 1 -->
+                <a href="post_notice_1.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">전체 검색 기능을 다시 오픈했습니다</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: var(--primary-color);">짤</span>
+                            <span class="author-name">짤티비</span>
+                            <span class="post-date">2026-03-16</span>
+                        </div>
+                    </div>
+                </a>
+                <!-- 글 2 -->
+                <a href="post_notice_2.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">서버 사양 업그레이드 안내</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: var(--primary-color);">쌀</span>
+                            <span class="author-name">쌀티비</span>
+                            <span class="post-date">2025-09-03</span>
+                        </div>
+                    </div>
+                </a>
+                <!-- 글 3 -->
+                <a href="post_notice_3.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">회원 전용 게시판 포인트 차감 제도 폐지</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: var(--primary-color);">짤</span>
+                            <span class="author-name">짤티비</span>
+                            <span class="post-date">2023-10-18</span>
+                        </div>
+                    </div>
+                </a>
+                <!-- 글 4 -->
+                <a href="post_notice_4.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">개인정보처리방침 개정 및 동의 안내</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: var(--primary-color);">짤</span>
+                            <span class="author-name">짤티비</span>
+                            <span class="post-date">2023-09-01</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="pagination-container">
+                <div class="page-indicator">1/2</div>
+            </div>
+        </section>
+
+        <!-- 2. 사자 섹션 -->
+        <section class="board-section">
+            <div class="board-header">
+                <span class="board-title">사자</span>
+                <a href="사자.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
+            </div>
+            <div class="post-list">
+                <a href="post_lion_1.html" class="post-row">
+                    <div class="thumbnail-box"><i class="fa-regular fa-image" style="font-size: 1.1rem;"></i></div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">아프리카 세렝게티 수사자 우두머리의 위엄</span>
+                            <span class="new-badge">N</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #f59e0b;">사</span>
+                            <span class="author-name">심바</span>
+                            <span class="post-date">2026-07-15</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_lion_2.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">사자는 진짜 무리 지어 사냥할 때 성공률이 높나요?</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #64748b;">네</span>
+                            <span class="author-name">네이처</span>
+                            <span class="post-date">2026-07-14</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_lion_3.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">동물원에서 갓 태어난 아기 사자 보고 왔습니다</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #ec4899;">집</span>
+                            <span class="author-name">집사일기</span>
+                            <span class="post-date">2026-07-10</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_lion_4.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">다큐멘터리 '초원의 왕 수사자' 추천작 공유</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #10b981;">필</span>
+                            <span class="author-name">필름보이</span>
+                            <span class="post-date">2026-07-08</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="pagination-container">
+                <div class="page-indicator">1/25</div>
+            </div>
+        </section>
+
+        <!-- 3. 호랑이 섹션 -->
+        <section class="board-section">
+            <div class="board-header">
+                <span class="board-title">호랑이</span>
+                <a href="호랑이.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
+            </div>
+            <div class="post-list">
+                <a href="post_tiger_1.html" class="post-row">
+                    <div class="thumbnail-box"><i class="fa-regular fa-image" style="font-size: 1.1rem;"></i></div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">시베리아 혹한 속 눈밭을 뚫고 걷는 호랑이 포스</span>
+                            <span class="new-badge">N</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #ea580c;">호</span>
+                            <span class="author-name">타이거jk</span>
+                            <span class="post-date">2026-07-15</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_tiger_2.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">인도 벵골 호랑이의 영역 다툼 스틸컷 모음</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #6366f1;">포</span>
+                            <span class="author-name">포토그래퍼</span>
+                            <span class="post-date">2026-07-13</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_tiger_3.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">백호와 황호의 생물학적 차이점에 대해 알아보자</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #06b6d4;">사</span>
+                            <span class="author-name">사이언스</span>
+                            <span class="post-date">2026-07-09</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_tiger_4.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">호랑이가 물을 좋아하고 수영을 잘하는 이유</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #8b5cf6;">워</span>
+                            <span class="author-name">워터라이프</span>
+                            <span class="post-date">2026-07-05</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="pagination-container">
+                <div class="page-indicator">1/18</div>
+            </div>
+        </section>
+
+        <!-- 4. 전갈 섹션 -->
+        <section class="board-section">
+            <div class="board-header">
+                <span class="board-title">전갈</span>
+                <a href="전갈.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
+            </div>
+            <div class="post-list">
+                <a href="post_scorpion_1.html" class="post-row">
+                    <div class="thumbnail-box"><i class="fa-regular fa-image" style="font-size: 1.1rem;"></i></div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">자외선 라이트를 비추면 형광색으로 빛나는 전갈의 비밀</span>
+                            <span class="new-badge">N</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #111827;">전</span>
+                            <span class="author-name">전갈마스터</span>
+                            <span class="post-date">2026-07-15</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_scorpion_2.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">황제전갈 키우기 입문자를 위한 필수 케어 시트</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #3b82f6;">펫</span>
+                            <span class="author-name">펫러버</span>
+                            <span class="post-date">2026-07-14</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_scorpion_3.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">독성이 가장 강력한 데스스토커 전갈 주의보</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #ef4444;">위</span>
+                            <span class="author-name">위험경보</span>
+                            <span class="post-date">2026-07-11</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="post_scorpion_4.html" class="post-row">
+                    <div class="thumbnail-box">No Image</div>
+                    <div class="post-info">
+                        <div class="post-title-wrapper">
+                            <span class="post-title">전갈의 허물벗기(탈피) 장면 직관 후기</span>
+                        </div>
+                        <div class="post-meta">
+                            <span class="author-logo" style="background-color: #10b981;">탈</span>
+                            <span class="author-name">탈피의신</span>
+                            <span class="post-date">2026-07-06</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="pagination-container">
+                <div class="page-indicator">1/12</div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="content">
-
-    <article>
-        
-        <h2 class="welcome-text-title">   
-            <br>
-            안녕하세요👋
-            <br>
-            오늘 이런 데이트 어때요?
-        </h2>
-        
-        <div class="banner-wrapper"> 
-
-            <div class="banner-container" id="bannerContainer">
-                
-                <a href="/먹거리.HTML" class="welcome-slide" id="slide1" 
-                    style="background-image: url('/사진/규카츠정 나성점_1.JPG');">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <p><span class="emoji">🍽️</span> <strong>먹거리 카테고리</strong></p>
-                        <p class="sub-text">분위기 좋은 레스토랑 & 맛집을 찾아보세요!</p>
-                        <span class="slide-link-button">식사하러 가기</span>
-                    </div>
-                </a>
-                
-                <a href="/카페.HTML" class="welcome-slide" id="slide2"
-                    style="background-image: url('/사진/다올카페_1.JPG');">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <p><span class="emoji">☕</span> <strong>카페 카테고리</strong></p>
-                        <p class="sub-text">예쁜 감성 카페에서 달콤한 시간을!</p>
-                        <span class="slide-link-button">카페 탐방하기</span>
-                    </div>
-                </a>
-                
-                <a href="/놀거리.HTML" class="welcome-slide" id="slide3"
-                    style="background-image: url('/사진/세종예술의전당_1.JPG');">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <p><span class="emoji">🤸</span> <strong>놀거리 카테고리</strong></p>
-                        <p class="sub-text">심심할 틈 없는 액티비티 & 체험 공간</p>
-                        <span class="slide-link-button">신나게 놀기</span>
-                    </div>
-                </a>
-
-                <a href="/공원.HTML" class="welcome-slide" id="slide4"
-                    style="background-image: url('/사진/세종호수공원_1.JPG');">
-                    <div class="slide-overlay"></div>
-                    <div class="slide-content">
-                        <p><span class="emoji">🏞️</span> <strong>자연 & 힐링 카테고리</strong></p>
-                        <p class="sub-text">힐링이 필요하다면 아름다운 공원으로</p>
-                        <span class="slide-link-button">산책하러 가기</span>
-                    </div>
-                </a>
-                
-            </div> <button class="slide-button prev-button" id="prevButton" aria-label="이전 슬라이드">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            
-            <button class="slide-button next-button" id="nextButton" aria-label="다음 슬라이드">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            
-        </div> <div class="indicator-container" id="indicatorContainer">
-            </div>
-
-        <script>
-            let currentSlide = 0;
-            const slides = document.querySelectorAll('.welcome-slide');
-            const totalSlides = slides.length;
-            const indicatorContainer = document.getElementById('indicatorContainer');
-            const bannerContainer = document.getElementById('bannerContainer');
-            let slideInterval;
-            
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
-
-            let touchstartX = 0;
-            let touchendX = 0;
-            const swipeThreshold = 50; 
-            
-            function updateSlidePosition() {
-                const offset = -currentSlide * 100;
-                bannerContainer.style.transform = `translateX(${offset}%)`;
-
-                const indicators = document.querySelectorAll('.indicator');
-                indicators.forEach((indicator, i) => {
-                    if (i === currentSlide) {
-                        indicator.classList.add('active');
-                    } else {
-                        indicator.classList.remove('active');
-                    }
-                });
-            }
-
-            function createIndicators() {
-                indicatorContainer.innerHTML = '';
-                slides.forEach((slide, index) => {
-                    const indicator = document.createElement('span');
-                    indicator.classList.add('indicator');
-                    indicator.addEventListener('click', () => {
-                        moveToSlide(index);
-                    });
-                    
-                    indicatorContainer.appendChild(indicator);
-                });
-            }
-
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateSlidePosition();
-            }
-            
-            function prevSlide() {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateSlidePosition();
-            }
-
-            function moveToSlide(index) {
-                clearInterval(slideInterval);
-                currentSlide = index;
-                updateSlidePosition();
-                startInterval();
-            }
-
-            function startInterval() {
-                slideInterval = setInterval(nextSlide, 5000); 
-            }
-            
-            prevButton.addEventListener('click', (e) => {
-                e.preventDefault(); 
-                clearInterval(slideInterval);
-                prevSlide();
-                startInterval();
-            });
-            
-            nextButton.addEventListener('click', (e) => {
-                e.preventDefault(); 
-                clearInterval(slideInterval);
-                nextSlide();
-                startInterval();
-            });
-
-            /* ------------------------------------- */
-            /* 스와이프 (Swipe) 기능 구현 */
-            /* ------------------------------------- */
-            
-            bannerContainer.addEventListener('touchstart', e => {
-                touchstartX = e.changedTouches[0].screenX;
-                clearInterval(slideInterval); 
-                bannerContainer.style.transition = 'none'; 
-            }, false);
-
-            bannerContainer.addEventListener('touchmove', e => {
-                const currentTouchX = e.changedTouches[0].screenX;
-                const diff = currentTouchX - touchstartX;
-                const currentOffset = -currentSlide * 100;
-                const dragOffset = (diff / bannerContainer.offsetWidth) * 100;
-                
-                bannerContainer.style.transform = `translateX(${currentOffset + dragOffset}%)`;
-            }, false);
-
-            bannerContainer.addEventListener('touchend', e => {
-                touchendX = e.changedTouches[0].screenX;
-                bannerContainer.style.transition = 'transform 0.5s ease-in-out'; 
-                handleGesture();
-                updateSlidePosition(); 
-                startInterval(); 
-            }, false);
-
-            function handleGesture() {
-                const diff = touchstartX - touchendX;
-                
-                if (Math.abs(diff) > swipeThreshold) { 
-                    if (diff > 0) {
-                        currentSlide = (currentSlide + 1) % totalSlides;
-                    } else {
-                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                    }
-                }
-            }
-            // -------------------------------------
-
-
-            // --- 초기화 ---
-            createIndicators();
-            updateSlidePosition(); 
-            startInterval();
-        </script>
-        
-        <h2 style="margin-bottom: 0px;"> 
-            <a href="/먹거리.HTML">🍽️ 먹거리</a>
-        </h2>
-
-        <div class="category-image-gallery">
-            <a href="/먹거리.HTML" class="category-image-link">
-                <img src="/사진/규카츠정 나성점_1.JPG" alt="레스토랑 식사 장면" class="category-image">
-            </a>
-            <a href="/먹거리.HTML" class="category-image-link">
-                <img src="/사진/다이너_1.JPG" alt="접시에 담긴 고급 요리" class="category-image">
-            </a>
-            </div>
-        
-        <a href="/먹거리.HTML" class="article-link">
-            <h3>레스토랑 & 맛집</h3>
-            <p class="category-intro">배가 꼬르륵! 😋 분위기도 맛도 최고인 식사 장소에서 행복 충전해요!<br>오늘의 특별한 메인메뉴를 찾고 있다면 바로 요기로 와주세요!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-             <a href="/카페.HTML">☕ 카페</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="/카페.HTML" class="category-image-link">
-                <img src="/사진/다올카페_1.JPG" alt="감성적인 인테리어 카페" class="category-image">
-            </a>
-            <a href="/카페.HTML" class="category-image-link">
-                <img src="/사진/다올카페_2.JPG" alt="커피와 달콤한 디저트" class="category-image">
-            </a>
-            </div>
-
-        <a href="/카페.HTML" class="article-link">
-            <h3>감성 카페 & 뷰 맛집</h3>
-            <p class="category-intro">📸멋진 뷰, 감성 인테리어, 그리고 달콤한 디저트까지!🍰<br>커피 한 잔과 함께 서로에게 퐁당 빠지는 달콤한 시간을 가져봐요!</p>
-        </a>
-
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="/놀거리.HTML">🤸 놀거리</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="/놀거리.HTML" class="category-image-link">
-                <img src="/사진/세종예술의전당_1.JPG" alt="실내 체험 활동" class="category-image">
-            </a>
-            <a href="/놀거리.HTML" class="category-image-link">
-                <img src="/사진/세종예술의전당_2.JPG" alt="레저 액티비티 장면" class="category-image">
-            </a>
-            </div>
-
-        <a href="/놀거리.HTML" class="article-link">
-            <h3>액티비티 & 체험</h3>
-            <p class="category-intro">심심할 틈이 없지! 활력 넘치는 체험과 짜릿한 놀이로 스트레스 싹 날려봐요!<br>같이 만들고 웃고 떠들면서 우리 사랑도 쑥쑥 키워보자!</p>
-        </a>
-
-        <h2 style="margin-bottom: 0px;">
-            <a href="/공원.HTML">🏞️ 자연&힐링</a>
-        </h2>
-        
-        <div class="category-image-gallery">
-            <a href="/공원.HTML" class="category-image-link">
-                <img src="/사진/세종호수공원_1.JPG" alt="세종 야외 데이트" class="category-image">
-            </a>
-            <a href="/공원.HTML" class="category-image-link">
-                <img src="/사진/세종호수공원_2.JPG" alt="세종시 데이트 코스" class="category-image">
-            </a>
-            </div>
-
-        <a href="/공원.HTML" class="article-link">
-            <h3>공원</h3>
-            <p class="category-intro">탁 트인 자연 속에서 손잡고 걷기! 🌲 산책은 언제나 옳아요.<br>싱그러운 풀밭에 돗자리 펴고 우리만의 피크닉을 즐겨봐요!</p>
-        </a>
-    
-    </article>
-    <div class="button-container">
-        <button>
-            <a href="/index.html" style="color: white; text-decoration: none;">Home</a>
-        </button>
-    </div>
+    <!-- [3] 하단 내비게이션 바 -->
+    <div class="bottom-nav">
+        <button class="bottom-nav-btn" onclick="history.back()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="bottom-nav-btn" onclick="history.forward()"><i class="fa-solid fa-chevron-right"></i></button>
+        <a href="index.html" class="bottom-nav-btn"><i class="fa-solid fa-house"></i></a>
+        <a href="banner.html" class="bottom-nav-btn"><i class="fa-solid fa-ellipsis"></i></a>
     </div>
 
-    <footer>
-        <div class="contact-info">
-            <p><strong>CONTACT:</strong> aqaaq1@naver.com</p>
-        </div>
-        </footer>
 </body>
 </html>
