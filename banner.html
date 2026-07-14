@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 - JPGGIF</title>
+    
+    <!-- 웹폰트 및 아이콘 라이브러리 (index.html과 동일) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* [1] 기본 테마 및 초기화 (index.html 테마 계승) */
+        :root {
+            --primary-color: #20b2aa;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: rgba(15, 23, 42, 0.6); /* 뒷배경 어둡게 처리 (딤 효과) */
+            color: var(--text-color);
+            overflow: hidden; /* 배너가 열린 상태에서 뒷배경 스크롤 방지 */
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        /* [2] 왼쪽에서 부드럽게 튀어나오는 슬라이드 배너 본체 */
+        .banner-drawer {
+            width: 85%;
+            max-width: 360px;
+            height: 100%;
+            background-color: var(--card-bg);
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            
+            /* CSS 애니메이션: 왼쪽 밖(-100%)에서 안(0)으로 0.3초간 부드럽게 진입 */
+            transform: translateX(-100%);
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* [3] 배너 상단 헤더 영역 */
+        .banner-header {
+            padding: 20px 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8fafc;
+        }
+
+        /* JPGGIF 로고 스타일 적용 */
+        .banner-logo {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        /* 우상단 X 닫기 버튼 */
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.15s, transform 0.15s;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-color);
+            transform: rotate(90deg); /* 호버 시 위트있게 회전 */
+        }
+
+        /* [4] 배너 내부 콘텐츠 및 메뉴 리스트 */
+        .banner-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 15px;
+        }
+
+        .menu-section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+
+        .menu-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 10px;
+            border-radius: 6px;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background-color 0.15s, color 0.15s;
+        }
+
+        .menu-link:hover {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+        }
+
+        .menu-link i {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            width: 20px;
+            text-align: center;
+            transition: color 0.15s;
+        }
+
+        .menu-link:hover i {
+            color: var(--primary-color);
+        }
+
+        /* [5] 하단 프로필/정보 영역 */
+        .banner-footer {
+            padding: 15px;
+            border-top: 1px solid var(--border-color);
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .user-status {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* 화면의 빈 영역(오버레이)을 클릭해도 이전 페이지로 돌아가게 설정 */
+        .backdrop-overlay {
+            flex: 1;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 왼쪽에서 튀어나오는 본체 메뉴 서랍 -->
+    <div class="banner-drawer">
+        
+        <!-- 상단 헤더 (로고 및 우측 상단 X 버튼) -->
+        <div class="banner-header">
+            <a href="index.html" class="banner-logo">
+                <i class="fa-solid fa-bolt"></i> JPGGIF
+            </a>
+            <!-- 클릭 시 브라우저 역사상 뒤로 이동하여 배너를 닫음 -->
+            <button class="close-btn" onclick="closeBanner()" aria-label="메뉴 닫기">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- 메뉴 목록 영역 -->
+        <div class="banner-content">
+            
+            <!-- 바로가기 카테고리 -->
+            <div class="menu-section-title">주요 게시판</div>
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="공지사항.html" class="menu-link">
+                        <i class="fa-solid fa-bullhorn"></i> 공지사항
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="사자.html" class="menu-link">
+                        <i class="fa-solid fa-cat"></i> 사자 게시판
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="호랑이.html" class="menu-link">
+                        <i class="fa-solid fa-paw"></i> 호랑이 게시판
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="전갈.html" class="menu-link">
+                        <i class="fa-solid fa-bug"></i> 전갈 게시판
+                    </a>
+                </li>
+            </ul>
+
+            <!-- 부가 서비스 카테고리 -->
+            <div class="menu-section-title">서비스</div>
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="search.html" class="menu-link">
+                        <i class="fa-solid fa-magnifying-glass"></i> 통합 검색
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="settings.html" class="menu-link">
+                        <i class="fa-solid fa-gear"></i> 환경설정
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- 하단 사용자 영역 -->
+        <div class="banner-footer">
+            <div class="user-avatar">G</div>
+            <div class="user-info">
+                <span class="user-name">게스트 님</span>
+                <span class="user-status">로그인이 필요합니다</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 배너 오른쪽의 빈 공간(반투명 어두운 영역) 클릭 시에도 닫히도록 설정 -->
+    <div class="backdrop-overlay" onclick="closeBanner()"></div>
+
+    <!-- [JS] 부드럽게 닫히는 동작 스크립트 -->
+    <script>
+        function closeBanner() {
+            const drawer = document.querySelector('.banner-drawer');
+            
+            // 닫힐 때도 부드럽게 왼쪽으로 스르륵 밀려나도록 연출
+            drawer.style.transform = 'translateX(-100%)';
+            drawer.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+            
+            // 애니메이션이 완전히 끝난 후(250ms 뒤) 이전 화면(index.html)으로 복귀
+            setTimeout(() => {
+                // 직전 화면으로 돌아가거나, 없다면 index.html로 안전 이동
+                if (document.referrer) {
+                    history.back();
+                } else {
+                    location.href = 'index.html';
+                }
+            }, 250);
+        }
+    </script>
+
+</body>
+</html>
