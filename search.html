@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 - JPGGIF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #20b2aa;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+        .search-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background-color: var(--card-bg); border-bottom: 1px solid var(--border-color);
+            display: flex; align-items: center; padding: 0 15px; gap: 10px; z-index: 1000;
+        }
+        .back-btn {
+            background: none; border: none; font-size: 1.2rem; color: var(--text-color);
+            cursor: pointer; padding: 5px; display: flex; align-items: center;
+        }
+        .search-input-wrapper { flex: 1; position: relative; display: flex; align-items: center; }
+        .search-input {
+            width: 100%; height: 40px; background-color: #f1f5f9;
+            border: 1px solid transparent; border-radius: 20px;
+            padding: 0 40px 0 16px; font-family: inherit; font-size: 0.95rem; outline: none;
+        }
+        .search-input:focus { background-color: #ffffff; border-color: var(--primary-color); }
+        .search-submit-icon {
+            position: absolute; right: 15px; color: var(--text-muted);
+            border: none; background: none; font-size: 1rem; cursor: pointer;
+        }
+        .container { max-width: 600px; margin: 15px auto; padding: 0 15px; }
+        .search-section { background-color: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); padding: 18px; }
+        .section-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 12px; }
+        .popular-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag-btn {
+            background-color: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;
+            padding: 6px 14px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; cursor: pointer;
+        }
+        .tag-btn:hover { background-color: var(--primary-color); color: #ffffff; border-color: var(--primary-color); }
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 50px;
+            background-color: #ffffff; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; align-items: center; z-index: 1000;
+        }
+        .bottom-nav-btn { background: none; border: none; font-size: 1.1rem; color: var(--text-muted); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header class="search-header">
+        <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-chevron-left"></i></button>
+        <!-- [핵심] 엔터를 치거나 돋보기를 누르면 handleSearch() 함수가 발동합니다. -->
+        <form class="search-input-wrapper" onsubmit="handleSearch(event)">
+            <input type="text" class="search-input" id="searchInput" placeholder="검색어를 입력하세요..." autofocus autocomplete="off">
+            <button type="submit" class="search-submit-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </header>
+
+    <div class="container">
+        <section class="search-section">
+            <div class="section-title">추천 인기 검색어</div>
+            <div class="popular-tags" id="tagContainer"></div>
+        </section>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="bottom-nav-btn" onclick="history.back()"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="bottom-nav-btn" onclick="history.forward()"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="bottom-nav-btn" onclick="location.href='index.html'"><i class="fa-solid fa-house"></i></button>
+    </div>
+
+    <script>
+        // 수정하기 무척 쉬운 추천 태그 배열
+        const RECOMMEND_TAGS = ['수사자', '호랑이', '전갈', '세렝게티', '공지사항'];
+
+        // 화면이 열리면 태그 버튼들을 자동으로 만들어 꽂아줍니다.
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('tagContainer');
+            RECOMMEND_TAGS.forEach(tag => {
+                const button = document.createElement('button');
+                button.className = 'tag-btn';
+                button.textContent = `#${tag}`;
+                // 태그를 누르면 바로 해당 단어로 검색이 진행되게 만듭니다.
+                button.onclick = () => doSearch(tag);
+                container.appendChild(button);
+            });
+        });
+
+        // 검색창에 글자를 타이핑하고 엔터를 쳤을 때 작동하는 함수
+        function handleSearch(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('searchInput').value.trim();
+            if (inputVal === '') {
+                alert('검색어를 입력해 주세요!');
+                return;
+            }
+            doSearch(inputVal);
+        }
+
+        // [핵심 배달 로직] 단어를 주소창에 달고 search_result.html로 강제 이동합니다.
+        function doSearch(keyword) {
+            location.href = `search_result.html?q=${encodeURIComponent(keyword)}`;
+        }
+    </script>
+</body>
+</html>
