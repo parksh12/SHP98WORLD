@@ -1,598 +1,485 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JPGGIF</title>
-    
-    <!-- 웹폰트 및 아이콘 라이브러리 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClassPick | 무료 강의 길라잡이</title>
+  
+  <!-- Pretendard 폰트 불러오기 (2030 선호 폰트) -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
+  <style>
+    /* ==========================================
+       1. Global Styles & CSS Variables
+       ========================================== */
+    :root {
+      --primary: #2563eb;       /* Deep Indigo / Royal Blue */
+      --primary-hover: #1d4ed8;
+      --secondary: #10b981;     /* Soft Lime / Mint Point */
+      --bg-main: #f8fafc;       /* Light Gray Background */
+      --bg-card: #ffffff;
+      --text-main: #0f172a;     /* Dark Navy/Slate */
+      --text-muted: #64748b;    /* Slate Muted */
+      --border: #e2e8f0;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --max-width: 1100px;
+    }
 
-    <style>
-        /* [1] 테마 및 기본 초기화 */
-        :root {
-            --primary-color: #20b2aa; /* 청록 포인트 */
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --accent-red: #ef4444; /* N 새글 뱃지 */
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
 
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.4;
-            padding-top: 55px; /* 헤더 공간 */
-            padding-bottom: 60px; /* 하단 툴바 공간 */
-        }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        /* [2] 상단 헤더 */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 55px;
-            background-color: var(--card-bg);
-            border-bottom: 2px solid var(--primary-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
-            z-index: 1000;
-        }
+    /* ==========================================
+       2. Header
+       ========================================== */
+    .header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        /* 클릭 시 지정된 HTML 페이지로 이동하는 헤더 버튼 */
-        .header-link-btn {
-            background: none;
-            border: none;
-            font-size: 1.25rem;
-            color: var(--text-color);
-            cursor: pointer;
-            padding: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
 
-        .header-link-btn:hover {
-            color: var(--primary-color);
-        }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
 
-        /* 중앙 상단 로고 (클릭 시 index.html로 이동) */
-        .logo-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-        }
+    .logo-highlight {
+      color: var(--primary);
+    }
 
-        /* [3] 게시판 레이아웃 */
-        .container {
-            max-width: 600px;
-            margin: 10px auto;
-            padding: 0 10px;
-        }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
 
-        .board-section {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
+    .nav-menu a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
 
-        /* 게시판 타이틀 및 전체보기 */
-        .board-header {
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            background-color: #f8fafc;
-        }
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--primary);
+    }
 
-        .board-title {
-            font-size: 1rem;
-            font-weight: 800;
-            color: #0f172a;
-        }
+    .btn-suggest {
+      background-color: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: var(--text-main) !important;
+    }
 
-        /* 전체보기 영역 */
-        .shortcut-btn {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
+    .btn-suggest:hover {
+      background-color: #e2e8f0;
+    }
 
-        .shortcut-btn:hover {
-            color: var(--primary-color);
-            text-decoration: underline;
-        }
+    /* ==========================================
+       3. Hero Section
+       ========================================== */
+    .hero-section {
+      padding: 80px 0 60px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
+    }
 
-        /* 게시글 목록 행 (클릭하면 상세 페이지로 이동하도록 a 태그로 변경) */
-        .post-row {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f1f5f9;
-            gap: 12px;
-            transition: background-color 0.15s;
-            cursor: pointer;
-        }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background-color: #eff6ff;
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
 
-        .post-row:hover {
-            background-color: #f8fafc;
-        }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
 
-        .post-row:last-child {
-            border-bottom: none;
-        }
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        /* 썸네일 박스 */
-        .thumbnail-box {
-            width: 55px;
-            height: 55px;
-            background-color: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 0.75rem;
-            flex-shrink: 0;
-            overflow: hidden;
-            text-align: center;
-        }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
 
-        /* 글 본문 정보 */
-        .post-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 0;
-        }
+    /* Search Box */
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      display: flex;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 8px 6px 24px;
+      box-shadow: var(--shadow-md);
+      transition: border-color 0.2s;
+    }
 
-        .post-title-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+    .search-box:focus-within {
+      border-color: var(--primary);
+    }
 
-        .post-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: transparent;
+    }
 
-        .post-row:hover .post-title {
-            color: var(--primary-color);
-        }
+    .search-btn {
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
 
-        /* 새글 N 아이콘 */
-        .new-badge {
-            background-color: var(--accent-red);
-            color: white;
-            font-size: 0.65rem;
-            font-weight: 900;
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+    .search-btn:hover {
+      background-color: var(--primary-hover);
+    }
 
-        /* 메타데이터 */
-        .post-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+    /* Quick Tags */
+    .quick-tags {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
 
-        .author-logo {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: #cbd5e1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            color: white;
-            font-weight: bold;
-        }
+    .tag-label {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
 
-        .author-name {
-            font-weight: 500;
-        }
+    .tag {
+      color: var(--text-muted);
+      background-color: var(--bg-card);
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
 
-        /* 타원형 페이지 표시 */
-        .pagination-container {
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            border-top: 1px solid var(--border-color);
-            background-color: #fafbfc;
-        }
+    .tag:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
 
-        .page-indicator {
-            background-color: #ffffff;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
+    /* ==========================================
+       4. Featured Courses Section
+       ========================================== */
+    .featured-section {
+      padding: 40px 0 80px;
+    }
 
-        /* [4] 모바일 하단 내비바 */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background-color: #ffffff;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1000;
-        }
+    .section-header {
+      margin-bottom: 24px;
+    }
 
-        .bottom-nav-btn {
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
 
-        .bottom-nav-btn:hover {
-            color: var(--primary-color);
-        }
-    </style>
+    .section-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .course-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+
+    .course-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background-color: #f1f5f9;
+      color: var(--text-muted);
+    }
+
+    .card-badge.highlight {
+      background-color: #ecfdf5;
+      color: var(--secondary);
+    }
+
+    .channel-name {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .course-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      background-color: var(--bg-main);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .btn-card {
+      display: block;
+      text-align: center;
+      background-color: var(--primary);
+      color: #fff;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-card:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* 준비 중 안내 카카오톡/제보 스타일 */
+    .coming-soon-card {
+      border: 2px dashed var(--border);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 250px;
+    }
+
+    .coming-soon-content {
+      color: var(--text-muted);
+    }
+
+    .coming-soon-content p {
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    /* ==========================================
+       5. Footer
+       ========================================== */
+    .footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- [1] 상단 고정 헤더 -->
-    <header>
-        <!-- 좌측 상단 버튼: 클릭 시 banner.html로 이동 -->
-        <a href="banner.html" class="header-link-btn" aria-label="배너 열기">
-            <i class="fa-solid fa-bars"></i>
-        </a>
-        
-        <!-- 중앙 상단 로고: 클릭 시 index.html로 이동 -->
-        <a href="index.html" class="logo-center">
-            <i class="fa-solid fa-bolt"></i> JPGGIF
-        </a>
-        
-        <!-- 우측 상단 버튼: 클릭 시 search.html로 이동 -->
-        <a href="search.html" class="header-link-btn" aria-label="검색창 열기">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </a>
-    </header>
+  <!-- 1. Header (상단 네비게이션) -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-highlight">Class</span>Pick
+      </a>
+      <nav class="nav-menu">
+        <a href="index.html" class="active">홈</a>
+        <a href="pages/suggest.html" class="btn-suggest">강의 제보</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- [2] 메인 콘텐츠 컨테이너 (게시판당 글 4개씩 노출) -->
+  <!-- 2. Hero Section (메인 비주얼 & 검색) -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <span class="badge">FREE LEARNING ROADMAP</span>
+      <h1 class="hero-title">검증된 무료 추천 강의,<br><span class="text-gradient">단 3번의 클릭</span>으로 찾으세요.</h1>
+      <p class="hero-subtitle">유튜브 상의 양질의 강의를 과목별/단계별로 정갈하게 모았습니다.</p>
+      
+      <!-- 검색창 -->
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="어떤 시험이나 분야를 찾고 계신가요? (예: 한국사)">
+        <button type="button" class="search-btn" aria-label="검색">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+      </div>
+
+      <!-- 추천 태그 (한능검 위주 정리) -->
+      <div class="quick-tags">
+        <span class="tag-label">추천 태그:</span>
+        <a href="한능검(심화).html" class="tag">#한국사능력검정(심화)</a>
+        <a href="한능검(심화).html" class="tag">#한능검심화</a>
+        <a href="한능검(심화).html" class="tag">#한국사단기완성</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Featured Courses Section (현재 제공 중인 강의) -->
+  <section class="featured-section">
     <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">추천 오픈 강의</h2>
+        <p class="section-desc">현재 엄선된 무료 커리큘럼 로드맵입니다.</p>
+      </div>
 
-        <!-- 1. 공지사항 섹션 -->
-        <section class="board-section">
-            <div class="board-header">
-                <span class="board-title">공지사항</span>
-                <a href="공지사항.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
+      <div class="course-grid">
+        <!-- 강의 카드 1: 한능검 심화 -->
+        <div class="course-card">
+          <div class="card-badge highlight">한국사</div>
+          <div class="card-content">
+            <span class="channel-name">유튜브 · 인기 1위</span>
+            <h3 class="course-title">한국사능력검정시험(심화) 단기 완성</h3>
+            <p class="course-desc">흐름으로 이해하는 한국사 심화 과정. 판서 위주의 명쾌한 정리와 요약 안내 제공.</p>
+            <div class="card-tags">
+              <span class="card-tag">#심화합격</span>
+              <span class="card-tag">#요약노트</span>
+              <span class="card-tag">#기출연계</span>
             </div>
-            <div class="post-list">
-                <!-- 글 1 -->
-                <a href="post_notice_1.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">전체 검색 기능을 다시 오픈했습니다</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: var(--primary-color);">짤</span>
-                            <span class="author-name">짤티비</span>
-                            <span class="post-date">2026-03-16</span>
-                        </div>
-                    </div>
-                </a>
-                <!-- 글 2 -->
-                <a href="post_notice_2.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">서버 사양 업그레이드 안내</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: var(--primary-color);">쌀</span>
-                            <span class="author-name">쌀티비</span>
-                            <span class="post-date">2025-09-03</span>
-                        </div>
-                    </div>
-                </a>
-                <!-- 글 3 -->
-                <a href="post_notice_3.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">회원 전용 게시판 포인트 차감 제도 폐지</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: var(--primary-color);">짤</span>
-                            <span class="author-name">짤티비</span>
-                            <span class="post-date">2023-10-18</span>
-                        </div>
-                    </div>
-                </a>
-                <!-- 글 4 -->
-                <a href="post_notice_4.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">개인정보처리방침 개정 및 동의 안내</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: var(--primary-color);">짤</span>
-                            <span class="author-name">짤티비</span>
-                            <span class="post-date">2023-09-01</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="pagination-container">
-                <div class="page-indicator">1/2</div>
-            </div>
-        </section>
+            <a href="한능검(심화).html" class="btn-card">강의 로드맵 보기</a>
+          </div>
+        </div>
 
-        <!-- 2. 사자 섹션 -->
-        <section class="board-section">
-            <div class="board-header">
-                <span class="board-title">사자</span>
-                <a href="사자.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
-            </div>
-            <div class="post-list">
-                <a href="post_lion_1.html" class="post-row">
-                    <div class="thumbnail-box"><i class="fa-regular fa-image" style="font-size: 1.1rem;"></i></div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">아프리카 세렝게티 수사자 우두머리의 위엄</span>
-                            <span class="new-badge">N</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #f59e0b;">사</span>
-                            <span class="author-name">심바</span>
-                            <span class="post-date">2026-07-15</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_lion_2.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">사자는 진짜 무리 지어 사냥할 때 성공률이 높나요?</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #64748b;">네</span>
-                            <span class="author-name">네이처</span>
-                            <span class="post-date">2026-07-14</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_lion_3.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">동물원에서 갓 태어난 아기 사자 보고 왔습니다</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #ec4899;">집</span>
-                            <span class="author-name">집사일기</span>
-                            <span class="post-date">2026-07-10</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_lion_4.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">다큐멘터리 '초원의 왕 수사자' 추천작 공유</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #10b981;">필</span>
-                            <span class="author-name">필름보이</span>
-                            <span class="post-date">2026-07-08</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="pagination-container">
-                <div class="page-indicator">1/25</div>
-            </div>
-        </section>
-
-        <!-- 3. 호랑이 섹션 -->
-        <section class="board-section">
-            <div class="board-header">
-                <span class="board-title">호랑이</span>
-                <a href="호랑이.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
-            </div>
-            <div class="post-list">
-                <a href="post_tiger_1.html" class="post-row">
-                    <div class="thumbnail-box"><i class="fa-regular fa-image" style="font-size: 1.1rem;"></i></div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">시베리아 혹한 속 눈밭을 뚫고 걷는 호랑이 포스</span>
-                            <span class="new-badge">N</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #ea580c;">호</span>
-                            <span class="author-name">타이거jk</span>
-                            <span class="post-date">2026-07-15</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_tiger_2.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">인도 벵골 호랑이의 영역 다툼 스틸컷 모음</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #6366f1;">포</span>
-                            <span class="author-name">포토그래퍼</span>
-                            <span class="post-date">2026-07-13</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_tiger_3.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">백호와 황호의 생물학적 차이점에 대해 알아보자</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #06b6d4;">사</span>
-                            <span class="author-name">사이언스</span>
-                            <span class="post-date">2026-07-09</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_tiger_4.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">호랑이가 물을 좋아하고 수영을 잘하는 이유</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #8b5cf6;">워</span>
-                            <span class="author-name">워터라이프</span>
-                            <span class="post-date">2026-07-05</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="pagination-container">
-                <div class="page-indicator">1/18</div>
-            </div>
-        </section>
-
-        <!-- 4. 전갈 섹션 -->
-        <section class="board-section">
-            <div class="board-header">
-                <span class="board-title">전갈</span>
-                <a href="전갈.html" class="shortcut-btn">전체보기 <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></a>
-            </div>
-            <div class="post-list">
-                <a href="post_scorpion_1.html" class="post-row">
-                    <div class="thumbnail-box"><i class="fa-regular fa-image" style="font-size: 1.1rem;"></i></div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">자외선 라이트를 비추면 형광색으로 빛나는 전갈의 비밀</span>
-                            <span class="new-badge">N</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #111827;">전</span>
-                            <span class="author-name">전갈마스터</span>
-                            <span class="post-date">2026-07-15</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_scorpion_2.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">황제전갈 키우기 입문자를 위한 필수 케어 시트</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #3b82f6;">펫</span>
-                            <span class="author-name">펫러버</span>
-                            <span class="post-date">2026-07-14</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_scorpion_3.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">독성이 가장 강력한 데스스토커 전갈 주의보</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #ef4444;">위</span>
-                            <span class="author-name">위험경보</span>
-                            <span class="post-date">2026-07-11</span>
-                        </div>
-                    </div>
-                </a>
-                <a href="post_scorpion_4.html" class="post-row">
-                    <div class="thumbnail-box">No Image</div>
-                    <div class="post-info">
-                        <div class="post-title-wrapper">
-                            <span class="post-title">전갈의 허물벗기(탈피) 장면 직관 후기</span>
-                        </div>
-                        <div class="post-meta">
-                            <span class="author-logo" style="background-color: #10b981;">탈</span>
-                            <span class="author-name">탈피의신</span>
-                            <span class="post-date">2026-07-06</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="pagination-container">
-                <div class="page-indicator">1/12</div>
-            </div>
-        </section>
-
+        <!-- 카드 2: 다음 강의 순차 추가 예정 안내 플레이스홀더 -->
+        <div class="course-card coming-soon-card">
+          <div class="coming-soon-content">
+            <h3>📂 다음 강의 준비 중</h3>
+            <p>새로운 분야의 무료 로드맵이 곧 업데이트됩니다!</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- [3] 하단 내비게이션 바 -->
-    <div class="bottom-nav">
-        <button class="bottom-nav-btn" onclick="history.back()"><i class="fa-solid fa-chevron-left"></i></button>
-        <button class="bottom-nav-btn" onclick="history.forward()"><i class="fa-solid fa-chevron-right"></i></button>
-        <a href="index.html" class="bottom-nav-btn"><i class="fa-solid fa-house"></i></a>
-        <a href="banner.html" class="bottom-nav-btn"><i class="fa-solid fa-ellipsis"></i></a>
+  <!-- 4. Footer (하단) -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 ClassPick. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+      </div>
     </div>
+  </footer>
 
 </body>
 </html>
