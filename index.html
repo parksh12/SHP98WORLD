@@ -4,11 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClassPick | 무료 강의 길라잡이</title>
-
-  <!-- Pretendard 폰트 불러오기 (2030 선호 폰트) -->
+  
   <!-- Pretendard 폰트 불러오기 -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-
+  
   <style>
     /* ==========================================
        1. Global Styles & CSS Variables
@@ -123,17 +122,6 @@
       background: linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
     }
 
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background-color: #eff6ff;
-      color: var(--primary);
-      font-size: 0.8rem;
-      font-weight: 700;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-
     .hero-title {
       font-size: 2.5rem;
       font-weight: 800;
@@ -151,79 +139,6 @@
     .hero-subtitle {
       font-size: 1.1rem;
       color: var(--text-muted);
-      margin-bottom: 36px;
-    }
-
-    /* Search Box */
-    .search-box {
-      max-width: 600px;
-      margin: 0 auto 20px;
-      display: flex;
-      background: var(--bg-card);
-      border: 2px solid var(--border);
-      border-radius: 50px;
-      padding: 6px 8px 6px 24px;
-      box-shadow: var(--shadow-md);
-      transition: border-color 0.2s;
-    }
-
-    .search-box:focus-within {
-      border-color: var(--primary);
-    }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      background: transparent;
-    }
-
-    .search-btn {
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s;
-    }
-
-    .search-btn:hover {
-      background-color: var(--primary-hover);
-    }
-
-    /* Quick Tags */
-    .quick-tags {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.85rem;
-    }
-
-    .tag-label {
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .tag {
-      color: var(--text-muted);
-      background-color: var(--bg-card);
-      padding: 4px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-    }
-
-    .tag:hover {
-      border-color: var(--primary);
-      color: var(--primary);
     }
 
     /* ==========================================
@@ -242,15 +157,8 @@
       font-weight: 700;
     }
 
-    .section-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
     .course-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 24px;
     }
@@ -260,11 +168,7 @@
       border-radius: var(--radius-md);
       border: 1px solid var(--border);
       padding: 28px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
       position: relative;
-      transition: box-shadow 0.2s;
       transition: box-shadow 0.2s, transform 0.2s;
       height: 100%;
     }
@@ -368,10 +272,6 @@
       background-color: var(--primary-hover);
     }
 
-    /* 준비 중 안내 카카오톡/제보 스타일 */
-    .coming-soon-card {
-      border: 2px dashed var(--border);
-      background: transparent;
     /* ==========================================
        5. Modal (강의 제보 안내 팝업창) Styles
        ========================================== */
@@ -403,9 +303,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 250px;
       margin-bottom: 16px;
     }
 
@@ -414,7 +311,6 @@
       font-weight: 700;
     }
 
-    .coming-soon-content {
     .modal-close {
       background: none;
       border: none;
@@ -423,9 +319,6 @@
       color: var(--text-muted);
     }
 
-    .coming-soon-content p {
-      font-size: 0.9rem;
-      margin-top: 6px;
     .modal-body {
       font-size: 0.95rem;
       color: var(--text-muted);
@@ -464,7 +357,6 @@
     }
 
     /* ==========================================
-       5. Footer
        6. Footer
        ========================================== */
     .footer {
@@ -492,7 +384,6 @@
       color: var(--text-main);
     }
 
-    /* 반응형 스타일 */
     @media (max-width: 768px) {
       .hero-title {
         font-size: 1.8rem;
@@ -506,7 +397,6 @@
 </head>
 <body>
 
-  <!-- 1. Header (상단 네비게이션) -->
   <!-- 1. Header -->
   <header class="header">
     <div class="container header-container">
@@ -515,63 +405,34 @@
       </a>
       <nav class="nav-menu">
         <a href="index.html" class="active">홈</a>
-        <a href="pages/suggest.html" class="btn-suggest">강의 제보</a>
         <button class="btn-suggest" onclick="openModal()">강의 제보</button>
       </nav>
     </div>
   </header>
 
-  <!-- 2. Hero Section (메인 비주얼 & 검색) -->
   <!-- 2. Hero Section -->
   <section class="hero-section">
     <div class="container hero-content">
-      <span class="badge">FREE LEARNING ROADMAP</span>
-      <h1 class="hero-title">검증된 무료 추천 강의,<br><span class="text-gradient">단 3번의 클릭</span>으로 찾으세요.</h1>
-      <p class="hero-subtitle">유튜브 상의 양질의 강의를 과목별/단계별로 정갈하게 모았습니다.</p>
-      
-      <!-- 검색창 -->
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="어떤 시험이나 분야를 찾고 계신가요? (예: 한국사)">
-        <button type="button" class="search-btn" aria-label="검색">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </button>
-      </div>
-
-      <!-- 추천 태그 (한능검 위주 정리) -->
-      <div class="quick-tags">
-        <span class="tag-label">추천 태그:</span>
-        <a href="한능검(심화).html" class="tag">#한국사능력검정(심화)</a>
-        <a href="한능검(심화).html" class="tag">#한능검심화</a>
-        <a href="한능검(심화).html" class="tag">#한국사단기완성</a>
-      </div>
       <h1 class="hero-title">흩어진 무료 강의를 한번에,<br><span class="text-gradient">Class</span>Pick</h1>
       <p class="hero-subtitle">정석 강의부터 벼락치기 강의까지 모두 준비했습니다.</p>
     </div>
   </section>
 
-  <!-- 3. Featured Courses Section (현재 제공 중인 강의) -->
   <!-- 3. Featured Courses Section -->
   <section class="featured-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">추천 오픈 강의</h2>
-        <p class="section-desc">현재 엄선된 무료 커리큘럼 로드맵입니다.</p>
         <h2 class="section-title">강의(A to Z)</h2>
       </div>
 
       <div class="course-grid">
-        <!-- 강의 카드 1: 한능검 심화 -->
         
         <!-- [순서 1] 전기기능사 -->
         <div class="course-card">
-          <div class="card-badge highlight">한국사</div>
           <!-- 엑셀: 카테고리 -->
           <div class="card-badge highlight">전기</div>
           
           <div class="card-content">
-            <span class="channel-name">유튜브 · 인기 1위</span>
-            <h3 class="course-title">한국사능력검정시험(심화) 단기 완성</h3>
-            <p class="course-desc">흐름으로 이해하는 한국사 심화 과정. 판서 위주의 명쾌한 정리와 요약 안내 제공.</p>
             <!-- 엑셀: 소제목 -->
             <span class="channel-name">국가기술자격증</span>
             
@@ -583,25 +444,16 @@
             
             <!-- 엑셀: 해시태그 -->
             <div class="card-tags">
-              <span class="card-tag">#심화합격</span>
-              <span class="card-tag">#요약노트</span>
-              <span class="card-tag">#기출연계</span>
               <span class="card-tag">#전기기능사</span>
               <span class="card-tag">#전기</span>
               <span class="card-tag">#전기자격증</span>
             </div>
-            <a href="한능검(심화).html" class="btn-card">강의 로드맵 보기</a>
             
             <!-- 엑셀: 연결 파일 -->
             <a href="전기기능사.html" class="btn-card">무료 강의 보러가기</a>
           </div>
         </div>
 
-        <!-- 카드 2: 다음 강의 순차 추가 예정 안내 플레이스홀더 -->
-        <div class="course-card coming-soon-card">
-          <div class="coming-soon-content">
-            <h3>📂 다음 강의 준비 중</h3>
-            <p>새로운 분야의 무료 로드맵이 곧 업데이트됩니다!</p>
         <!-- [순서 2] 전기기사 -->
         <div class="course-card">
           <!-- 엑셀: 카테고리 -->
@@ -660,7 +512,6 @@
     </div>
   </section>
 
-  <!-- 4. Footer (하단) -->
   <!-- 4. 강의 제보 안내 모달 -->
   <div class="modal-overlay" id="suggestModal">
     <div class="modal-card">
