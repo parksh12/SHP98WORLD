@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>한국사능력검정시험(심화) 40강 완벽 대비 | 큰별쌤 최태성</title>
+  <title>한국사능력검정시험(심화) | 최태성</title>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts (Pretendard-like Noto Sans KR) -->
+  <!-- Google Fonts (Noto Sans KR) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -15,10 +15,9 @@
     :root {
       --bg-dark: #0f172a;
       --bg-card: #1e293b;
-      --bg-card-hover: #334155;
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --accent-lime: #84cc16;
+      --primary: #ef4444; /* 유튜브 아이덴티티 레드 */
+      --primary-hover: #dc2626;
+      --primary-light: #f87171;
       --accent-gold: #eab308;
       --text-main: #f8fafc;
       --text-sub: #94a3b8;
@@ -26,8 +25,7 @@
       --border: #334155;
       --radius-sm: 8px;
       --radius-md: 14px;
-      --radius-lg: 20px;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
 
     * {
@@ -82,379 +80,109 @@
       font-size: 1.5rem;
     }
 
-    .playlist-btn {
+    .back-home-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #ef4444;
-      color: #fff;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
       padding: 0.6rem 1.2rem;
       border-radius: var(--radius-sm);
       font-weight: 600;
       font-size: 0.9rem;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     }
 
-    .playlist-btn:hover {
-      background: #dc2626;
-      transform: translateY(-2px);
+    .back-home-btn:hover {
+      color: var(--text-main);
+      border-color: var(--primary-light);
     }
 
     /* Container */
     .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
+      max-width: 500px;
+      margin: 5rem auto 0;
+      padding: 0 1.5rem;
     }
 
-    /* Hero Banner */
-    .hero {
-      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(132, 204, 22, 0.15) 0%, rgba(0,0,0,0) 70%);
-      pointer-events: none;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      background: rgba(132, 204, 22, 0.2);
-      color: var(--accent-lime);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(132, 204, 22, 0.4);
-    }
-
-    .hero h1 {
-      font-size: 2.2rem;
-      font-weight: 900;
-      margin-bottom: 0.8rem;
-      background: linear-gradient(to right, #ffffff, #cbd5e1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: var(--text-sub);
-      font-size: 1.05rem;
-      max-width: 750px;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-main);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .meta-item i {
-      color: var(--accent-gold);
-    }
-
-    /* Dashboard Grid */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    @media (max-width: 900px) {
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
+    /* Course Card */
+    .course-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 1.5rem;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
       box-shadow: var(--shadow);
     }
 
-    /* Progress Tracker Card */
-    .progress-header {
+    .course-meta {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .progress-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .progress-percent {
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--accent-lime);
-    }
-
-    .progress-bar-bg {
-      background: var(--bg-dark);
-      height: 14px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      border: 1px solid var(--border);
-    }
-
-    .progress-bar-fill {
-      background: linear-gradient(90deg, var(--primary) 0%, var(--accent-lime) 100%);
-      height: 100%;
-      width: 0%;
-      transition: width 0.4s ease;
-    }
-
-    .progress-stats {
-      display: flex;
-      justify-content: space-between;
-      color: var(--text-sub);
-      font-size: 0.9rem;
-    }
-
-    /* Strategy Card */
-    .strategy-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 0.8rem;
-    }
-
-    .strategy-item {
-      display: flex;
-      align-items: flex-start;
       gap: 10px;
-      font-size: 0.92rem;
-      color: var(--text-sub);
-    }
-
-    .strategy-item i {
-      color: var(--accent-lime);
-      margin-top: 3px;
-    }
-
-    /* Section Tabs / Controls */
-    .controls-panel {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      background: var(--bg-card);
-      padding: 1rem 1.2rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
     }
 
-    .filter-tabs {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-
-    .tab-btn {
-      background: var(--bg-dark);
-      border: 1px solid var(--border);
-      color: var(--text-sub);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.88rem;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-    }
-
-    .tab-btn.active, .tab-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary-light);
-    }
-
-    .reset-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 0.5rem 0.9rem;
-      border-radius: var(--radius-sm);
+    .badge {
       font-size: 0.85rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-
-    .reset-btn:hover {
-      color: #ef4444;
-      border-color: #ef4444;
-    }
-
-    /* Lecture List */
-    .lecture-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 1.2rem;
-    }
-
-    @media (max-width: 600px) {
-      .lecture-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .lecture-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25 ease;
-      position: relative;
-    }
-
-    .lecture-card:hover {
-      border-color: var(--primary-light);
-      transform: translateY(-3px);
-      box-shadow: var(--shadow);
-    }
-
-    .lecture-card.completed {
-      border-color: rgba(132, 204, 22, 0.4);
-      background: rgba(30, 41, 59, 0.6);
-    }
-
-    .lecture-card.completed .lecture-title {
-      text-decoration: line-through;
-      color: var(--text-muted);
-    }
-
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.8rem;
-    }
-
-    .lecture-num {
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-      background: rgba(234, 179, 8, 0.15);
-      padding: 0.2rem 0.6rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
       border-radius: 6px;
+    }
+
+    .badge-purple {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--primary-light);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-gold {
+      background: rgba(234, 179, 8, 0.15);
+      color: var(--accent-gold);
       border: 1px solid rgba(234, 179, 8, 0.3);
     }
 
-    .era-tag {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-sub);
-      background: var(--bg-dark);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+    .course-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
     }
 
-    .lecture-title {
+    .course-info p {
       font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 1rem;
-      line-height: 1.4;
-    }
-
-    .card-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 0.8rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .check-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      user-select: none;
-      font-size: 0.85rem;
       color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .check-container input {
-      display: none;
+    .course-info p strong {
+      color: var(--text-main);
     }
 
-    .checkmark {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--border);
-      border-radius: 5px;
+    .enter-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .check-container input:checked ~ .checkmark {
-      background: var(--accent-lime);
-      border-color: var(--accent-lime);
-      color: #000;
-    }
-
-    .watch-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--primary-light);
-      transition: color 0.2s;
-    }
-
-    .watch-btn:hover {
+      gap: 10px;
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
       color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .enter-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
     }
 
     /* Footer */
@@ -465,11 +193,6 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 0.9rem;
-    }
-
-    footer a {
-      color: var(--text-sub);
-      text-decoration: underline;
     }
   </style>
 </head>
@@ -482,258 +205,38 @@
         <i class="fa-solid fa-graduation-cap"></i>
         <span>한국사능력검정시험(심화)</span>
       </div>
-      <a href="https://www.youtube.com/watch?v=1Sp3EuDlZgM&list=PLE7ogCa1_I6suFmGQa5-Uj_ZF4H1KdMZw" target="_blank" class="playlist-btn">
-        <i class="fa-brands fa-youtube"></i> 유튜브 재생목록 바로가기
+      <!-- 홈 바로가기 버튼 -->
+      <a href="index.html" class="back-home-btn">
+        <i class="fa-solid fa-house"></i> 홈 바로가기
       </a>
     </div>
   </header>
 
   <div class="container">
-    
-    <!-- Hero Banner -->
-    <div class="hero">
-      <span class="hero-tag">큰별쌤 최태성 선생님과 함께하는</span>
-      <h1>한국사능력검정시험 (심화) 40강 대시보드</h1>
-      <p>단 3일 완강 가능한 40강 핵심 체계! 전근대(1~27강)와 근현대(28~40강)의 맥락을 잡고 합격을 넘어 삶의 가치까지 채우는 역사의 길잡이입니다.</p>
-      
-      <div class="hero-meta">
-        <div class="meta-item">
-          <i class="fa-solid fa-layer-group"></i> 총 40강 전과정 Complete
-        </div>
-        <div class="meta-item">
-          <i class="fa-solid fa-award"></i> 목표: 1급 (80점 이상) / 50문항 5지선다
-        </div>
-        <div class="meta-item">
-          <i class="fa-solid fa-bolt"></i> 권장 학습 speed: 1.5 ~ 2.0 배속 완강
-        </div>
-      </div>
-    </div>
 
-    <!-- Dashboard Top Grid -->
-    <div class="dashboard-grid">
-      <!-- Progress Bar Card -->
-      <div class="card">
-        <div class="progress-header">
-          <div class="progress-title">
-            <i class="fa-solid fa-chart-line" style="color: var(--accent-lime);"></i>
-            <span>나의 완강 진도율</span>
-          </div>
-          <div class="progress-percent" id="progressPercent">0%</div>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-        <div class="progress-stats">
-          <span>수강 완료: <strong id="completedCount" style="color: var(--text-main);">0</strong> / 40강</span>
-          <span>남은 강의: <strong id="remainingCount" style="color: var(--text-main);">40</strong>강</span>
-        </div>
+    <!-- 단일 강좌 카드 -->
+    <div class="course-card">
+      <div class="course-meta">
+        <span class="badge badge-purple"><i class="fa-solid fa-play"></i> 총 강의수: 40강</span>
+        <span class="badge badge-gold"><i class="fa-solid fa-user"></i> 강의자: 최태성</span>
       </div>
 
-      <!-- Strategy Card -->
-      <div class="card">
-        <div class="progress-title" style="margin-bottom: 0.5rem;">
-          <i class="fa-solid fa-lightbulb" style="color: var(--accent-gold);"></i>
-          <span>합격 3단계 전략</span>
-        </div>
-        <ul class="strategy-list">
-          <li class="strategy-item">
-            <i class="fa-solid fa-check"></i>
-            <span><strong>초스피드 1회독:</strong> 고민하지 말고 40강 빠르게 완강하기</span>
-          </li>
-          <li class="strategy-item">
-            <i class="fa-solid fa-check"></i>
-            <span><strong>기출 2~3회 풀이:</strong> 오답 노트로 출제 패턴 파악</span>
-          </li>
-          <li class="strategy-item">
-            <i class="fa-solid fa-check"></i>
-            <span><strong>왕과 문화재 집중:</strong> 전근대 핵심인 왕의 업적과 유물 정복</span>
-          </li>
-        </ul>
+      <div class="course-info">
+        <p><i class="fa-solid fa-book-bookmark" style="color: var(--primary-light);"></i> 강좌명: <strong>한국사능력검정시험(심화) 40강</strong></p>
       </div>
-    </div>
 
-    <!-- Controls / Filters -->
-    <div class="controls-panel">
-      <div class="filter-tabs">
-        <button class="tab-btn active" onclick="filterEra('all', this)">전체 보기 (40강)</button>
-        <button class="tab-btn" onclick="filterEra('pre-modern', this)">전근대사 (1~27강)</button>
-        <button class="tab-btn" onclick="filterEra('modern', this)">근현대사 (28~40강)</button>
-      </div>
-      <button class="reset-btn" onclick="resetProgress()">
-        <i class="fa-solid fa-rotate-left"></i> 진도 초기화
-      </button>
-    </div>
-
-    <!-- Lecture Grid -->
-    <div class="lecture-grid" id="lectureGrid">
-      <!-- Generated via Javascript -->
+      <!-- 외부 유튜브 재생목록 링크 연결 -->
+      <a href="https://www.youtube.com/watch?v=1Sp3EuDlZgM&list=PLE7ogCa1_I6suFmGQa5-Uj_ZF4H1KdMZw" target="_blank" class="enter-btn">
+        <i class="fa-brands fa-youtube" style="font-size: 1.2rem;"></i> 강의 바로가기
+      </a>
     </div>
 
     <!-- Footer -->
     <footer>
-      <p>강의 출처: YouTube <a href="https://www.youtube.com/watch?v=1Sp3EuDlZgM&list=PLE7ogCa1_I6suFmGQa5-Uj_ZF4H1KdMZw" target="_blank">최태성 1TV [한국사능력검정시험 심화]</a></p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">역사는 사람을 만나는 인문학입니다. 합격을 응원합니다!</p>
+      <p>강의 출처: YouTube 최태성 1TV</p>
     </footer>
 
   </div>
 
-  <script>
-    // 40 Lectures Data List
-    const playlistUrl = "https://www.youtube.com/watch?v=1Sp3EuDlZgM&list=PLE7ogCa1_I6suFmGQa5-Uj_ZF4H1KdMZw";
-
-    const lectures = [
-      // 전근대사 (1~27강)
-      { id: 1, title: "우리는 왜 역사를 공부하는가 & OT", era: "pre-modern", category: "오리엔테이션" },
-      { id: 2, title: "선사 시대 및 국가의 형성 (구·신·청·철)", era: "pre-modern", category: "선사~철기" },
-      { id: 3, title: "고구려의 성립과 발전 (태조왕~장수왕)", era: "pre-modern", category: "고대" },
-      { id: 4, title: "백제의 성립과 발전 (고이왕~성왕)", era: "pre-modern", category: "고대" },
-      { id: 5, title: "신라의 성립과 나제동맹, 진흥왕", era: "pre-modern", category: "고대" },
-      { id: 6, title: "삼국 통일 전쟁과 통일신라의 발전", era: "pre-modern", category: "고대" },
-      { id: 7, title: "해동성국 발해의 역사와 통치 체제", era: "pre-modern", category: "고대" },
-      { id: 8, title: "고대 사회의 경제·사회·문화 (불교 유물)", era: "pre-modern", category: "고대 문화" },
-      { id: 9, title: "고려의 건국과 기틀 마련 (태조~성종)", era: "pre-modern", category: "고려" },
-      { id: 10, title: "고려의 통치 체제 (중앙·지방·군사·과거제)", era: "pre-modern", category: "고려" },
-      { id: 11, title: "문벌 귀족 사회와 무신 정권", era: "pre-modern", category: "고려" },
-      { id: 12, title: "고려의 대외 관계 (거란·여진·몽골 항쟁)", era: "pre-modern", category: "고려" },
-      { id: 13, title: "원 간섭기와 공민왕의 개혁 정치", era: "pre-modern", category: "고려" },
-      { id: 14, title: "고려의 경제·사회적 모습", era: "pre-modern", category: "고려" },
-      { id: 15, title: "고려의 문화 (팔만대장경, 고려청자, 유교)", era: "pre-modern", category: "고려 문화" },
-      { id: 16, title: "조선의 건국과 기틀 확립 (태조~성종)", era: "pre-modern", category: "조선 전기" },
-      { id: 17, title: "조선의 통치 체제 (의정부 6조, 3사)", era: "pre-modern", category: "조선 전기" },
-      { id: 18, title: "사림의 도약과 4대 사화, 붕당의 형성", era: "pre-modern", category: "조선 전기" },
-      { id: 19, title: "조선의 외교와 전란 (임진왜란·병자호란)", era: "pre-modern", category: "조선 전기" },
-      { id: 20, title: "조선 후기 정치의 변동과 탕평책 (영조·정조)", era: "pre-modern", category: "조선 후기" },
-      { id: 21, title: "세도 정치와 농민 봉기 (홍경래·임술농민)", era: "pre-modern", category: "조선 후기" },
-      { id: 22, title: "조선 시대 수취 제도 (대동법·균역법)", era: "pre-modern", category: "조선 경제" },
-      { id: 23, title: "조선 후기 경제 변동과 상품 화폐 경제", era: "pre-modern", category: "조선 경제" },
-      { id: 24, title: "조선 시대 신분제와 사회 모습의 변화", era: "pre-modern", category: "조선 사회" },
-      { id: 25, title: "조선 전기 성리학과 과학 기술의 발전", era: "pre-modern", category: "조선 문화" },
-      { id: 26, title: "조선 후기 실학의 발달과 국학 연구", era: "pre-modern", category: "조선 문화" },
-      { id: 27, title: "조선 후기 서민 문화와 유물 정리", era: "pre-modern", category: "조선 문화" },
-
-      // 근현대사 (28~40강)
-      { id: 28, title: "흥선대원군의 개혁과 통상 수교 거부 정책", era: "modern", category: "개항기" },
-      { id: 29, title: "강화도 조약과 개화 정책의 추진", era: "modern", category: "개항기" },
-      { id: 30, title: "임오군란과 갑신정변", era: "modern", category: "개항기" },
-      { id: 31, title: "동학 농민 운동과 갑오·을미개혁", era: "modern", category: "개항기" },
-      { id: 32, title: "독립협회와 대한제국 (광무개혁)", era: "modern", category: "개항기" },
-      { id: 33, title: "일제 통치 방식의 변화 (10년대~40년대)", era: "modern", category: "일제강점기" },
-      { id: 34, title: "3·1 운동과 대한민국 임시정부", era: "modern", category: "일제강점기" },
-      { id: 35, title: "1920~30년대 무장 독립 전쟁 (청산리·봉오동)", era: "modern", category: "일제강점기" },
-      { id: 36, title: "의열단과 한인애국단, 민족 유일당 운동", era: "modern", category: "일제강점기" },
-      { id: 37, title: "실력 양성 운동과 사회·문화적 민족운동", era: "modern", category: "일제강점기" },
-      { id: 38, title: "8·15 광복과 대한민국 정부 수립 과정", era: "modern", category: "현대사" },
-      { id: 39, title: "6·25 전쟁과 민주화 운동 (4·19, 5·18, 6월)", era: "modern", category: "현대사" },
-      { id: 40, title: "현대 경제 발전과 남북 관계 통일 노력", era: "modern", category: "현대사" }
-    ];
-
-    // LocalStorage key
-    const STORAGE_KEY = "hangeun_simhwa_progress";
-
-    // Load progress
-    function getSavedProgress() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : [];
-    }
-
-    // Save progress
-    function saveProgress(completedIds) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(completedIds));
-      updateProgressUI();
-    }
-
-    // Toggle single lecture status
-    function toggleLecture(id) {
-      let completed = getSavedProgress();
-      if (completed.includes(id)) {
-        completed = completed.filter(item => item !== id);
-      } else {
-        completed.push(id);
-      }
-      saveProgress(completed);
-      
-      const card = document.getElementById(`lecture-card-${id}`);
-      if (card) {
-        card.classList.toggle('completed', completed.includes(id));
-      }
-    }
-
-    // Update Top Progress Dashboard
-    function updateProgressUI() {
-      const completed = getSavedProgress();
-      const count = completed.length;
-      const total = lectures.length;
-      const percentage = Math.round((count / total) * 100);
-
-      document.getElementById('completedCount').innerText = count;
-      document.getElementById('remainingCount').innerText = total - count;
-      document.getElementById('progressPercent').innerText = `${percentage}%`;
-      document.getElementById('progressBar').style.width = `${percentage}%`;
-    }
-
-    // Render Lecture Cards
-    function renderLectures(filter = 'all') {
-      const grid = document.getElementById('lectureGrid');
-      grid.innerHTML = '';
-
-      const completed = getSavedProgress();
-
-      lectures.forEach(lec => {
-        if (filter !== 'all' && lec.era !== filter) return;
-
-        const isDone = completed.includes(lec.id);
-
-        const card = document.createElement('div');
-        card.className = `lecture-card ${isDone ? 'completed' : ''}`;
-        card.id = `lecture-card-${lec.id}`;
-
-        card.innerHTML = `
-          <div>
-            <div class="card-top">
-              <span class="lecture-num">${lec.id}강</span>
-              <span class="era-tag">${lec.category}</span>
-            </div>
-            <h3 class="lecture-title">${lec.title}</h3>
-          </div>
-          <div class="card-bottom">
-            <label class="check-container" onclick="event.stopPropagation();">
-              <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleLecture(${lec.id})">
-              <span class="checkmark"><i class="fa-solid fa-check" style="font-size: 12px;"></i></span>
-              <span>수강 완료</span>
-            </label>
-            <a href="${playlistUrl}" target="_blank" class="watch-btn">
-              <i class="fa-regular fa-circle-play"></i> 강의 시청
-            </a>
-          </div>
-        `;
-
-        grid.appendChild(card);
-      });
-    }
-
-    // Filter era tab
-    function filterEra(era, btn) {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderLectures(era);
-    }
-
-    // Reset progress
-    function resetProgress() {
-      if (confirm('모든 수강 체크 상태를 초기화하시겠습니까?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        updateProgressUI();
-        const activeTab = document.querySelector('.tab-btn.active');
-        const era = activeTab ? activeTab.getAttribute('onclick').match(/'([^']+)'/)[1] : 'all';
-        renderLectures(era);
-      }
-    }
-
-    // Initial load
-    document.addEventListener('DOMContentLoaded', () => {
-      renderLectures();
-      updateProgressUI();
-    });
-  </script>
 </body>
 </html>
