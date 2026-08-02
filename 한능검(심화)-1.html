@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>한국사능력검정시험(심화) 대표 강좌 선택 | 큰별쌤 최태성</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent-lime: #84cc16;
+      --accent-gold: #eab308;
+      --accent-sky: #38bdf8;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+      --border: #334155;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .logo i {
+      color: var(--accent-gold);
+      font-size: 1.5rem;
+    }
+
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .back-home-btn:hover {
+      color: var(--text-main);
+      border-color: var(--primary-light);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #0f172a 100%);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(234, 179, 8, 0.2);
+      color: var(--accent-gold);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-sub);
+      font-size: 1.05rem;
+      max-width: 800px;
+    }
+
+    /* Section Header */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: var(--primary-light);
+    }
+
+    /* Course Cards Grid */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .course-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Highlight Ribbon */
+    .badge-recommended {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent-lime);
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
+    }
+
+    .course-header {
+      margin-bottom: 1.2rem;
+    }
+
+    .course-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.6rem;
+    }
+
+    .lecture-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .badge-purple {
+      background: rgba(99, 102, 241, 0.2);
+      color: var(--primary-light);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+
+    .badge-sky {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent-sky);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-rose {
+      background: rgba(244, 63, 94, 0.2);
+      color: var(--accent-rose);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+    }
+
+    .course-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 0.6rem;
+    }
+
+    .course-desc {
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+
+    .course-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.8rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .course-features li {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .course-features li i {
+      color: var(--accent-lime);
+      font-size: 0.8rem;
+    }
+
+    .enter-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .enter-btn:hover {
+      background: #4f46e5;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>한국사능력검정시험(심화)</span>
+      </div>
+      <a href="#" class="back-home-btn">
+        <i class="fa-solid fa-house"></i> 메인으로
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Hero Banner -->
+    <div class="hero">
+      <span class="hero-tag">맞춤형 학습 로드맵</span>
+      <h1>최태성 선생님의 심화 강좌 시리즈</h1>
+      <p>수험 기간과 현재 목표 점수에 따라 자신에게 꼭 맞는 과정 대시보드를 선택하세요. 클릭 시 해당 커리큘럼의 세부 학습 체크리스트로 이동합니다.</p>
+    </div>
+
+    <!-- Course List Section -->
+    <h2 class="section-title">
+      <i class="fa-solid fa-book-open"></i> 수강할 강좌를 선택하세요
+    </h2>
+
+    <div class="course-grid">
+      
+      <!-- 강좌 1 (대표/권장 - 기존 40강 페이지 연결) -->
+      <div class="course-card">
+        <span class="badge-recommended">BEST 추천</span>
+        <div>
+          <div class="course-header">
+            <div class="course-meta-top">
+              <span class="lecture-badge badge-purple">총 40강 완강</span>
+              <span class="lecture-badge badge-sky">권장 기간: 3~7일</span>
+            </div>
+            <h3 class="course-title">한능검 심화 완벽 대비 40강 개념 완성</h3>
+            <p class="course-desc">전근대(1~27강)부터 근현대(28~40강)까지 흐름과 판서 노하우를 한 번에 잡는 표준 핵심 커리큘럼입니다.</p>
+          </div>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-check"></i> 심화 1급(80점 이상) 타겟 최적화</li>
+            <li><i class="fa-solid fa-check"></i> 전근대 왕/유물 핵심 단권화</li>
+            <li><i class="fa-solid fa-check"></i> 수강 체크리스트 대시보드 제공</li>
+          </ul>
+        </div>
+        <!-- 한능검(심화)-1.html로 연결 -->
+        <a href="한국사능력검정시험(심화)-1.html" class="enter-btn">
+          학습 대시보드 입장 <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- 강좌 2 (초단기 7일/벼락치기 예시) -->
+      <div class="course-card">
+        <div>
+          <div class="course-header">
+            <div class="course-meta-top">
+              <span class="lecture-badge badge-sky">총 7강 압축</span>
+              <span class="lecture-badge badge-rose">권장 기간: 1~2일</span>
+            </div>
+            <h3 class="course-title">시험 직전! 7일 만에 끝내는 초스피드 파이널</h3>
+            <p class="course-desc">시험 전날 빠르게 흐름을 복습하거나 급하게 60~70점 이상 합격선 진입이 필요한 분들을 위한 압축 강좌입니다.</p>
+          </div>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-check"></i> 출제 빈도 1위 빈출 주제 총정리</li>
+            <li><i class="fa-solid fa-check"></i> 시대별 초스피드 연결고리 정리</li>
+            <li><i class="fa-solid fa-check"></i> 직전 가성비 최고 효율</li>
+          </ul>
+        </div>
+        <!-- 준비중 또는 차후 확장용 파일 연결 예시 -->
+        <a href="한국사능력검정시험(심화)-파이널.html" class="enter-btn" style="background: var(--bg-card-hover);">
+          학습 대시보드 입장 <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- 강좌 3 (기출문제 풀이 예시) -->
+      <div class="course-card">
+        <div>
+          <div class="course-header">
+            <div class="course-meta-top">
+              <span class="lecture-badge badge-rose">기출 문제 풀이</span>
+              <span class="lecture-badge badge-purple">최신 10회분</span>
+            </div>
+            <h3 class="course-title">기출이 답이다! 심화 기출 유형 분석 & 오답 정복</h3>
+            <p class="course-desc">개념 수강 후 실제 문제 적용력을 키우는 단계. 선택지 패러프레이징과 자주 틀리는 함정 문항 정복 과정입니다.</p>
+          </div>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-check"></i> 최신 출제 트렌드 분석</li>
+            <li><i class="fa-solid fa-check"></i> 사료 해석 및 키워드 추출 훈련</li>
+            <li><i class="fa-solid fa-check"></i> 오답률 상위 30% 집중 격파</li>
+          </ul>
+        </div>
+        <!-- 준비중 또는 차후 확장용 파일 연결 예시 -->
+        <a href="한국사능력검정시험(심화)-기출.html" class="enter-btn" style="background: var(--bg-card-hover);">
+          학습 대시보드 입장 <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>강의 출처: YouTube 최태성 1TV [한국사능력검정시험 심화]</p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">역사는 사람을 만나는 인문학입니다. 합격을 응원합니다!</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
