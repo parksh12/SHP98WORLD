@@ -3,483 +3,324 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClassPick | 무료 강의 길라잡이</title>
-  
-  <!-- Pretendard 폰트 불러오기 (2030 선호 폰트) -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <title>한국사능력검정시험(심화) 강좌 선택 | 큰별쌤 최태성</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
   
   <style>
-    /* ==========================================
-       1. Global Styles & CSS Variables
-       ========================================== */
     :root {
-      --primary: #2563eb;       /* Deep Indigo / Royal Blue */
-      --primary-hover: #1d4ed8;
-      --secondary: #10b981;     /* Soft Lime / Mint Point */
-      --bg-main: #f8fafc;       /* Light Gray Background */
-      --bg-card: #ffffff;
-      --text-main: #0f172a;     /* Dark Navy/Slate */
-      --text-muted: #64748b;    /* Slate Muted */
-      --border: #e2e8f0;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent-lime: #84cc16;
+      --accent-gold: #eab308;
+      --accent-sky: #38bdf8;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+      --border: #334155;
       --radius-sm: 8px;
-      --radius-md: 16px;
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --max-width: 1100px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-      background-color: var(--bg-main);
+      background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.6;
+      padding-bottom: 80px;
     }
 
     a {
-      text-decoration: none;
       color: inherit;
+      text-decoration: none;
     }
 
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* ==========================================
-       2. Header
-       ========================================== */
-    .header {
-      background-color: var(--bg-card);
-      border-bottom: 1px solid var(--border);
+    /* Header & Navigation */
+    header {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 100;
+      border-bottom: 1px solid var(--border);
     }
 
-    .header-container {
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 70px;
     }
 
     .logo {
-      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
       font-weight: 800;
       color: var(--text-main);
-      letter-spacing: -0.5px;
     }
 
-    .logo-highlight {
-      color: var(--primary);
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .nav-menu a {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-
-    .nav-menu a:hover,
-    .nav-menu a.active {
-      color: var(--primary);
-    }
-
-    .btn-suggest {
-      background-color: #f1f5f9;
-      padding: 8px 16px;
-      border-radius: 20px;
-      color: var(--text-main) !important;
-    }
-
-    .btn-suggest:hover {
-      background-color: #e2e8f0;
-    }
-
-    /* ==========================================
-       3. Hero Section
-       ========================================== */
-    .hero-section {
-      padding: 80px 0 60px;
-      text-align: center;
-      background: linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background-color: #eff6ff;
-      color: var(--primary);
-      font-size: 0.8rem;
-      font-weight: 700;
-      border-radius: 20px;
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      line-height: 1.35;
-      margin-bottom: 16px;
-      letter-spacing: -1px;
-    }
-
-    .text-gradient {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-bottom: 36px;
-    }
-
-    /* Search Box */
-    .search-box {
-      max-width: 600px;
-      margin: 0 auto 20px;
-      display: flex;
-      background: var(--bg-card);
-      border: 2px solid var(--border);
-      border-radius: 50px;
-      padding: 6px 8px 6px 24px;
-      box-shadow: var(--shadow-md);
-      transition: border-color 0.2s;
-    }
-
-    .search-box:focus-within {
-      border-color: var(--primary);
-    }
-
-    .search-box input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      background: transparent;
-    }
-
-    .search-btn {
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s;
-    }
-
-    .search-btn:hover {
-      background-color: var(--primary-hover);
-    }
-
-    /* Quick Tags */
-    .quick-tags {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.85rem;
-    }
-
-    .tag-label {
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .tag {
-      color: var(--text-muted);
-      background-color: var(--bg-card);
-      padding: 4px 10px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-    }
-
-    .tag:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    /* ==========================================
-       4. Featured Courses Section
-       ========================================== */
-    .featured-section {
-      padding: 40px 0 80px;
-    }
-
-    .section-header {
-      margin-bottom: 24px;
-    }
-
-    .section-title {
+    .logo i {
+      color: var(--accent-gold);
       font-size: 1.5rem;
-      font-weight: 700;
     }
 
-    .section-desc {
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
       font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 4px;
+      transition: all 0.2s ease;
     }
 
+    .back-home-btn:hover {
+      color: var(--text-main);
+      border-color: var(--primary-light);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    /* Section Header */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: var(--primary-light);
+    }
+
+    /* Course Cards Container */
     .course-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3rem;
     }
 
     .course-card {
       background: var(--bg-card);
-      border-radius: var(--radius-md);
       border: 1px solid var(--border);
-      padding: 28px;
+      border-radius: var(--radius-md);
+      padding: 1.8rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: all 0.3s ease;
       position: relative;
-      transition: box-shadow 0.2s;
+      overflow: hidden;
     }
 
     .course-card:hover {
-      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.25);
     }
 
-    .card-badge {
+    /* Badge */
+    .badge-recommended {
       position: absolute;
-      top: 24px;
-      right: 24px;
+      top: 15px;
+      right: 15px;
+      background: var(--accent-lime);
+      color: #000;
       font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background-color: #f1f5f9;
-      color: var(--text-muted);
+      font-weight: 800;
+      padding: 0.25rem 0.7rem;
+      border-radius: 20px;
     }
 
-    .card-badge.highlight {
-      background-color: #ecfdf5;
-      color: var(--secondary);
+    .course-header {
+      margin-bottom: 1.2rem;
     }
 
-    .channel-name {
+    .course-meta-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.6rem;
+    }
+
+    .lecture-badge {
       font-size: 0.8rem;
-      color: var(--primary);
       font-weight: 700;
-      display: block;
-      margin-bottom: 8px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .badge-purple {
+      background: rgba(99, 102, 241, 0.2);
+      color: var(--primary-light);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+
+    .badge-sky {
+      background: rgba(56, 189, 248, 0.2);
+      color: var(--accent-sky);
+      border: 1px solid rgba(56, 189, 248, 0.4);
     }
 
     .course-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 12px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.35;
+      margin-bottom: 0.6rem;
     }
 
     .course-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
     }
 
-    .card-tags {
+    .course-features {
+      list-style: none;
       display: flex;
-      gap: 6px;
-      margin-bottom: 24px;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.8rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .card-tag {
-      font-size: 0.75rem;
-      background-color: var(--bg-main);
-      padding: 3px 8px;
-      border-radius: 4px;
-      color: var(--text-muted);
+    .course-features li {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .btn-card {
-      display: block;
-      text-align: center;
-      background-color: var(--primary);
-      color: #fff;
-      padding: 12px;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: background-color 0.2s;
+    .course-features li i {
+      color: var(--accent-lime);
+      font-size: 0.8rem;
     }
 
-    .btn-card:hover {
-      background-color: var(--primary-hover);
-    }
-
-    /* 준비 중 안내 카카오톡/제보 스타일 */
-    .coming-soon-card {
-      border: 2px dashed var(--border);
-      background: transparent;
+    .enter-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      min-height: 250px;
+      gap: 8px;
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
     }
 
-    .coming-soon-content {
-      color: var(--text-muted);
+    .enter-btn:hover {
+      background: #4f46e5;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
 
-    .coming-soon-content p {
-      font-size: 0.9rem;
-      margin-top: 6px;
-    }
-
-    /* ==========================================
-       5. Footer
-       ========================================== */
-    .footer {
-      background-color: var(--bg-card);
+    /* Footer */
+    footer {
+      margin-top: 4rem;
       border-top: 1px solid var(--border);
-      padding: 30px 0;
-      font-size: 0.85rem;
+      padding-top: 2rem;
+      text-align: center;
       color: var(--text-muted);
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-links a:hover {
-      color: var(--text-main);
-    }
-
-    /* 반응형 스타일 */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: 1.8rem;
-      }
-      .footer-content {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. Header (상단 네비게이션) -->
-  <header class="header">
-    <div class="container header-container">
-      <a href="index.html" class="logo">
-        <span class="logo-highlight">Class</span>Pick
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>한국사능력검정시험(심화)</span>
+      </div>
+      <a href="#" class="back-home-btn">
+        <i class="fa-solid fa-house"></i> 메인으로
       </a>
-      <nav class="nav-menu">
-        <a href="index.html" class="active">홈</a>
-        <a href="pages/suggest.html" class="btn-suggest">강의 제보</a>
-      </nav>
     </div>
   </header>
 
-  <!-- 2. Hero Section (메인 비주얼 & 검색) -->
-  <section class="hero-section">
-    <div class="container hero-content">
-      <span class="badge">FREE LEARNING ROADMAP</span>
-      <h1 class="hero-title">검증된 무료 추천 강의,<br><span class="text-gradient">단 3번의 클릭</span>으로 찾으세요.</h1>
-      <p class="hero-subtitle">유튜브 상의 양질의 강의를 과목별/단계별로 정갈하게 모았습니다.</p>
+  <div class="container">
+
+    <!-- Course List Section -->
+    <h2 class="section-title">
+      <i class="fa-solid fa-book-open"></i> 수강할 강좌를 선택하세요
+    </h2>
+
+    <div class="course-grid">
       
-      <!-- 검색창 -->
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="어떤 시험이나 분야를 찾고 계신가요? (예: 한국사)">
-        <button type="button" class="search-btn" aria-label="검색">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </button>
-      </div>
-
-      <!-- 추천 태그 (한능검 위주 정리) -->
-      <div class="quick-tags">
-        <span class="tag-label">추천 태그:</span>
-        <a href="한능검(심화).html" class="tag">#한국사능력검정(심화)</a>
-        <a href="한능검(심화).html" class="tag">#한능검심화</a>
-        <a href="한능검(심화).html" class="tag">#한국사단기완성</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. Featured Courses Section (현재 제공 중인 강의) -->
-  <section class="featured-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">추천 오픈 강의</h2>
-        <p class="section-desc">현재 엄선된 무료 커리큘럼 로드맵입니다.</p>
-      </div>
-
-      <div class="course-grid">
-        <!-- 강의 카드 1: 한능검 심화 -->
-        <div class="course-card">
-          <div class="card-badge highlight">한국사</div>
-          <div class="card-content">
-            <span class="channel-name">유튜브 · 인기 1위</span>
-            <h3 class="course-title">한국사능력검정시험(심화) 단기 완성</h3>
-            <p class="course-desc">흐름으로 이해하는 한국사 심화 과정. 판서 위주의 명쾌한 정리와 요약 안내 제공.</p>
-            <div class="card-tags">
-              <span class="card-tag">#심화합격</span>
-              <span class="card-tag">#요약노트</span>
-              <span class="card-tag">#기출연계</span>
+      <!-- 준비된 40강 강좌 단일 카드 -->
+      <div class="course-card">
+        <span class="badge-recommended">BEST 추천</span>
+        <div>
+          <div class="course-header">
+            <div class="course-meta-top">
+              <span class="lecture-badge badge-purple">총 40강 완강</span>
+              <span class="lecture-badge badge-sky">권장 기간: 3~7일</span>
             </div>
-            <a href="한능검(심화).html" class="btn-card">강의 로드맵 보기</a>
+            <h3 class="course-title">한능검 심화 완벽 대비 40강 개념 완성</h3>
+            <p class="course-desc">전근대(1~27강)부터 근현대(28~40강)까지 흐름과 판서 노하우를 한 번에 잡는 표준 핵심 커리큘럼입니다.</p>
           </div>
+          <ul class="course-features">
+            <li><i class="fa-solid fa-check"></i> 심화 1급(80점 이상) 타겟 최적화</li>
+            <li><i class="fa-solid fa-check"></i> 전근대 왕/유물 핵심 단권화</li>
+            <li><i class="fa-solid fa-check"></i> 수강 체크리스트 대시보드 제공</li>
+          </ul>
         </div>
-
-        <!-- 카드 2: 다음 강의 순차 추가 예정 안내 플레이스홀더 -->
-        <div class="course-card coming-soon-card">
-          <div class="coming-soon-content">
-            <h3>📂 다음 강의 준비 중</h3>
-            <p>새로운 분야의 무료 로드맵이 곧 업데이트됩니다!</p>
-          </div>
-        </div>
+        <!-- 한능검(심화)-1.html로 연결 -->
+        <a href="한국사능력검정시험(심화)-1.html" class="enter-btn">
+          학습 대시보드 입장 <i class="fa-solid fa-arrow-right"></i>
+        </a>
       </div>
-    </div>
-  </section>
 
-  <!-- 4. Footer (하단) -->
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>&copy; 2026 ClassPick. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="#">이용약관</a>
-        <a href="#">개인정보처리방침</a>
-      </div>
     </div>
-  </footer>
+
+    <!-- Footer -->
+    <footer>
+      <p>강의 출처: YouTube 최태성 1TV [한국사능력검정시험 심화]</p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem;">역사는 사람을 만나는 인문학입니다. 합격을 응원합니다!</p>
+    </footer>
+
+  </div>
 
 </body>
 </html>
