@@ -445,36 +445,40 @@
       <div class="course-grid">
         
         <!-- [강의 카드] 정정된 유튜브 링크 적용 (1Sp3EuDIZqM) -->
-        <div class="course-card" data-youtube-link="https://www.youtube.com/watch?v=1Sp3EuDIZqM">
-          <div class="card-body">
-            <!-- 채널명 / 강사 -->
-            <span class="channel-name">최태성 1TV · 최태성</span>
-            
-            <!-- 강의 제목 -->
-            <h3 class="course-title">[심화별개념3]_ 1강 우리는 왜 역사를 공부하는가｜한국사능력검정시험 심화</h3>
-            
-            <!-- 이미지 영역 -->
-            <div class="card-thumb-wrap">
-              <img class="auto-yt-thumb" src="" alt="[심화별개념3] 1강 우리는 왜 역사를 공부하는가">
-              <div class="card-badge">개념학습</div>
-            </div>
-            
-            <!-- 강의 설명 -->
-            <p class="course-desc">한국사능력검정시험 심화 1급을 위한 개념 총정리 무료 강의</p>
-            
-            <!-- 총 강의 수 / 평균 강의 시간 -->
-            <div class="card-tags">
-              <span class="card-tag">📚 총 40강</span>
-              <span class="card-tag">⏱️ 평균 36분</span>
-            </div>
-            
-            <!-- 연결 링크 -->
-            <button type="button" class="btn-card">강의 보러가기</button>
-          </div>
-        </div>
+        <!-- [강의 카드] -->
+<div class="course-card">
+  <div class="card-body">
 
-      </div>
+    <!-- 채널명 / 강사 -->
+    <span class="channel-name">최태성 1TV · 최태성</span>
+
+    <!-- 강의 제목 -->
+    <h3 class="course-title">[심화별개념3] 한국사능력검정시험 심화 자막</h3>
+
+    <!-- 이미지 영역 -->
+    <div class="card-thumb-wrap">
+      <a href="https://www.youtube.com/results?search_query=%ED%95%9C%EA%B5%AD%EC%82%AC%EB%8A%A5%EB%A0%A5%EA%B2%80%EC%A0%95%EC%8B%9C%ED%97%98+%EC%8B%AC%ED%99%94%EB%B3%84%EA%B0%9C%EB%85%90" target="_blank">
+        <img src="사진/유튜브.png" alt="[심화별개념3] 1강 우리는 왜 역사를 공부하는가">
+      </a>
+      <div class="card-badge">개념학습</div>
     </div>
+
+    <!-- 강의 설명 -->
+    <p class="course-desc">한국사능력검정시험 심화 1급을 위한 개념 강의</p>
+
+    <!-- 총 강의 수 / 평균 강의 시간 -->
+    <div class="card-tags">
+      <span class="card-tag">📚 총 40강</span>
+      <span class="card-tag">⏱️ 평균 50분</span>
+    </div>
+
+    <!-- 연결 버튼 -->
+    <a href="https://www.youtube.com/results?search_query=%ED%95%9C%EA%B5%AD%EC%82%AC%EB%8A%A5%EB%A0%A5%EA%B2%80%EC%A0%95%EC%8B%9C%ED%97%98+%EC%8B%AC%ED%99%94%EB%B3%84%EA%B0%9C%EB%85%90" target="_blank">
+      <button type="button" class="btn-card">강의 보러가기</button>
+    </a>
+
+  </div>
+</div>
   </section>
 
   <!-- 4. 강의 제보 안내 모달 -->
@@ -504,63 +508,5 @@
       </div>
     </div>
   </footer>
-
-  <!-- 6. Scripts -->
-  <script>
-    // 안전한 유튜브 링크 이동 처리
-    function openYouTube(videoId) {
-      if (!videoId) return;
-      const targetUrl = `https://www.youtube.com/watch?v=${videoId}`;
-      window.open(targetUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    // URL에서 정확한 11자리 비디오 ID 추출
-    function getYouTubeId(url) {
-      if (!url) return null;
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11) ? match[2] : null;
-    }
-
-    // 페이지 로드 시 썸네일 자동 연동 및 클릭 이벤트 할당
-    document.addEventListener("DOMContentLoaded", function() {
-      const cards = document.querySelectorAll('.course-card');
-      cards.forEach(card => {
-        const ytLink = card.getAttribute('data-youtube-link');
-        const imgTag = card.querySelector('.auto-yt-thumb');
-        
-        if (ytLink) {
-          const videoId = getYouTubeId(ytLink);
-          if (videoId) {
-            // 고화질 썸네일 이미지 매핑
-            if (imgTag) {
-              imgTag.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-            }
-            
-            // 버튼 및 썸네일에 이동 클릭 이벤트 연결
-            const btn = card.querySelector('.btn-card');
-            const thumbWrap = card.querySelector('.card-thumb-wrap');
-            
-            if (btn) btn.onclick = function() { openYouTube(videoId); };
-            if (thumbWrap) thumbWrap.onclick = function() { openYouTube(videoId); };
-          }
-        }
-      });
-    });
-
-    // 모달 제어
-    function openModal() {
-      document.getElementById('suggestModal').style.display = 'flex';
-    }
-    function closeModal() {
-      document.getElementById('suggestModal').style.display = 'none';
-    }
-    window.onclick = function(event) {
-      const modal = document.getElementById('suggestModal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
-  </script>
 </body>
 </html>
