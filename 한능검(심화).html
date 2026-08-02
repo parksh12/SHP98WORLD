@@ -3,324 +3,516 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>한국사능력검정시험(심화) 강좌 선택 | 큰별쌤 최태성</title>
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts (Noto Sans KR) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <title>ClassPick | 한국사능력검정시험(심화) 무료 강의</title>
+  
+  <!-- Pretendard 폰트 불러오기 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   
   <style>
+    /* ==========================================
+       1. Global Styles & CSS Variables
+       ========================================== */
     :root {
-      --bg-dark: #0f172a;
-      --bg-card: #1e293b;
-      --bg-card-hover: #334155;
-      --primary: #6366f1;
-      --primary-light: #818cf8;
-      --accent-lime: #84cc16;
-      --accent-gold: #eab308;
-      --accent-sky: #38bdf8;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --text-muted: #64748b;
-      --border: #334155;
+      --primary: #2563eb;       /* Deep Indigo / Royal Blue */
+      --primary-hover: #1d4ed8;
+      --secondary: #10b981;     /* Soft Lime / Mint Point */
+      --bg-main: #f8fafc;       /* Light Gray Background */
+      --bg-card: #ffffff;
+      --text-main: #0f172a;     /* Dark Navy/Slate */
+      --text-muted: #64748b;    /* Slate Muted */
+      --border: #e2e8f0;
       --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      --radius-md: 16px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --max-width: 1100px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-      background-color: var(--bg-dark);
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: var(--bg-main);
       color: var(--text-main);
       line-height: 1.6;
-      padding-bottom: 80px;
     }
 
     a {
-      color: inherit;
       text-decoration: none;
+      color: inherit;
     }
 
-    /* Header & Navigation */
-    header {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ==========================================
+       2. Header
+       ========================================== */
+    .header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid var(--border);
     }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
+    .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 70px;
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: var(--text-main);
+      letter-spacing: -0.5px;
     }
 
-    .logo i {
-      color: var(--accent-gold);
-      font-size: 1.5rem;
+    .logo-highlight {
+      color: var(--primary);
     }
 
-    .back-home-btn {
-      display: inline-flex;
+    .nav-menu {
+      display: flex;
       align-items: center;
-      gap: 8px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--text-sub);
-      padding: 0.6rem 1.2rem;
-      border-radius: var(--radius-sm);
+      gap: 24px;
+    }
+
+    .nav-menu a {
+      font-size: 0.95rem;
       font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
+      color: var(--text-muted);
+      transition: color 0.2s;
     }
 
-    .back-home-btn:hover {
-      color: var(--text-main);
-      border-color: var(--primary-light);
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--primary);
     }
 
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 2.5rem auto 0;
-      padding: 0 1.5rem;
+    .btn-suggest {
+      background-color: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: var(--text-main) !important;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
 
-    /* Section Header */
+    .btn-suggest:hover {
+      background-color: #e2e8f0;
+    }
+
+    /* ==========================================
+       3. Hero Section
+       ========================================== */
+    .hero-section {
+      padding: 50px 0 30px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ==========================================
+       4. Course List Section
+       ========================================== */
+    .featured-section {
+      padding: 30px 0 80px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
     .section-title {
       font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-weight: 700;
     }
 
-    .section-title i {
-      color: var(--primary-light);
-    }
-
-    /* Course Cards Container */
     .course-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 1.8rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
     }
 
     .course-card {
       background: var(--bg-card);
-      border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 1.8rem;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
 
     .course-card:hover {
-      border-color: var(--primary-light);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px -10px rgba(99, 102, 241, 0.25);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
 
-    /* Badge */
-    .badge-recommended {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: var(--accent-lime);
-      color: #000;
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 0.25rem 0.7rem;
-      border-radius: 20px;
-    }
-
-    .course-header {
-      margin-bottom: 1.2rem;
-    }
-
-    .course-meta-top {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 0.6rem;
-    }
-
-    .lecture-badge {
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-    }
-
-    .badge-purple {
-      background: rgba(99, 102, 241, 0.2);
-      color: var(--primary-light);
-      border: 1px solid rgba(99, 102, 241, 0.4);
-    }
-
-    .badge-sky {
-      background: rgba(56, 189, 248, 0.2);
-      color: var(--accent-sky);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-    }
-
-    .course-title {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--text-main);
-      line-height: 1.35;
-      margin-bottom: 0.6rem;
-    }
-
-    .course-desc {
-      font-size: 0.92rem;
-      color: var(--text-sub);
-      line-height: 1.5;
-      margin-bottom: 1.2rem;
-    }
-
-    .course-features {
-      list-style: none;
+    .card-body {
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 1.8rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      flex-grow: 1;
     }
 
-    .course-features li {
-      font-size: 0.88rem;
-      color: var(--text-sub);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .course-features li i {
-      color: var(--accent-lime);
-      font-size: 0.8rem;
-    }
-
-    .enter-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 0.85rem;
-      background: var(--primary);
-      color: #fff;
+    /* [엑셀: 채널명 / 강사] */
+    .channel-name {
+      font-size: 0.85rem;
+      color: var(--primary);
       font-weight: 700;
-      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* [엑셀: 강의 제목] */
+    .course-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 16px;
+      word-break: keep-all;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* [엑셀: 이미지 (썸네일)] - 제목 아래 위치 */
+    .card-thumb-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 비율 */
+      background-color: #e2e8f0;
       border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
-      border: none;
-      cursor: pointer;
+      overflow: hidden;
+      margin-bottom: 16px;
     }
 
-    .enter-btn:hover {
-      background: #4f46e5;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    .card-thumb-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    /* Footer */
-    footer {
-      margin-top: 4rem;
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
-      text-align: center;
+    /* [엑셀: 용도 뱃지] */
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background-color: rgba(16, 185, 129, 0.9);
+      color: #ffffff;
+      backdrop-filter: blur(4px);
+      z-index: 2;
+    }
+
+    /* [엑셀: 강의 설명] */
+    .course-desc {
+      font-size: 0.88rem;
       color: var(--text-muted);
-      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* [엑셀: 총 강의 수 / 평균 강의 시간] */
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      background-color: var(--bg-main);
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* [엑셀: 연결 링크] */
+    .btn-card {
+      display: block;
+      text-align: center;
+      background-color: var(--primary);
+      color: #fff;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-card:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* ==========================================
+       5. Modal Styles
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-card {
+      background: #ffffff;
+      width: 90%;
+      max-width: 440px;
+      padding: 32px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-body {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .email-display {
+      background-color: var(--bg-main);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin: 12px 0;
+      word-break: break-all;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* ==========================================
+       6. Footer
+       ========================================== */
+    .footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="nav-container">
-      <div class="logo">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <span>한국사능력검정시험(심화)</span>
-      </div>
-      <a href="#" class="back-home-btn">
-        <i class="fa-solid fa-house"></i> 메인으로
+  <!-- 1. Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-highlight">Class</span>Pick
       </a>
+      <nav class="nav-menu">
+        <a href="index.html">홈</a>
+        <button class="btn-suggest" onclick="openModal()">강의 제보</button>
+      </nav>
     </div>
   </header>
 
-  <div class="container">
+  <!-- 2. Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="hero-title"><span class="text-gradient">Class</span>Pick 추천 강의</h1>
+    </div>
+  </section>
 
-    <!-- Course List Section -->
-    <h2 class="section-title">
-      <i class="fa-solid fa-book-open"></i> 수강할 강좌를 선택하세요
-    </h2>
-
-    <div class="course-grid">
-      
-      <!-- 준비된 40강 강좌 단일 카드 -->
-      <div class="course-card">
-        <span class="badge-recommended">BEST 추천</span>
-        <div>
-          <div class="course-header">
-            <div class="course-meta-top">
-              <span class="lecture-badge badge-purple">총 40강 완강</span>
-              <span class="lecture-badge badge-sky">권장 기간: 3~7일</span>
-            </div>
-            <h3 class="course-title">한능검 심화 완벽 대비 40강 개념 완성</h3>
-            <p class="course-desc">전근대(1~27강)부터 근현대(28~40강)까지 흐름과 판서 노하우를 한 번에 잡는 표준 핵심 커리큘럼입니다.</p>
-          </div>
-          <ul class="course-features">
-            <li><i class="fa-solid fa-check"></i> 심화 1급(80점 이상) 타겟 최적화</li>
-            <li><i class="fa-solid fa-check"></i> 전근대 왕/유물 핵심 단권화</li>
-            <li><i class="fa-solid fa-check"></i> 수강 체크리스트 대시보드 제공</li>
-          </ul>
-        </div>
-        <!-- 한능검(심화)-1.html로 연결 -->
-        <a href="한능검(심화)-1.html" class="enter-btn">
-          학습 대시보드 입장 <i class="fa-solid fa-arrow-right"></i>
-        </a>
+  <!-- 3. Course List Section -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">전체 강의 목록</h2>
       </div>
 
+      <div class="course-grid">
+        
+        <!-- [순서 1] 강의 카드 -->
+        <div class="course-card">
+          <div class="card-body">
+            <!-- 엑셀: 채널명 / 강사 -->
+            <span class="channel-name">최태성1TV · 최태성</span>
+            
+            <!-- 엑셀: 강의 제목 -->
+            <h3 class="course-title">[심화별개념3] 한국사능력검정시험 심화 자막</h3>
+            
+            <!-- 엑셀: 이미지 영역 (제목 아래로 이동) & 용도 뱃지 -->
+            <div class="card-thumb-wrap">
+              <img src="https://i.ytimg.com/vi/1Sp3EuDIZqM/hqdefault.jpg" alt="[심화별개념3] 한국사능력검정시험 심화 자막">
+              <div class="card-badge">개념학습</div>
+            </div>
+            
+            <!-- 엑셀: 강의 설명 -->
+            <p class="course-desc">한국사능력검정시험 1급을 위한 강의</p>
+            
+            <!-- 엑셀: 총 강의 수 / 평균 강의 시간 -->
+            <div class="card-tags">
+              <span class="card-tag">📚 총 40강</span>
+              <span class="card-tag">⏱️ 평균 50분</span>
+            </div>
+            
+            <!-- 엑셀: 연결 링크 -->
+            <a href="https://www.youtube.com/watch?v=1Sp3EuDIZqM&list=PLE7oqCa1_I6suFmGQa5-Uj_ZF4H1KdMZw&index=1" target="_blank" class="btn-card">강의 보러가기</a>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-      <p>강의 출처: YouTube 최태성 1TV [한국사능력검정시험 심화]</p>
-      <p style="margin-top: 0.5rem; font-size: 0.8rem;">역사는 사람을 만나는 인문학입니다. 합격을 응원합니다!</p>
-    </footer>
-
+  <!-- 4. 강의 제보 안내 모달 -->
+  <div class="modal-overlay" id="suggestModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">강의 제보하기 ✉️</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        추천하고 싶은 좋은 무료 강의나 유튜브 채널이 있다면 아래 버튼을 눌러 이메일로 제보해 주세요!
+        <div class="email-display">aqaaq1@naver.com</div>
+      </div>
+      <a href="mailto:aqaaq1@naver.com?subject=[ClassPick] 무료 강의 제보합니다" class="btn-submit">
+        메일 앱으로 작성하기
+      </a>
+    </div>
   </div>
 
+  <!-- 5. Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 ClassPick. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function openModal() {
+      document.getElementById('suggestModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('suggestModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+      const modal = document.getElementById('suggestModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
 </body>
 </html>
