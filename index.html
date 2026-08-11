@@ -1,34 +1,558 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="검증한 무료 강의와 공식 학습 자료를 한곳에 모은 ClassPick. 한능검 심화·기본, 컴퓨터활용능력 1급 학습을 시작하세요.">
-  <meta name="keywords" content="무료강의, 한능검 무료강의, 한국사능력검정시험, 컴활 1급 무료강의, 자격증 무료강의">
-  <meta name="robots" content="index,follow">
-  <title>ClassPick | 검증한 무료 자격증 강의</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClassPick | 무료 강의 길라잡이</title>
+  
+  <!-- Pretendard 폰트 불러오기 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
   <style>
-    :root { --primary:#2563eb; --primary-hover:#1d4ed8; --secondary:#10b981; --bg:#f8fafc; --card:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0; --radius:16px; --max:1100px; }
-    *{box-sizing:border-box;margin:0;padding:0} body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6} a{text-decoration:none;color:inherit}.container{max-width:var(--max);margin:auto;padding:0 20px}
-    .header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--border)}.header-in{height:68px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:1.45rem;font-weight:800}.logo b{color:var(--primary)}.nav{font-weight:650;color:var(--muted)}
-    .hero{padding:76px 0 52px;text-align:center;background:linear-gradient(180deg,#fff,var(--bg))}.eyebrow{display:inline-block;color:var(--primary);font-weight:750;font-size:.9rem;margin-bottom:12px}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.28;letter-spacing:-.06em}.hero h1 span{color:var(--primary)}.hero p{max-width:610px;margin:18px auto 0;color:var(--muted);font-size:1.05rem}
-    main{padding:18px 0 72px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:20px 0}.section-head h2{font-size:1.45rem;letter-spacing:-.04em}.section-head p{font-size:.92rem;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.course{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:transform .2s,box-shadow .2s}.course:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,23,42,.09)}.badge{align-self:flex-start;padding:4px 9px;border-radius:99px;background:#ecfdf5;color:#047857;font-size:.78rem;font-weight:750}.course h3{font-size:1.23rem;margin:13px 0 8px;letter-spacing:-.03em}.course p{color:var(--muted);font-size:.93rem;min-height:3.2em}.tags{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0}.tags span{font-size:.76rem;padding:4px 8px;background:#f1f5f9;border-radius:5px;color:#475569}.button{display:block;margin-top:auto;text-align:center;padding:12px;background:var(--primary);color:#fff;border-radius:8px;font-size:.93rem;font-weight:700}.button:hover{background:var(--primary-hover)}.notice{margin-top:28px;padding:18px 20px;border:1px solid #bfdbfe;border-radius:12px;background:#eff6ff;color:#1e3a8a;font-size:.9rem}.footer{border-top:1px solid var(--border);background:#fff;padding:28px 0;color:var(--muted);font-size:.84rem}.footer-in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:56px 0 34px}}@media(max-width:540px){.grid{grid-template-columns:1fr}.course p{min-height:auto}.section-head{align-items:start;flex-direction:column;gap:4px}}
+    /* ==========================================
+       1. Global Styles & CSS Variables
+       ========================================== */
+    :root {
+      --primary: #2563eb;       /* Deep Indigo / Royal Blue */
+      --primary-hover: #1d4ed8;
+      --secondary: #10b981;     /* Soft Lime / Mint Point */
+      --bg-main: #f8fafc;       /* Light Gray Background */
+      --bg-card: #ffffff;
+      --text-main: #0f172a;     /* Dark Navy/Slate */
+      --text-muted: #64748b;    /* Slate Muted */
+      --border: #e2e8f0;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --max-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ==========================================
+       2. Header
+       ========================================== */
+    .header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-highlight {
+      color: var(--primary);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-menu a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      color: var(--primary);
+    }
+
+    .btn-suggest {
+      background-color: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: 20px;
+      color: var(--text-main) !important;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .btn-suggest:hover {
+      background-color: #e2e8f0;
+    }
+
+    /* ==========================================
+       3. Hero Section
+       ========================================== */
+    .hero-section {
+      padding: 80px 0 60px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-main) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================
+       4. Featured Courses Section
+       ========================================== */
+    .featured-section {
+      padding: 40px 0 80px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .course-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 28px;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+      height: 100%;
+    }
+
+    .course-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* [엑셀: 카테고리] */
+    .card-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background-color: #f1f5f9;
+      color: var(--text-muted);
+    }
+
+    .card-badge.highlight {
+      background-color: #ecfdf5;
+      color: var(--secondary);
+    }
+
+    /* [엑셀: 소제목] */
+    .channel-name {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* [엑셀: 강의 제목] */
+    .course-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      word-break: keep-all;
+      height: 2.8em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* [엑셀: 강의 설명] */
+    .course-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+      height: 3em;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* [엑셀: 해시태그] */
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      background-color: var(--bg-main);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    /* [엑셀: 연결 파일] */
+    .btn-card {
+      display: block;
+      text-align: center;
+      background-color: var(--primary);
+      color: #fff;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-card:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* ==========================================
+       5. Modal (강의 제보 안내 팝업창) Styles
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-card {
+      background: #ffffff;
+      width: 90%;
+      max-width: 440px;
+      padding: 32px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-body {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .email-display {
+      background-color: var(--bg-main);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+      margin: 12px 0;
+      word-break: break-all;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* ==========================================
+       6. Footer
+       ========================================== */
+    .footer {
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="header"><div class="container header-in"><a class="logo" href="index.html" aria-label="ClassPick 홈"><b>Class</b>Pick</a><a class="nav" href="#courses">무료 강의 찾기</a></div></header>
-  <section class="hero"><div class="container"><p class="eyebrow">무료 공개 범위를 확인한 학습 자료</p><h1>흩어진 무료 강의를 한곳에,<br><span>Class</span>Pick</h1><p>공식 기관 자료와 출판사·교육 채널이 실제로 공개한 학습 콘텐츠만 안내합니다.</p></div></section>
-  <main id="courses"><div class="container"><div class="section-head"><h2>지금 시작할 수 있는 강의</h2><p>각 페이지에서 자료 성격과 출처를 확인하세요.</p></div>
-    <div class="grid">
-      <article class="course"><span class="badge">공식 자료</span><h3>한국사능력검정시험 심화</h3><p>심화 1~3급 대비용 공식 온라인 기출 풀이와 시험 자료를 모았습니다.</p><div class="tags"><span>#한능검심화</span><span>#기출풀이</span><span>#무료</span></div><a class="button" href="한능검(심화).html">심화 무료 자료 보기</a></article>
-      <article class="course"><span class="badge">공식 자료</span><h3>한국사능력검정시험 기본</h3><p>기본 4~6급 대비용 공식 기출 자료와 온라인 풀이로 첫 학습을 시작하세요.</p><div class="tags"><span>#한능검기본</span><span>#기출문제</span><span>#무료</span></div><a class="button" href="한능검(기본).html">기본 무료 자료 보기</a></article>
-      <article class="course"><span class="badge">공개 동영상</span><h3>컴퓨터활용능력 1급</h3><p>영진닷컴 이기적 채널이 공개한 컴퓨터일반·기출 해설 동영상부터 시작합니다.</p><div class="tags"><span>#컴활1급</span><span>#필기</span><span>#무료강의</span></div><a class="button" href="컴퓨터활용능력1급.html">컴활 1급 무료 강의 보기</a></article>
+
+  <!-- 1. Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-highlight">Class</span>Pick
+      </a>
+      <nav class="nav-menu">
+        <a href="index.html" class="active">홈</a>
+        <button class="btn-suggest" onclick="openModal()">강의 제보</button>
+      </nav>
     </div>
-    <aside class="notice"><strong>선정 기준</strong> · 링크를 열어 실제 무료 공개 상태를 확인한 자료만 수록합니다. 산업안전기사·소방설비기사(전기)·정보처리기사·공인중개사·TOEIC는 전 범위 무료 공개 여부와 최신성 검증이 완료되면 추가합니다.</aside>
-  </div></main>
-  <footer class="footer"><div class="container footer-in"><span>© 2026 ClassPick</span><span>무료 강의는 제공처의 정책 변경에 따라 달라질 수 있습니다.</span></div></footer>
+  </header>
+
+  <!-- 2. Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="hero-title">흩어진 무료 강의를 한번에,<br><span class="text-gradient">Class</span>Pick</h1>
+      <p class="hero-subtitle">정석 강의부터 벼락치기 강의까지 모두 준비했습니다.</p>
+    </div>
+  </section>
+
+  <!-- 3. Featured Courses Section -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">강의(A to Z)</h2>
+      </div>
+
+      <div class="course-grid">
+        
+        <!-- [순서 1] 전기기능사 -->
+        <div class="course-card">
+          <!-- 엑셀: 카테고리 -->
+          <div class="card-badge highlight">전기</div>
+          
+          <div class="card-content">
+            <!-- 엑셀: 소제목 -->
+            <span class="channel-name">국가기술자격증</span>
+            
+            <!-- 엑셀: 강의 제목 -->
+            <h3 class="course-title">전기기능사</h3>
+            
+            <!-- 엑셀: 강의 설명 -->
+            <p class="course-desc">전기기능사 무료강의</p>
+            
+            <!-- 엑셀: 해시태그 -->
+            <div class="card-tags">
+              <span class="card-tag">#전기기능사</span>
+              <span class="card-tag">#전기</span>
+              <span class="card-tag">#전기자격증</span>
+            </div>
+            
+            <!-- 엑셀: 연결 파일 -->
+            <a href="전기기능사.html" class="btn-card">무료 강의 보러가기</a>
+          </div>
+        </div>
+
+        <!-- [순서 2] 전기기사 -->
+        <div class="course-card">
+          <!-- 엑셀: 카테고리 -->
+          <div class="card-badge highlight">전기</div>
+          
+          <div class="card-content">
+            <!-- 엑셀: 소제목 -->
+            <span class="channel-name">국가기술자격증</span>
+            
+            <!-- 엑셀: 강의 제목 -->
+            <h3 class="course-title">전기기사</h3>
+            
+            <!-- 엑셀: 강의 설명 -->
+            <p class="course-desc">전기기사 무료강의</p>
+            
+            <!-- 엑셀: 해시태그 -->
+            <div class="card-tags">
+              <span class="card-tag">#전기기사</span>
+              <span class="card-tag">#전기</span>
+              <span class="card-tag">#전기자격증</span>
+            </div>
+            
+            <!-- 엑셀: 연결 파일 -->
+            <a href="전기기사.html" class="btn-card">무료 강의 보러가기</a>
+          </div>
+        </div>
+
+        <!-- [순서 3] 한국사능력검정시험(심화) -->
+        <div class="course-card">
+          <!-- 엑셀: 카테고리 -->
+          <div class="card-badge highlight">한국사</div>
+          
+          <div class="card-content">
+            <!-- 엑셀: 소제목 -->
+            <span class="channel-name">공기업 필수</span>
+            
+            <!-- 엑셀: 강의 제목 -->
+            <h3 class="course-title">한국사능력검정시험(심화)</h3>
+            
+            <!-- 엑셀: 강의 설명 -->
+            <p class="course-desc">한능검 무료강의</p>
+            
+            <!-- 엑셀: 해시태그 -->
+            <div class="card-tags">
+              <span class="card-tag">#한능검</span>
+              <span class="card-tag">#최태성</span>
+              <span class="card-tag">#기출연계</span>
+            </div>
+            
+            <!-- 엑셀: 연결 파일 -->
+            <a href="한능검(심화).html" class="btn-card">무료 강의 보러가기</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 강의 제보 안내 모달 -->
+  <div class="modal-overlay" id="suggestModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">강의 제보하기 ✉️</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        추천하고 싶은 좋은 무료 강의나 유튜브 채널이 있다면 아래 버튼을 눌러 이메일로 제보해 주세요!
+        <div class="email-display">aqaaq1@naver.com</div>
+      </div>
+      <a href="mailto:aqaaq1@naver.com?subject=[ClassPick] 무료 강의 제보합니다" class="btn-submit">
+        메일 앱으로 작성하기
+      </a>
+    </div>
+  </div>
+
+  <!-- 5. Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 ClassPick. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function openModal() {
+      document.getElementById('suggestModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('suggestModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+      const modal = document.getElementById('suggestModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
 </body>
 </html>
