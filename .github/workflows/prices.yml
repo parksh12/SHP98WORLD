@@ -1,0 +1,31 @@
+name: 시세 갱신
+
+on:
+  schedule:
+    - cron: "*/30 0-7 * * 1-5"    # 한국장 (KST 09~16시)
+    - cron: "*/30 13-21 * * 1-5"  # 미국장 (KST 22~06시)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prices
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install yfinance requests
+      - run: python scripts/fetch_prices.py
+      - name: commit
+        run: |
+          git config user.name "price-bot"
+          git config user.email "price-bot@users.noreply.github.com"
+          git add prices.json
+          git diff --cached --quiet || (git commit -m "시세 갱신" && git push)
