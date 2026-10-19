@@ -77,6 +77,9 @@ td{padding:7px 6px} th{padding:4px 6px} tr.grp td{color:var(--mut);font-size:12p
 
 .tile .sub.up{color:var(--up)} .tile .sub.down{color:var(--down)}
 td .q{color:var(--mut);font-size:12px;margin-left:6px;font-weight:400;white-space:nowrap} tr.cash td{color:var(--mut)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px;vertical-align:middle}
+td.mut{font-size:13px}
+td:first-child b{white-space:nowrap}
 .btn{padding:4px 10px}
 @media (max-width:560px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.hero .big{font-size:34px} td,th{padding:8px 6px}}
@@ -201,6 +204,20 @@ const pct = (v, c) => c ? (v - c) / c * 100 : 0;
 const cls = x => x > 0.05 ? "up" : x < -0.05 ? "down" : "";
 const sp = x => (x > 0 ? "+" : "") + x.toFixed(1) + "%";
 
+function budgetSection() {
+  const B = DATA.budget; if (!B) return "";
+  const G = ["저축", "투자", "고정비", "생활"], col = { 저축: "var(--s1)", 투자: "var(--s6)", 고정비: "var(--s2)", 생활: "var(--s4)" };
+  const sum = g => B.items.filter(i => i.group === g).reduce((s, i) => s + i.amount, 0);
+  const used = B.items.reduce((s, i) => s + i.amount, 0), saveRate = (sum("저축") + sum("투자")) / B.income * 100;
+  const bar = G.map(g => { const v = sum(g); return v ? `<div class="seg" style="flex:${v};background:${col[g]}" data-tip="${g} ${man(v)} · ${(v / B.income * 100).toFixed(0)}%"></div>` : ""; }).join("");
+  const leg = G.map(g => `<span><i style="background:${col[g]}"></i>${g} ${man(sum(g))}</span>`).join("");
+  const rows = G.map(g => B.items.filter(i => i.group === g).map(i =>
+    `<tr><td><i class="dot" style="background:${col[g]}"></i>${esc(i.name)}${i.note ? `<span class="q">${esc(i.note)}</span>` : ""}</td><td class="mut">${esc(i.day || "")}</td><td class="mut">${esc(i.account || "")}</td><td>${won(i.amount)}</td></tr>`).join("")).join("");
+  return `<section class="card"><div class="row"><b>월 자금 계획 · 실수령 ${man(B.income)}</b><span class="mut">저축·투자 ${saveRate.toFixed(0)}%${used !== B.income ? ` · 남는 돈 ${won(B.income - used)}` : ""}</span></div>
+<div class="bar">${bar}</div><div class="legend">${leg}</div>
+<div class="tbl" style="margin-top:8px"><table><thead><tr><th>항목</th><th>날짜</th><th>통장</th><th>금액</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+}
+
 function render(d) {
   const { cats, total, accounts, savings, fx, t } = d;
   const invVal = accounts.reduce((s, a) => s + a.value, 0), invCost = accounts.reduce((s, a) => s + a.cost, 0);
@@ -249,6 +266,7 @@ ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>`
 <section class="card"><div class="bar">${segs.join("")}</div><div class="legend">${legend.join("")}</div></section>
 <section class="card"><div class="tbl"><table><thead><tr><th>종목</th><th>현재가</th><th>평단가</th><th>평가금액</th><th>수익률</th></tr></thead><tbody>${rows}</tbody></table></div>
 ${badges ? `<div class="badges">${badges}</div>` : ""}</section>
+${budgetSection()}
 </main>`;
   bindTips();
 }
