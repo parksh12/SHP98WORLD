@@ -61,6 +61,20 @@ th:first-child,td:first-child{text-align:left;white-space:normal} tr:last-child 
 .note{color:var(--ink2);font-size:14px} .note b{color:var(--ink)} .note ul{margin:6px 0 0;padding-left:18px}
 .warn{color:var(--up);font-size:13px}
 #tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:6px;opacity:0;white-space:nowrap;z-index:9}
+header{align-items:center;margin-bottom:4px}
+.hero{margin:0 0 14px} .hero .big{font-size:36px} .hero .sub{color:var(--ink2);font-size:14px}
+.tiles{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.tile{padding:10px 12px} .tile .val{font-size:17px} .tile .lbl,.tile .sub{font-size:12px}
+.card{padding:12px 14px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px;flex-wrap:wrap} .mut{color:var(--mut);font-size:13px}
+.bar{height:22px;margin:0 0 8px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--ink2)} .legend span{display:flex;align-items:center;gap:5px} .legend i{width:9px;height:9px;border-radius:2px}
+td{padding:7px 6px} th{padding:4px 6px} tr.grp td{color:var(--mut);font-size:12px;padding-top:12px;border-bottom:1px solid var(--line)}
+
+.tile .sub.up{color:var(--up)} .tile .sub.down{color:var(--down)}
+td .q{color:var(--mut);font-size:12px;margin-left:6px;font-weight:400} tr.cash td{color:var(--mut)}
+.btn{padding:4px 10px}
+@media (max-width:560px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.hero .big{font-size:34px} td,th{padding:8px 6px}}
 </style>
 </head>
@@ -171,83 +185,58 @@ function build() {
 }
 
 // ---------- 그리기 ----------
-function holdingsTable(a) {
-  const tr = [...a.rows].sort((x, y) => y.value - x.value).map(r => {
-    const f = r.usd ? x => "$" + x.toFixed(2) : x => Math.round(x).toLocaleString("ko-KR");
-    const pl = r.value - r.cost;
-    return `<tr><td><div class="nm">${esc(r.name)}</div><div class="tk">${esc(r.ticker)} · ${esc(r.category)}</div></td>
-      <td>${r.qty.toLocaleString()}</td><td>${f(r.avg)}</td><td>${f(r.price)}${r.stale ? ' <span class="stale">평단</span>' : ""}</td>
-      <td>${won(r.value)}</td><td>${signed(pl, r.cost ? pl / r.cost * 100 : 0)}</td></tr>`;
-  });
-  if (a.cash) tr.push(`<tr class="cashrow"><td><div class="nm">예수금</div></td><td></td><td></td><td></td><td>${won(a.cash)}</td><td></td></tr>`);
-  return `<div class="tbl"><table><thead><tr><th>종목</th><th>수량</th><th>평단가</th><th>현재가</th><th>평가금액</th><th>평가손익</th></tr></thead><tbody>${tr.join("")}</tbody></table></div>`;
-}
+const pct = (v, c) => c ? (v - c) / c * 100 : 0;
+const cls = x => x > 0.05 ? "up" : x < -0.05 ? "down" : "";
+const sp = x => (x > 0 ? "+" : "") + x.toFixed(1) + "%";
 
 function render(d) {
   const { cats, total, accounts, savings, fx, t } = d;
-  const invVal = accounts.reduce((s, a) => s + a.value, 0), invCost = accounts.reduce((s, a) => s + a.cost, 0), invPl = invVal - invCost;
+  const invVal = accounts.reduce((s, a) => s + a.value, 0), invCost = accounts.reduce((s, a) => s + a.cost, 0);
   const savNow = savings.reduce((s, x) => s + x.now, 0), savMonth = savings.reduce((s, x) => s + x.monthly, 0);
   const cashTotal = DATA.cash.reduce((s, c) => s + c.amount, 0);
   const g = DATA.goal, start = D(g.start), end = D(g.deadline), n = monthsBetween(t, end);
   const prog = Math.min(total / g.target, 1) * 100, elapsed = Math.min(Math.max((t - start) / (end - start), 0), 1) * 100;
-  const rHi = Math.max(...g.returns), pace = fv(total, savMonth, rHi, n);
-  const dg = DATA.dividend_goal, needP = dg.monthly * 12 / (dg.yield * (1 - dg.tax));
+  const need = needed(total, g.target, Math.max(...g.returns), n);
   const upd = PRICES.updated ? new Date(PRICES.updated).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "-";
+  const nextDep = savings.length ? savings[0].next : null;
 
-  const tiles = accounts.map(a => { const pl = a.value - a.cost;
-    return `<div class="tile"><div class="lbl">${esc(a.name)}</div><div class="val">${won(a.value + a.cash)}</div><div class="sub">${a.cost ? signed(pl, pl / a.cost * 100) : "현금 대기"}</div></div>`; }).join("")
-    + `<div class="tile"><div class="lbl">예적금 (도약·청약)</div><div class="val">${won(savNow)}</div><div class="sub">매월 +${man(savMonth)}</div></div>`
-    + `<div class="tile"><div class="lbl">현금 (비상금)</div><div class="val">${won(cashTotal)}</div><div class="sub">투자 금지</div></div>`;
-
-  const needTiles = g.returns.map(r => `<div class="tile"><div class="lbl">필요한 월 저축 (연 ${(r * 100).toFixed(0)}%)</div><div class="val">${man(needed(total, g.target, r, n))}</div><div class="sub">지금부터 ${n}개월 동안</div></div>`).join("");
+  const tile = (l, v, sub, c = "") => `<div class="tile"><div class="lbl">${l}</div><div class="val">${v}</div><div class="sub ${c}">${sub}</div></div>`;
+  const tiles = accounts.map(a => tile(esc(a.name.replace(/ \(.*\)/, "")), man(a.value + a.cash), a.cost ? sp(pct(a.value, a.cost)) : "", cls(a.value - a.cost))).join("")
+    + tile("예적금", man(savNow), nextDep ? `${nextDep.getMonth() + 1}/${nextDep.getDate()} +${man(savMonth)}` : "")
+    + tile("비상금", man(cashTotal), "");
 
   const segs = [], legend = [];
   Object.entries(cats).forEach(([c, v], i) => { if (v <= 0) return; const p = v / total * 100;
-    segs.push(`<div class="seg" style="flex:${v.toFixed(0)};background:var(--s${i + 1})" data-tip="${esc(c)} · ${won(v)} · ${p.toFixed(1)}%"><span>${p >= 6 ? p.toFixed(0) + "%" : ""}</span></div>`);
-    legend.push(`<li><i style="background:var(--s${i + 1})"></i>${esc(c)}<b>${p.toFixed(1)}%</b><em>${man(v)}</em></li>`); });
+    segs.push(`<div class="seg" style="flex:${v.toFixed(0)};background:var(--s${i + 1})" data-tip="${esc(c)} ${man(v)} · ${p.toFixed(1)}%"></div>`);
+    legend.push(`<span><i style="background:var(--s${i + 1})"></i>${esc(c)} ${p.toFixed(0)}%</span>`); });
 
-  // 마일스톤
-  const M = DATA.milestones || {}, shares = {};
-  accounts.forEach(a => a.rows.forEach(r => shares[r.ticker] = { qty: (shares[r.ticker]?.qty || 0) + r.qty, name: r.name }));
-  const msShares = Object.entries(M.shares || {}).map(([tk, lv]) => {
-    const q = shares[tk]?.qty || 0, nextLv = lv.find(x => x > q), nm = shares[tk]?.name || tk;
-    const prev = [...lv].reverse().find(x => x <= q) || 0, pct = nextLv ? (q - prev) / (nextLv - prev) * 100 : 100;
-    return `<div class="msrow"><div class="top"><span>${esc(nm)} 모으기</span><b>${q}주${nextLv ? ` / 다음 ${nextLv}주` : " · 전부 달성"}</b></div>
-      <div class="track"><div class="fill" style="width:${pct.toFixed(1)}%;background:var(--s6)"></div></div>
-      <div class="badges">${lv.map(x => `<span class="badge${q >= x ? " on" : ""}">${q >= x ? "✓ " : ""}${x}주</span>`).join("")}</div></div>`; }).join("");
-  const msInv = (M.invest_krw || []).map(x => `<span class="badge${invVal >= x ? " on" : ""}">${invVal >= x ? "✓ " : ""}투자 ${man(x)}</span>`).join("");
-  const msGoal = (M.goal_pct || []).map(x => `<span class="badge${prog >= x ? " on" : ""}">${prog >= x ? "✓ " : ""}목표 ${x}%</span>`).join("");
+  const rows = accounts.map(a => `<tr class="grp"><td colspan="4">${esc(a.name.replace(/ \(.*\)/, ""))}</td></tr>` +
+    [...a.rows].sort((x, y) => y.value - x.value).map(r => {
+      const f = r.usd ? "$" + r.price.toFixed(2) : Math.round(r.price).toLocaleString("ko-KR"), pc = pct(r.value, r.cost);
+      return `<tr><td><b>${esc(r.ticker.match(/^\d/) ? r.name.replace(" 미국", " ") : r.ticker)}</b><span class="q">${r.qty}주</span></td>
+        <td>${f}${r.stale ? "*" : ""}</td><td>${man(r.value)}</td><td class="${cls(pc)}">${sp(pc)}</td></tr>`; }).join("")
+    + (a.cash > 1e4 ? `<tr class="cash"><td>예수금</td><td></td><td>${man(a.cash)}</td><td></td></tr>` : "")).join("");
 
-  const savRows = savings.map(s => `<tr><td><div class="nm">${esc(s.name)}</div></td><td>${won(s.now)}</td><td>매월 ${s.day}일 ${man(s.monthly)}</td>
-    <td>${s.next.toLocaleDateString("ko-KR")}</td><td>${won(s.now + 12 * s.monthly)}</td></tr>`).join("");
+  const M = DATA.milestones || {}, held = {};
+  accounts.forEach(a => a.rows.forEach(r => held[r.ticker] = (held[r.ticker] || 0) + r.qty));
+  const badges = [
+    ...Object.entries(M.shares || {}).map(([tk, lv]) => { const q = held[tk] || 0, nx = lv.find(x => x > q);
+      return nx ? `<span class="badge">${tk.match(/^\d/) ? "나스닥100" : tk} ${q}/${nx}주</span>` : `<span class="badge on">${tk} ${q}주 ✓</span>`; }),
+    (() => { const nx = (M.invest_krw || []).find(x => x > invVal); return nx ? `<span class="badge">투자 ${man(invVal)}/${man(nx)}</span>` : ""; })(),
+  ].join("");
 
   document.getElementById("app").innerHTML = `<main>
-<header><div><h1>자산 운용</h1><div class="meta">시세 ${upd} 기준 · 환율 ${fx.toLocaleString("ko-KR")}원/$ · 30분마다 갱신</div></div>
-<div class="hbtn"><button class="btn" onclick="refresh()">새로고침</button><button class="btn" onclick="lockNow()">잠그기</button></div></header>
-<div class="hero"><div class="lbl">총자산</div><div class="big">${won(total)}</div>
-<div>투자자산 ${won(invVal)} · 평가손익 ${signed(invPl, invCost ? invPl / invCost * 100 : 0)}</div></div>
-${d.warn.length ? `<ul class="warn">${d.warn.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}
+<header><div class="meta">${upd} · ₩${Math.round(fx).toLocaleString()}/$</div>
+<div class="hbtn"><button class="btn" onclick="refresh()" title="새로고침">↻</button><button class="btn" onclick="lockNow()" title="잠그기">🔒</button></div></header>
+<div class="hero"><div class="big">${won(total)}</div>
+<div class="sub">투자 ${man(invVal)} <span class="${cls(invVal - invCost)}">${signed(invVal - invCost).replace(/<[^>]+>/g, "")} (${sp(pct(invVal, invCost))})</span></div></div>
+${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>` : ""}
 <div class="tiles">${tiles}</div>
-
-<section class="card"><h2>목표 ① ${esc(g.name)} · ${end.getFullYear()}년 ${end.getMonth() + 1}월까지 ${(g.target / 1e8).toFixed(0)}억</h2>
-<div class="gnum"><b>${prog.toFixed(1)}%</b> 달성 · 남은 금액 ${man(Math.max(g.target - total, 0))} · 남은 기간 ${n}개월</div>
-<div class="track"><div class="fill" style="width:${prog.toFixed(2)}%"></div><div class="tick" style="left:${elapsed.toFixed(2)}%"></div></div>
-<div class="tlab"><span>0</span><span>세로선 = 기간 경과 ${elapsed.toFixed(0)}%</span><span>${(g.target / 1e8).toFixed(0)}억</span></div>
-<div class="tiles">${needTiles}<div class="tile"><div class="lbl">지금 속도로 가면 (월 ${man(savMonth)}, 연 ${(rHi * 100).toFixed(0)}%)</div><div class="val">${won(pace)}</div><div class="sub">목표의 ${(pace / g.target * 100).toFixed(0)}% · 차이는 취업 후 저축으로</div></div></div></section>
-
-<section class="card"><h2>마일스톤</h2><div class="ms"><div>${msShares || '<div class="note">모을 종목을 아직 안 샀어요.</div>'}</div>
-<div><div class="msrow"><div class="top"><span>투자자산</span><b>${man(invVal)}</b></div><div class="badges">${msInv}</div></div>
-<div class="msrow"><div class="top"><span>목표 진행</span><b>${prog.toFixed(1)}%</b></div><div class="badges">${msGoal}</div></div></div></div></section>
-
-<section class="card"><h2>자산 구성</h2><div class="bar">${segs.join("")}</div><ul class="legend">${legend.join("")}</ul></section>
-${accounts.map(a => `<section class="card"><h2>${esc(a.name)}</h2>${holdingsTable(a)}</section>`).join("")}
-
-<section class="card"><h2>예적금 (자동 납입 반영)</h2><div class="tbl"><table><thead><tr><th>계좌</th><th>현재 잔액</th><th>납입</th><th>다음 납입일</th><th>1년 뒤 원금</th></tr></thead><tbody>${savRows}</tbody></table></div></section>
-
-<section class="card"><h2>목표 ② ${esc(dg.name)} · ${esc(dg.horizon)}</h2><div class="note">월 ${man(dg.monthly)}을 배당으로 받으려면 원금 약 <b>${(needP / 1e8).toFixed(1)}억</b>이 필요해요 (배당률 ${(dg.yield * 100).toFixed(0)}%, 세금 ${(dg.tax * 100).toFixed(1)}% 차감). 지금은 원금을 키우는 데 집중해요.</div></section>
-
-<section class="card note"><b>스승의 원칙</b><ul>${DATA.principles.map(p => `<li>${esc(p)}</li>`).join("")}</ul></section>
-<div class="meta">데이터 기준 ${new Date(DATA.built).toLocaleDateString("ko-KR")} · 보유 수량이 바뀌면 PC에서 사이트_업데이트.bat 실행</div>
+<section class="card"><div class="row"><b>${(g.target / 1e8).toFixed(0)}억 목표 ${prog.toFixed(1)}%</b><span class="mut">${n}개월 남음 · 월 ${man(need)} 필요</span></div>
+<div class="track"><div class="fill" style="width:${prog.toFixed(2)}%"></div><div class="tick" style="left:${elapsed.toFixed(2)}%"></div></div></section>
+<section class="card"><div class="bar">${segs.join("")}</div><div class="legend">${legend.join("")}</div></section>
+<section class="card"><div class="tbl"><table><thead><tr><th>종목</th><th>현재가</th><th>평가</th><th>수익률</th></tr></thead><tbody>${rows}</tbody></table></div>
+${badges ? `<div class="badges">${badges}</div>` : ""}</section>
 </main>`;
   bindTips();
 }
