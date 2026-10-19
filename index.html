@@ -72,7 +72,7 @@ header{align-items:center;margin-bottom:4px}
 td{padding:7px 6px} th{padding:4px 6px} tr.grp td{color:var(--mut);font-size:12px;padding-top:12px;border-bottom:1px solid var(--line)}
 
 .tile .sub.up{color:var(--up)} .tile .sub.down{color:var(--down)}
-td .q{color:var(--mut);font-size:12px;margin-left:6px;font-weight:400} tr.cash td{color:var(--mut)}
+td .q{color:var(--mut);font-size:12px;margin-left:6px;font-weight:400;white-space:nowrap} tr.cash td{color:var(--mut)}
 .btn{padding:4px 10px}
 @media (max-width:560px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.hero .big{font-size:34px} td,th{padding:8px 6px}}
@@ -210,12 +210,12 @@ function render(d) {
     segs.push(`<div class="seg" style="flex:${v.toFixed(0)};background:var(--s${i + 1})" data-tip="${esc(c)} ${man(v)} · ${p.toFixed(1)}%"></div>`);
     legend.push(`<span><i style="background:var(--s${i + 1})"></i>${esc(c)} ${p.toFixed(0)}%</span>`); });
 
-  const rows = accounts.map(a => `<tr class="grp"><td colspan="4">${esc(a.name.replace(/ \(.*\)/, ""))}</td></tr>` +
+  const rows = accounts.map(a => `<tr class="grp"><td colspan="5">${esc(a.name.replace(/ \(.*\)/, ""))}</td></tr>` +
     [...a.rows].sort((x, y) => y.value - x.value).map(r => {
-      const f = r.usd ? "$" + r.price.toFixed(2) : Math.round(r.price).toLocaleString("ko-KR"), pc = pct(r.value, r.cost);
+      const f = x => r.usd ? "$" + x.toFixed(2) : Math.round(x).toLocaleString("ko-KR") + "원", pc = pct(r.value, r.cost);
       return `<tr><td><b>${esc(r.ticker.match(/^\d/) ? r.name.replace(" 미국", " ") : r.ticker)}</b><span class="q">${r.qty}주</span></td>
-        <td>${f}${r.stale ? "*" : ""}</td><td>${man(r.value)}</td><td class="${cls(pc)}">${sp(pc)}</td></tr>`; }).join("")
-    + (a.cash > 1e4 ? `<tr class="cash"><td>예수금</td><td></td><td>${man(a.cash)}</td><td></td></tr>` : "")).join("");
+        <td>${f(r.price)}${r.stale ? "*" : ""}</td><td class="mut">${f(r.avg)}</td><td>${won(r.value)}</td><td class="${cls(pc)}">${sp(pc)}</td></tr>`; }).join("")
+    + (a.cash > 1e4 ? `<tr class="cash"><td>예수금</td><td></td><td></td><td>${won(a.cash)}</td><td></td></tr>` : "")).join("");
 
   const M = DATA.milestones || {}, held = {};
   accounts.forEach(a => a.rows.forEach(r => held[r.ticker] = (held[r.ticker] || 0) + r.qty));
@@ -235,7 +235,7 @@ ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>`
 <section class="card"><div class="row"><b>${(g.target / 1e8).toFixed(0)}억 목표 ${prog.toFixed(1)}%</b><span class="mut">${n}개월 남음 · 월 ${man(need)} 필요</span></div>
 <div class="track"><div class="fill" style="width:${prog.toFixed(2)}%"></div><div class="tick" style="left:${elapsed.toFixed(2)}%"></div></div></section>
 <section class="card"><div class="bar">${segs.join("")}</div><div class="legend">${legend.join("")}</div></section>
-<section class="card"><div class="tbl"><table><thead><tr><th>종목</th><th>현재가</th><th>평가</th><th>수익률</th></tr></thead><tbody>${rows}</tbody></table></div>
+<section class="card"><div class="tbl"><table><thead><tr><th>종목</th><th>현재가</th><th>평단가</th><th>평가금액</th><th>수익률</th></tr></thead><tbody>${rows}</tbody></table></div>
 ${badges ? `<div class="badges">${badges}</div>` : ""}</section>
 </main>`;
   bindTips();
