@@ -180,7 +180,7 @@ ${headerHTML(d)}
 ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>` : ""}
 <section class="card"><div class="row"><h2 style="margin:0">${(g.target / 1e8).toFixed(0)}억 목표</h2><span class="chip mid">D-${Math.max(Math.round((end - t) / 864e5), 0)}</span></div>
 <div class="g-big"><b>${prog.toFixed(1)}%</b><span> · 남은 ${man(Math.max(g.target - total, 0))}</span></div>
-<div class="track" style="margin-top:10px;height:12px"><div class="fill" style="width:${prog.toFixed(2)}%"></div><div class="tick" style="left:${elapsed.toFixed(2)}%"></div></div></section>
+<div class="track" style="margin-top:10px;height:12px"><div class="fill" style="width:${prog.toFixed(2)}%"></div></div></section>
 <section class="card"><h2>자산 구성</h2>${catRows}</section>
 <section class="card"><h2>보유 종목</h2>${holds}${badges ? `<div class="badges">${badges}</div>` : ""}</section>
 ${budgetSection()}
@@ -288,7 +288,7 @@ function renderGoals(d) {
   const cards = T.map(x => `<section class="card goal">
     <div class="g-top">${ring(x.prog, x.color)}<div class="g-t"><div class="g-name"><b>${esc(x.key)}</b><span class="chip ${x.status[1]}">${x.status[0]}</span></div>
       <div class="g-num"><b>${man(x.now)}</b><span> / ${man(x.target)}</span></div></div></div>
-    <div class="track g-track stack"><i style="width:${x.basePct.toFixed(1)}%;background:${x.color};opacity:.45"></i><i style="width:${Math.max(x.prog - x.basePct, 0).toFixed(1)}%;background:${x.color}"></i><div class="tick" style="left:${Math.min(x.expect / x.target * 100, 100).toFixed(1)}%"></div></div>
+    <div class="track g-track stack"><i style="width:${x.basePct.toFixed(1)}%;background:${x.color};opacity:.45"></i><i style="width:${Math.max(x.prog - x.basePct, 0).toFixed(1)}%;background:${x.color}"></i></div>
     <div class="g-foot"><span></span><span>${x.now >= x.target ? "달성" : `남은 ${man(x.target - x.now)}`}</span></div>
 </section>`).join("");
 
@@ -310,7 +310,7 @@ ${headerHTML(d)}
   <div class="row"><b style="font-size:17px">${esc(M.name)}</b></div>
   <div class="g-big"><b>${man(nowSum)}</b><span> / ${man(tgtSum)}</span></div>
   <div class="g-pct">${allProg.toFixed(1)}%</div>
-  <div class="track stack" style="margin-top:8px;height:12px"><i style="width:${allBase.toFixed(1)}%;background:var(--primary);opacity:.4"></i><i style="width:${Math.max(allProg - allBase, 0).toFixed(1)}%;background:var(--grad)"></i><div class="tick" style="left:${allExp.toFixed(1)}%"></div></div>
+  <div class="track stack" style="margin-top:8px;height:12px"><i style="width:${allBase.toFixed(1)}%;background:var(--primary);opacity:.4"></i><i style="width:${Math.max(allProg - allBase, 0).toFixed(1)}%;background:var(--grad)"></i></div>
   <div class="g-foot"><span>남은 ${man(Math.max(tgtSum - nowSum, 0))}</span><span>D-${dday}</span></div>
 </section>
 ${cards}
