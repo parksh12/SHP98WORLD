@@ -117,7 +117,7 @@ function budgetSection() {
   const items = G.map(g => B.items.filter(i => i.group === g).map(i =>
     `<tr><td><i class="dot" style="background:${col[g]}"></i>${esc(i.name)}</td><td class="mut">${esc(i.day || "")}</td><td>${won(i.amount)}</td></tr>`).join("")).join("");
   return `<section class="card"><div class="row"><h2 style="margin:0">월 자금 계획</h2><span class="chip mid">저축·투자 ${saveRate.toFixed(0)}%</span></div>
-<div class="mut" style="font-size:13px;margin:-4px 0 10px">실수령 ${man(B.income)}</div>${rows}
+<div class="mut" style="font-size:13px;margin:-4px 0 10px">실수령 ${man(B.income)}${(() => { const left = B.income - B.items.reduce((t, i) => t + i.amount, 0); return Math.abs(left) >= 1 ? ` · <b class="${left < 0 ? "up" : ""}">${left < 0 ? "초과" : "미배정"} ${won(Math.abs(left))}</b>` : ""; })()}</div>${rows}
 <details class="more"><summary>항목 ${B.items.length}개</summary><div class="tbl"><table><tbody>${items}</tbody></table></div></details></section>`;
 }
 
