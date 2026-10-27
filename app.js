@@ -135,7 +135,7 @@ function plannedSection() {
 function headerHTML(d) {
   const upd = PRICES.updated ? new Date(PRICES.updated).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "-";
   const v = document.body.dataset.view;
-  return `<header><nav class="tabs"><a href="index.html" class="${v === "summary" ? "on" : ""}">요약</a><a href="accounts.html" class="${v === "accounts" ? "on" : ""}">계좌별</a></nav>
+  return `<header><nav class="tabs"><a href="index.html" class="${v === "summary" ? "on" : ""}">요약</a><a href="accounts.html" class="${v === "accounts" ? "on" : ""}">계좌별</a><a href="goals.html" class="${v === "goals" ? "on" : ""}">중기 목표</a></nav>
 <div class="hbtn"><button class="btn themebtn" onclick="toggleTheme()" title="다크/라이트">${themeIcon()}</button><button class="btn" onclick="refresh()" title="새로고침">↻</button><button class="btn" onclick="lockNow()" title="잠그기">🔒</button></div></header>
 <div class="meta">시세 ${upd} · ₩${Math.round(d.fx).toLocaleString()}/$</div>`;
 }
@@ -200,47 +200,140 @@ ${plannedSection()}
 function renderAccounts(d) {
   const { accounts, savings, total, t } = d;
   const cashTotal = DATA.cash.reduce((s, c) => s + c.amount, 0);
+  const C = ["var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)", "var(--s5)", "var(--s6)"];
   const list = [
-    ...accounts.map(a => ({ name: a.name.replace(/ \(.*\)/, ""), sub: (a.name.match(/\((.*)\)/) || [])[1] || "", value: a.value + a.cash, kind: "inv", a })),
-    ...savings.map(s => ({ name: s.name, sub: "적금·청약", value: s.now, kind: "sav", s })),
+    ...accounts.map(a => ({ name: a.name.replace(/ \(.*\)/, ""), sub: (a.name.match(/\((.*)\)/) || [])[1] || "투자", value: a.value + a.cash, kind: "inv", a })),
+    ...savings.map(s => ({ name: s.name, sub: `매월 ${s.day}일 ${man(s.monthly)}`, value: s.now, kind: "sav", s })),
     { name: "비상금", sub: "원화 현금", value: cashTotal, kind: "cash" },
   ];
-  const colors = ["var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)", "var(--s5)", "var(--s6)"];
-  list.forEach((x, i) => x.color = colors[i % colors.length]);
-  const bar = list.map(x => `<div class="seg" style="flex:${x.value.toFixed(0)};background:${x.color}" data-tip="${esc(x.name)} ${man(x.value)} · ${(x.value / total * 100).toFixed(1)}%"></div>`).join("");
-  const leg = list.map(x => `<span><i style="background:${x.color}"></i>${esc(x.name)} ${(x.value / total * 100).toFixed(0)}%</span>`).join("");
+  list.forEach((x, i) => { x.color = C[i % C.length]; x.id = "acct" + i; });
+
+  // 도넛 (계좌 비중)
+  const R = 70, L = 2 * Math.PI * R, gap = list.length > 1 ? 2.5 : 0;
+  let off = 0;
+  const arcs = list.map(x => { const len = x.value / total * L, seg = Math.max(len - gap, 0.5);
+    const c = `<circle r="${R}" cx="90" cy="90" fill="none" stroke="${x.color}" stroke-width="26" stroke-dasharray="${seg} ${L - seg}" stroke-dashoffset="${-off}" data-tip="${esc(x.name)} ${man(x.value)} · ${(x.value / total * 100).toFixed(1)}%"/>`;
+    off += len; return c; }).join("");
+  const invVal = accounts.reduce((s, a) => s + a.value, 0), invCost = accounts.reduce((s, a) => s + a.cost, 0);
+  const savNow = savings.reduce((s, x) => s + x.now, 0);
+  const alist = list.map(x => `<a href="#${x.id}"><i style="background:${x.color}"></i><span class="n">${esc(x.name)}</span><span class="v">${man(x.value)}</span><span class="p">${(x.value / total * 100).toFixed(1)}%</span></a>`).join("");
+
+  const head = (x, right) => `<div class="acct-h"><div class="acct-ic" style="background:${x.color}">${esc(x.name[0])}</div>
+    <div class="acct-t"><b>${esc(x.name)}</b><div>${esc(x.sub)}</div></div><div class="acct-v"><b>${won(x.value)}</b>${right || ""}</div></div>`;
 
   const card = x => {
-    const head = (right) => `<div class="acct-h"><div><i class="dot" style="background:${x.color}"></i><b>${esc(x.name)}</b>${x.sub ? `<span class="q">${esc(x.sub)}</span>` : ""}</div><div class="acct-v">${won(x.value)}</div></div>${right}`;
     if (x.kind === "inv") {
-      const a = x.a, pl = a.value - a.cost;
-      const rows = [...a.rows].sort((p, q) => q.value - p.value).map(r => holdingRow(r, x.value)).join("")
-        + (a.cash > 0 ? `<tr class="cash"><td>예수금</td><td></td><td>${won(a.cash)}<div class="q2">${(a.cash / x.value * 100).toFixed(1)}%</div></td><td></td><td></td></tr>` : "");
-      return `<section class="card">${head(`<div class="acct-s">원금 ${won(a.cost + a.cash)} · <span class="${cls(pct(a.value, a.cost))}">${sw(pl)} (${sp(pct(a.value, a.cost))})</span> · 총자산의 ${(x.value / total * 100).toFixed(1)}%</div>`)}
-<div class="tbl"><table>${HOLD_HEAD}<tbody>${rows}</tbody></table></div></section>`;
+      const a = x.a, pl = a.value - a.cost, pc = pct(a.value, a.cost);
+      const holds = [...a.rows].sort((p, q) => q.value - p.value).map(r => {
+        const f = v => r.usd ? "$" + v.toFixed(2) : Math.round(v).toLocaleString("ko-KR") + "원", rp = pct(r.value, r.cost), w = r.value / x.value * 100;
+        return `<div class="hold"><div class="hold-top"><div><b>${esc(r.ticker.match(/^\d/) ? r.name.replace(" 미국", " ") : r.ticker)}</b><span class="q">${r.qty}주</span></div><span class="v">${won(r.value)}</span></div>
+          <div class="hold-sub"><span>${f(r.price)}${r.stale ? "*" : ""} · 평단 ${f(r.avg)}</span><span class="r ${cls(rp)}">${sw(r.value - r.cost)} (${sp(rp)})</span></div>
+          <div class="wbar"><div><i style="width:${w.toFixed(1)}%;background:${x.color}"></i></div><span>${w.toFixed(1)}%</span></div></div>`; }).join("")
+        + (a.cash > 0 ? `<div class="hold"><div class="hold-top"><span class="mut">예수금</span><span class="v mut">${won(a.cash)}</span></div>
+          <div class="wbar"><div><i style="width:${(a.cash / x.value * 100).toFixed(1)}%;background:var(--mut)"></i></div><span>${(a.cash / x.value * 100).toFixed(1)}%</span></div></div>` : "");
+      return `<section class="card" id="${x.id}">${head(x, `<span class="${cls(pc)}">${sw(pl)} (${sp(pc)})</span>`)}${holds}</section>`;
     }
     if (x.kind === "sav") {
-      const s = x.s, dday = Math.round((s.next - t) / 864e5);
-      return `<section class="card">${head(`<div class="kv"><div><span>매월 납입</span><b>${won(s.monthly)}</b></div><div><span>다음 납입</span><b>${s.next.getMonth() + 1}/${s.next.getDate()} <small class="mut">D-${dday}</small></b></div><div><span>1년 뒤 원금</span><b>${man(s.now + 12 * s.monthly)}</b></div><div><span>총자산 비중</span><b>${(x.value / total * 100).toFixed(1)}%</b></div></div>`)}</section>`;
+      const s = x.s, dday = Math.round((s.next - t) / 864e5), vals = Array.from({ length: 13 }, (_, i) => s.now + i * s.monthly), mx = vals[12];
+      const cols = vals.map((v, i) => `<i style="height:${(v / mx * 100).toFixed(1)}%;background:${x.color};opacity:${i ? .45 + .55 * i / 12 : 1}" data-tip="${i ? i + "개월 뒤" : "지금"} ${man(v)}"></i>`).join("");
+      return `<section class="card" id="${x.id}">${head(x, `<span class="mut">다음 납입 ${s.next.getMonth() + 1}/${s.next.getDate()} · D-${dday}</span>`)}
+        <div class="row" style="margin:0"><span class="mut" style="font-size:12px">앞으로 12개월</span><span style="font-size:13px;font-weight:700">1년 뒤 ${man(mx)}</span></div>
+        <div class="cols">${cols}</div><div class="cols-x"><span>지금</span><span>6개월</span><span>12개월</span></div></section>`;
     }
-    const goal = 5000000, p = Math.min(cashTotal / goal, 1) * 100;
-    const item = (DATA.budget?.items || []).find(i => i.name === "비상금");
-    return `<section class="card">${head(`<div class="row" style="margin-top:8px"><span class="mut">목표 ${man(goal)} · ${p.toFixed(0)}%</span><span class="mut">${item ? `매월 +${won(item.amount)}` : ""}</span></div>
-<div class="track"><div class="fill" style="width:${p.toFixed(1)}%;background:${x.color}"></div></div>`)}</section>`;
+    const goal = 5000000, p = Math.min(cashTotal / goal, 1) * 100, item = (DATA.budget?.items || []).find(i => i.name === "비상금");
+    const left = Math.max(goal - cashTotal, 0), months = item ? Math.ceil(left / item.amount) : null;
+    return `<section class="card" id="${x.id}">${head(x, `<span class="mut">목표 ${man(goal)}</span>`)}
+      <div class="track"><div class="fill" style="width:${p.toFixed(1)}%"></div></div>
+      <div class="row" style="margin:8px 0 0"><span class="mut" style="font-size:12px">${p.toFixed(0)}% 채움</span><span class="mut" style="font-size:12px">${item ? `매월 +${man(item.amount)}${months ? ` · 약 ${months}개월 남음` : ""}` : ""}</span></div></section>`;
   };
 
   document.getElementById("app").innerHTML = `<main>
 ${headerHTML(d)}
-<div class="hero"><div class="sub">총자산</div><div class="big">${won(total)}</div></div>
-<section class="card"><div class="bar">${bar}</div><div class="legend">${leg}</div></section>
+<section class="card"><div class="donut-wrap"><div class="donut"><svg viewBox="0 0 180 180"><circle r="${R}" cx="90" cy="90" fill="none" stroke="var(--soft)" stroke-width="26"/>${arcs}</svg>
+<div class="c"><small>총자산</small><b>${man(total)}</b></div></div><div class="alist">${alist}</div></div>
+<div class="kpis"><div class="kpi"><span>투자 손익</span><b class="${cls(invVal - invCost)}">${sp(pct(invVal, invCost))}</b></div>
+<div class="kpi"><span>예적금</span><b>${man(savNow)}</b></div><div class="kpi"><span>비상금</span><b>${man(cashTotal)}</b></div></div></section>
 ${list.map(card).join("")}
+</main>`;
+  bindTips();
+}
+
+function countDays(day, from, to) { // from 다음 날 ~ to 까지 매월 day일 횟수
+  let n = 0, y = from.getFullYear(), m = from.getMonth();
+  for (;;) { const d = new Date(y, m, day); if (d > to) return n; if (d > from) n++; if (++m > 11) { m = 0; y++; } }
+}
+
+function renderGoals(d) {
+  const M = DATA.midterm;
+  if (!M) { document.getElementById("app").innerHTML = `<main>${headerHTML(d)}<div class="card">중기 목표가 없어요.</div></main>`; return; }
+  const { accounts, savings, t } = d;
+  const start = D(M.start), end = D(M.deadline), elapsed = Math.min(Math.max((t - start) / (end - start), 0), 1);
+  const dday = Math.max(Math.round((end - t) / 864e5), 0);
+  const cashTotal = DATA.cash.reduce((s, c) => s + c.amount, 0);
+  const C = ["var(--s3)", "var(--s4)", "var(--s2)", "var(--s1)", "var(--s5)"];
+  const cur = x => x.type === "cash" ? cashTotal
+    : x.type === "saving" ? ((savings.find(s => s.name === x.key) || {}).now || 0)
+    : (a => a ? a.value + a.cash : 0)(accounts.find(a => a.name.startsWith(x.key)));
+  const T = M.targets.map((x, i) => {
+    const now = cur(x), keep = x.target < x.base;
+    const prog = keep ? Math.min(now / x.target, 1) * 100 : Math.max(0, Math.min((now - x.base) / (x.target - x.base), 1)) * 100;
+    const expect = keep ? x.target : x.base + (x.target - x.base) * elapsed;
+    const diff = now - expect, tol = x.target * 0.01;
+    const status = keep ? (now >= x.target ? ["유지 중", "ok"] : ["부족", "bad"])
+      : diff >= tol ? ["앞서감", "ok"] : diff <= -tol ? ["뒤처짐", "bad"] : ["순항", "mid"];
+    const sv = DATA.savings.find(s => s.name === x.key);
+    const left = x.type === "saving" ? countDays(sv ? sv.day : 25, t, end) : countDays(1, t, end);
+    const need = left ? Math.max(x.target - now, 0) / left : 0;
+    return { ...x, now, prog, expect, status, left, need, color: C[i % C.length], keep };
+  });
+  const baseSum = T.reduce((s, x) => s + x.base, 0), tgtSum = T.reduce((s, x) => s + x.target, 0), nowSum = T.reduce((s, x) => s + x.now, 0);
+  const allProg = Math.max(0, Math.min((nowSum - baseSum) / (tgtSum - baseSum), 1)) * 100;
+
+  const ring = (p, col) => { const R = 30, L = 2 * Math.PI * R, v = Math.min(p, 100) / 100 * L;
+    return `<svg viewBox="0 0 76 76" class="ring"><circle r="${R}" cx="38" cy="38" fill="none" stroke="var(--soft)" stroke-width="8"/>`
+      + `<circle r="${R}" cx="38" cy="38" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${v} ${L}" transform="rotate(-90 38 38)"/>`
+      + `<text x="38" y="43" text-anchor="middle">${Math.round(p)}%</text></svg>`; };
+
+  const cards = T.map(x => `<section class="card goal">
+    <div class="g-top">${ring(x.prog, x.color)}<div class="g-t"><div class="g-name"><b>${esc(x.key)}</b><span class="chip ${x.status[1]}">${x.status[0]}</span></div>
+      <div class="g-num"><b>${man(x.now)}</b><span> / ${man(x.target)}</span></div>
+      <div class="g-how">${esc(x.how)}</div></div></div>
+    <div class="track g-track"><div class="fill" style="width:${Math.min(x.prog, 100).toFixed(1)}%;background:${x.color}"></div>${x.keep ? "" : `<div class="tick" style="left:${(elapsed * 100).toFixed(1)}%" title="오늘 있어야 할 위치"></div>`}</div>
+    <div class="g-foot">${x.keep
+      ? `<span>목표 이상 유지하면 성공</span><span>${x.now >= x.target ? `여유 ${man(x.now - x.target)}` : `부족 ${man(x.target - x.now)}`}</span>`
+      : `<span>오늘 기준 ${man(x.expect)} 예상</span><span>${x.now >= x.target ? "달성 ✓" : `남은 ${x.left}회 · 회당 ${man(x.need)}`}</span>`}</div></section>`).join("");
+
+  let nextShown = false;
+  const tl = M.timeline.map(e => {
+    const dt = D(e.date), done = dt < t, isNext = !done && !nextShown;
+    if (isNext) nextShown = true;
+    const dd = Math.round((dt - t) / 864e5);
+    return `<li class="${done ? "done" : isNext ? "next" : ""}"><span class="tl-d">${dt.getFullYear() % 100}.${dt.getMonth() + 1}.${dt.getDate()}</span>`
+      + `<span class="tl-t">${esc(e.text)}</span>${isNext ? `<span class="chip mid">D-${dd}</span>` : done ? `<span class="tl-ok">✓</span>` : ""}</li>`; }).join("");
+
+  const B = DATA.budget;
+  const monthly = B ? B.items.filter(i => ["청년도약계좌", "주택청약", "비상금", "ISA S&P500"].includes(i.name)) : [];
+  const routine = monthly.map(i => `<div class="kpi"><span>${esc(i.name)} · ${esc(i.day)}</span><b>${man(i.amount)}</b></div>`).join("");
+
+  document.getElementById("app").innerHTML = `<main>
+${headerHTML(d)}
+<section class="card g-hero">
+  <div class="row"><b style="font-size:17px">${esc(M.name)}</b><span class="chip mid">D-${dday}</span></div>
+  <div class="g-big"><b>${man(nowSum)}</b><span> / ${man(tgtSum)}</span></div>
+  <div class="track" style="margin-top:10px"><div class="fill" style="width:${allProg.toFixed(1)}%"></div><div class="tick" style="left:${(elapsed * 100).toFixed(1)}%"></div></div>
+  <div class="row" style="margin:6px 0 0"><span class="mut" style="font-size:12px">진행 ${allProg.toFixed(0)}% · 시작 ${man(baseSum)}</span><span class="mut" style="font-size:12px">세로선 = 기간 경과 ${(elapsed * 100).toFixed(0)}%</span></div>
+</section>
+${cards}
+<section class="card"><h2>매달 하는 일</h2><div class="kpis k4">${routine}</div></section>
+<section class="card"><h2>로드맵</h2><ul class="tl">${tl}</ul></section>
+<section class="card"><h2>지킬 것</h2><div class="badges">${M.rules.map(r => `<span class="badge">${esc(r)}</span>`).join("")}</div></section>
 </main>`;
   bindTips();
 }
 
 function bindTips() {
   const tip = document.getElementById("tip");
-  document.querySelectorAll(".seg").forEach(s => {
+  document.querySelectorAll("[data-tip]").forEach(s => {
     s.addEventListener("mousemove", e => { tip.textContent = s.dataset.tip; tip.style.opacity = 1;
       tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = (e.clientY + 14) + "px"; });
     s.addEventListener("mouseleave", () => tip.style.opacity = 0);
@@ -250,5 +343,5 @@ function bindTips() {
 async function refresh() {
   try { PRICES = await getJSON("prices.json"); } catch { PRICES = PRICES || { prices: {}, fx: null }; }
   const d = build();
-  (document.body.dataset.view === "accounts" ? renderAccounts : render)(d);
+  ({ accounts: renderAccounts, goals: renderGoals }[document.body.dataset.view] || render)(d);
 }

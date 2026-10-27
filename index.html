@@ -1,15 +1,18 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eef1f6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121418" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex,nofollow">
 <title>자산 운용</title>
 <script>try{const t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch{}</script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body data-view="summary">
 <div id="lock"><button class="btn themebtn" type="button" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px" title="다크/라이트">🌙</button><form id="lockform" autocomplete="off">
- <h1>자산 운용</h1><p>비공개 페이지예요. 비밀번호를 입력하세요.</p>
+ <h1>자산<span>운용</span></h1><p>비공개 페이지예요. 비밀번호를 입력하세요.</p>
  <input type="password" id="pw" placeholder="비밀번호" autofocus>
  <label><input type="checkbox" id="remember" checked> 이 기기에서 기억하기</label>
  <button class="btn" type="submit">열기</button>
@@ -18,5 +21,5 @@
 
 <div id="app"></div>
 <div id="tip"></div>
-<script src="app.js"></script>
+<script src="app.js?v=2"></script>
 </body></html>
