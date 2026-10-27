@@ -221,6 +221,19 @@ function budgetSection() {
 <div class="tbl" style="margin-top:8px"><table><thead><tr><th>항목</th><th>날짜</th><th>통장</th><th>금액</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
 }
 
+function plannedSection() {
+  const P = DATA.planned || []; if (!P.length) return "";
+  const t = today();
+  const rows = P.map(x => {
+    const exact = /^\d{4}-\d{2}-\d{2}$/.test(x.when), d = exact ? D(x.when) : null;
+    const dday = d ? Math.round((d - t) / 864e5) : null;
+    const when = d ? `${d.getMonth() + 1}/${d.getDate()}${dday >= 0 ? ` <span class="q">D-${dday}</span>` : ""}` : esc(x.when) + "년";
+    return `<tr><td><b>${esc(x.name)}</b><div class="q2">${esc(x.plan || "")}</div></td><td class="mut">${when}</td><td>${won(x.amount)}</td></tr>`;
+  }).join("");
+  return `<section class="card"><div class="row"><b>예정된 큰 지출</b><span class="mut">비상금에서 꺼내지 않기</span></div>
+<div class="tbl"><table><tbody>${rows}</tbody></table></div></section>`;
+}
+
 function render(d) {
   const { cats, total, accounts, savings, fx, t } = d;
   const invVal = accounts.reduce((s, a) => s + a.value, 0), invCost = accounts.reduce((s, a) => s + a.cost, 0);
@@ -270,6 +283,7 @@ ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>`
 <section class="card"><div class="tbl"><table><thead><tr><th>종목</th><th>현재가<div class="q2">평단가</div></th><th>평가금액</th><th>수익금</th><th>수익률</th></tr></thead><tbody>${rows}</tbody></table></div>
 ${badges ? `<div class="badges">${badges}</div>` : ""}</section>
 ${budgetSection()}
+${plannedSection()}
 </main>`;
   bindTips();
 }
