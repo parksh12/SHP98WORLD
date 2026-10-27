@@ -113,7 +113,7 @@ function budgetSection() {
   const bar = G.map(g => { const v = sum(g); return v ? `<div class="seg" style="flex:${v};background:${col[g]}" data-tip="${g} ${man(v)} · ${(v / B.income * 100).toFixed(0)}%"></div>` : ""; }).join("");
   const leg = G.map(g => `<span><i style="background:${col[g]}"></i>${g} ${man(sum(g))}</span>`).join("");
   const rows = G.map(g => B.items.filter(i => i.group === g).map(i =>
-    `<tr><td><i class="dot" style="background:${col[g]}"></i>${esc(i.name)}${i.note ? `<span class="q">${esc(i.note)}</span>` : ""}</td><td class="mut">${esc(i.day || "")}</td><td class="mut">${esc(i.account || "")}</td><td>${won(i.amount)}</td></tr>`).join("")).join("");
+    `<tr><td><i class="dot" style="background:${col[g]}"></i>${esc(i.name)}</td><td class="mut">${esc(i.day || "")}</td><td class="mut">${esc(i.account || "")}</td><td>${won(i.amount)}</td></tr>`).join("")).join("");
   return `<section class="card"><div class="row"><b>월 자금 계획 · 실수령 ${man(B.income)}</b><span class="mut">저축·투자 ${saveRate.toFixed(0)}%${used !== B.income ? ` · 남는 돈 ${won(B.income - used)}` : ""}</span></div>
 <div class="bar">${bar}</div><div class="legend">${leg}</div>
 <div class="tbl" style="margin-top:8px"><table><thead><tr><th>항목</th><th>날짜</th><th>통장</th><th>금액</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
@@ -126,9 +126,9 @@ function plannedSection() {
     const exact = /^\d{4}-\d{2}-\d{2}$/.test(x.when), d = exact ? D(x.when) : null;
     const dday = d ? Math.round((d - t) / 864e5) : null;
     const when = d ? `${d.getMonth() + 1}/${d.getDate()}${dday >= 0 ? ` <span class="q">D-${dday}</span>` : ""}` : esc(x.when) + "년";
-    return `<tr><td><b>${esc(x.name)}</b><div class="q2">${esc(x.plan || "")}</div></td><td class="mut">${when}</td><td>${won(x.amount)}</td></tr>`;
+    return `<tr><td><b>${esc(x.name)}</b></td><td class="mut">${when}</td><td>${won(x.amount)}</td></tr>`;
   }).join("");
-  return `<section class="card"><div class="row"><b>예정된 큰 지출</b><span class="mut">비상금에서 꺼내지 않기</span></div>
+  return `<section class="card"><div class="row"><b>예정된 큰 지출</b></div>
 <div class="tbl"><table><tbody>${rows}</tbody></table></div></section>`;
 }
 
@@ -186,7 +186,7 @@ ${headerHTML(d)}
 <div class="sub">투자 ${man(invVal)} <span class="${cls(invVal - invCost)}">${signed(invVal - invCost).replace(/<[^>]+>/g, "")} (${sp(pct(invVal, invCost))})</span></div></div>
 ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>` : ""}
 <div class="tiles">${tiles}</div>
-<section class="card"><div class="row"><b>${(g.target / 1e8).toFixed(0)}억 목표 ${prog.toFixed(1)}%</b><span class="mut">${n}개월 남음 · 월 ${man(need)} 필요</span></div>
+<section class="card"><div class="row"><b>${(g.target / 1e8).toFixed(0)}억 목표 ${prog.toFixed(1)}%</b><span class="mut">D-${Math.max(Math.round((end - t) / 864e5), 0)}</span></div>
 <div class="track"><div class="fill" style="width:${prog.toFixed(2)}%"></div><div class="tick" style="left:${elapsed.toFixed(2)}%"></div></div></section>
 <section class="card"><div class="bar">${segs.join("")}</div><div class="legend">${legend.join("")}</div></section>
 <section class="card"><div class="tbl"><table>${HOLD_HEAD}<tbody>${rows}</tbody></table></div>
@@ -219,7 +219,7 @@ function renderAccounts(d) {
   const alist = list.map(x => `<a href="#${x.id}"><i style="background:${x.color}"></i><span class="n">${esc(x.name)}</span><span class="v">${man(x.value)}</span><span class="p">${(x.value / total * 100).toFixed(1)}%</span></a>`).join("");
 
   const head = (x, right) => `<div class="acct-h"><div class="acct-ic" style="background:${x.color}">${esc(x.name[0])}</div>
-    <div class="acct-t"><b>${esc(x.name)}</b><div>${esc(x.sub)}</div></div><div class="acct-v"><b>${won(x.value)}</b>${right || ""}</div></div>`;
+    <div class="acct-t"><b>${esc(x.name)}</b></div><div class="acct-v"><b>${won(x.value)}</b>${right || ""}</div></div>`;
 
   const card = x => {
     if (x.kind === "inv") {
@@ -236,15 +236,14 @@ function renderAccounts(d) {
     if (x.kind === "sav") {
       const s = x.s, dday = Math.round((s.next - t) / 864e5), vals = Array.from({ length: 13 }, (_, i) => s.now + i * s.monthly), mx = vals[12];
       const cols = vals.map((v, i) => `<i style="height:${(v / mx * 100).toFixed(1)}%;background:${x.color};opacity:${i ? .45 + .55 * i / 12 : 1}" data-tip="${i ? i + "개월 뒤" : "지금"} ${man(v)}"></i>`).join("");
-      return `<section class="card" id="${x.id}">${head(x, `<span class="mut">다음 납입 ${s.next.getMonth() + 1}/${s.next.getDate()} · D-${dday}</span>`)}
-        <div class="row" style="margin:0"><span class="mut" style="font-size:12px">앞으로 12개월</span><span style="font-size:13px;font-weight:700">1년 뒤 ${man(mx)}</span></div>
-        <div class="cols">${cols}</div><div class="cols-x"><span>지금</span><span>6개월</span><span>12개월</span></div></section>`;
+      return `<section class="card" id="${x.id}">${head(x, `<span class="mut">D-${dday}</span>`)}
+        <div class="cols">${cols}</div><div class="cols-x"><span>지금</span><span>1년 뒤 ${man(mx)}</span></div></section>`;
     }
-    const goal = 5000000, p = Math.min(cashTotal / goal, 1) * 100, item = (DATA.budget?.items || []).find(i => i.name === "비상금");
+    const goal = ((DATA.midterm?.targets || []).find(x => x.key === "비상금") || {}).target || 5000000, p = Math.min(cashTotal / goal, 1) * 100, item = (DATA.budget?.items || []).find(i => i.name === "비상금");
     const left = Math.max(goal - cashTotal, 0), months = item ? Math.ceil(left / item.amount) : null;
-    return `<section class="card" id="${x.id}">${head(x, `<span class="mut">목표 ${man(goal)}</span>`)}
+    return `<section class="card" id="${x.id}">${head(x, `<span class="mut">${p.toFixed(0)}% / ${man(goal)}</span>`)}
       <div class="track"><div class="fill" style="width:${p.toFixed(1)}%"></div></div>
-      <div class="row" style="margin:8px 0 0"><span class="mut" style="font-size:12px">${p.toFixed(0)}% 채움</span><span class="mut" style="font-size:12px">${item ? `매월 +${man(item.amount)}${months ? ` · 약 ${months}개월 남음` : ""}` : ""}</span></div></section>`;
+</section>`;
   };
 
   document.getElementById("app").innerHTML = `<main>
@@ -296,12 +295,9 @@ function renderGoals(d) {
 
   const cards = T.map(x => `<section class="card goal">
     <div class="g-top">${ring(x.prog, x.color)}<div class="g-t"><div class="g-name"><b>${esc(x.key)}</b><span class="chip ${x.status[1]}">${x.status[0]}</span></div>
-      <div class="g-num"><b>${man(x.now)}</b><span> / ${man(x.target)}</span></div>
-      <div class="g-how">${esc(x.how)}</div></div></div>
+      <div class="g-num"><b>${man(x.now)}</b><span> / ${man(x.target)}</span></div></div></div>
     <div class="track g-track"><div class="fill" style="width:${Math.min(x.prog, 100).toFixed(1)}%;background:${x.color}"></div>${x.keep ? "" : `<div class="tick" style="left:${(elapsed * 100).toFixed(1)}%" title="오늘 있어야 할 위치"></div>`}</div>
-    <div class="g-foot">${x.keep
-      ? `<span>목표 이상 유지하면 성공</span><span>${x.now >= x.target ? `여유 ${man(x.now - x.target)}` : `부족 ${man(x.target - x.now)}`}</span>`
-      : `<span>오늘 기준 ${man(x.expect)} 예상</span><span>${x.now >= x.target ? "달성 ✓" : `남은 ${x.left}회 · 회당 ${man(x.need)}`}</span>`}</div></section>`).join("");
+</section>`).join("");
 
   let nextShown = false;
   const tl = M.timeline.map(e => {
@@ -321,12 +317,10 @@ ${headerHTML(d)}
   <div class="row"><b style="font-size:17px">${esc(M.name)}</b><span class="chip mid">D-${dday}</span></div>
   <div class="g-big"><b>${man(nowSum)}</b><span> / ${man(tgtSum)}</span></div>
   <div class="track" style="margin-top:10px"><div class="fill" style="width:${allProg.toFixed(1)}%"></div><div class="tick" style="left:${(elapsed * 100).toFixed(1)}%"></div></div>
-  <div class="row" style="margin:6px 0 0"><span class="mut" style="font-size:12px">진행 ${allProg.toFixed(0)}% · 시작 ${man(baseSum)}</span><span class="mut" style="font-size:12px">세로선 = 기간 경과 ${(elapsed * 100).toFixed(0)}%</span></div>
 </section>
 ${cards}
-<section class="card"><h2>매달 하는 일</h2><div class="kpis k4">${routine}</div></section>
+<section class="card"><h2>매달</h2><div class="kpis k4">${routine}</div></section>
 <section class="card"><h2>로드맵</h2><ul class="tl">${tl}</ul></section>
-<section class="card"><h2>지킬 것</h2><div class="badges">${M.rules.map(r => `<span class="badge">${esc(r)}</span>`).join("")}</div></section>
 </main>`;
   bindTips();
 }
