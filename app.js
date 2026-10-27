@@ -136,7 +136,7 @@ function headerHTML(d) {
   const upd = PRICES.updated ? new Date(PRICES.updated).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "-";
   const v = document.body.dataset.view;
   return `<header><nav class="tabs"><a href="index.html" class="${v === "summary" ? "on" : ""}">요약</a><a href="accounts.html" class="${v === "accounts" ? "on" : ""}">계좌별</a><a href="goals.html" class="${v === "goals" ? "on" : ""}">중기 목표</a></nav>
-<div class="hbtn"><button class="btn themebtn" onclick="toggleTheme()" title="다크/라이트">${themeIcon()}</button><button class="btn" onclick="refresh()" title="새로고침">새로고침</button><button class="btn" onclick="lockNow()" title="잠그기">잠금</button></div></header>
+<div class="hbtn"><button class="btn themebtn" onclick="toggleTheme()" title="다크/라이트">${themeIcon()}</button><button class="btn" onclick="lockNow()" title="잠그기">잠금</button></div></header>
 <div class="meta">시세 ${upd} · ₩${Math.round(d.fx).toLocaleString()}/$</div>`;
 }
 
