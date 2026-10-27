@@ -329,8 +329,44 @@ function bindTips() {
   });
 }
 
+// ---------- 구글 시트 자금 계획 ----------
+function parseCSV(t) {
+  const rows = []; let row = [], cur = "", q = false;
+  for (let i = 0; i < t.length; i++) {
+    const c = t[i];
+    if (q) { if (c === '"' && t[i + 1] === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+    else if (c === '"') q = true; else if (c === ",") { row.push(cur); cur = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && t[i + 1] === "\n") i++; row.push(cur); rows.push(row); row = []; cur = ""; }
+    else cur += c;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows.filter(r => r.some(x => x.trim()));
+}
+let SHEET_OK = false;
+async function loadBudgetSheet() {
+  if (!DATA.budget_sheet) return;
+  try {
+    const r = await fetch(`https://docs.google.com/spreadsheets/d/${DATA.budget_sheet}/gviz/tq?tqx=out:csv&headers=1&gid=0&t=${Date.now()}`);
+    const rows = parseCSV(await r.text()); if (rows.length < 2) return;
+    const h = rows[0].map(x => x.trim()), col = k => h.indexOf(k);
+    const [iN, iA, iG, iD, iC] = ["항목", "금액", "분류", "날짜", "통장"].map(col);
+    if (iN < 0 || iA < 0 || iG < 0) return;
+    let income = 0; const items = [];
+    for (const r of rows.slice(1)) {
+      const name = (r[iN] || "").trim(), amt = Number(String(r[iA] || "").replace(/[^\d.-]/g, "")), grp = (r[iG] || "").trim();
+      if (!name || !amt) continue;
+      if (grp === "수입") { income += amt; continue; }
+      items.push({ name, amount: amt, group: grp, day: iD >= 0 ? (r[iD] || "").trim() : "", account: iC >= 0 ? (r[iC] || "").trim() : "" });
+    }
+    if (!items.length) return;
+    DATA.budget = { income: income || items.reduce((s, i) => s + i.amount, 0), items };
+    SHEET_OK = true;
+  } catch { /* 시트를 못 읽으면 기존 자금 계획 유지 */ }
+}
+
 async function refresh() {
   try { PRICES = await getJSON("prices.json"); } catch { PRICES = PRICES || { prices: {}, fx: null }; }
+  await loadBudgetSheet();
   const d = build();
   ({ accounts: renderAccounts, goals: renderGoals }[document.body.dataset.view] || render)(d);
 }
