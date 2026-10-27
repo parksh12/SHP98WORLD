@@ -308,7 +308,7 @@ function renderGoals(d) {
       + `<span class="tl-t">${esc(e.text)}</span>${isNext ? `<span class="chip mid">D-${dd}</span>` : done ? `<span class="tl-ok">✓</span>` : ""}</li>`; }).join("");
 
   const B = DATA.budget;
-  const monthly = B ? B.items.filter(i => ["청년도약계좌", "주택청약", "비상금", "ISA S&P500"].includes(i.name)) : [];
+  const monthly = B ? B.items.filter(i => ["청년도약계좌", "주택청약", "비상금", "SGOV 대기자금"].includes(i.name)) : [];
   const routine = monthly.map(i => `<div class="kpi"><span>${esc(i.name)} · ${esc(i.day)}</span><b>${man(i.amount)}</b></div>`).join("");
 
   document.getElementById("app").innerHTML = `<main>
