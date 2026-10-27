@@ -23,9 +23,9 @@ main{max-width:720px;margin:0 auto;padding:calc(14px + var(--safe-t)) 16px calc(
 button,input{font:inherit}
 .mut{color:var(--mut)} .up{color:var(--up)} .down{color:var(--down)}
 
-/* 버튼: 동그란 아이콘 */
-.btn{display:grid;place-items:center;width:38px;height:38px;padding:0;border:0;border-radius:50%;
-  background:var(--card);color:var(--ink2);cursor:pointer;font-size:16px;box-shadow:0 2px 8px rgba(20,30,60,.08)}
+/* 버튼: random7942 chip-btn */
+.btn{border:0;border-radius:999px;padding:0 13px;height:34px;min-height:34px;background:var(--card);color:var(--mut);box-shadow:0 2px 8px rgba(20,30,60,.06);
+  font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;touch-action:manipulation}
 .btn:active{filter:brightness(.95)}
 
 /* 잠금 화면 = random7942 동의 카드 */
@@ -44,8 +44,8 @@ button,input{font:inherit}
 #app{display:none}
 
 /* 상단 */
-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
-.hbtn{display:flex;gap:8px}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px 10px;margin-bottom:6px;flex-wrap:wrap}
+.hbtn{display:flex;gap:6px}
 .tabs{display:flex;gap:4px;background:var(--card);border-radius:999px;padding:4px;box-shadow:0 2px 8px rgba(20,30,60,.06)}
 .tabs a{padding:7px 16px;border-radius:999px;color:var(--mut);text-decoration:none;font-size:14px;font-weight:600}
 .tabs a.on{background:var(--grad);color:#fff;box-shadow:0 3px 10px rgba(79,110,242,.3)}
