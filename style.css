@@ -150,3 +150,7 @@ td.mut{font-size:13px}.dot{display:inline-block;width:8px;height:8px;border-radi
 .tl li.next .tl-t{font-weight:700}
 .tl-d{width:62px;flex:none;color:var(--mut);font-size:12px;font-variant-numeric:tabular-nums}.tl-t{flex:1}.tl-ok{color:var(--good);font-weight:700}
 @media (max-width:560px){.kpis.k4{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs a{padding:7px 11px;font-size:13px}}
+
+.track.stack{display:flex;overflow:hidden}.track.stack i{display:block;height:100%}
+.track.stack .tick{top:0;bottom:0;background:var(--ink);opacity:.55}
+.g-pct{font-size:14px;font-weight:700;color:var(--primary);margin-top:2px}

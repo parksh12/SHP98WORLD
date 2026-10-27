@@ -275,7 +275,7 @@ function renderGoals(d) {
     : (a => a ? a.value + a.cash : 0)(accounts.find(a => a.name.startsWith(x.key)));
   const T = M.targets.map((x, i) => {
     const now = cur(x), keep = x.target < x.base;
-    const prog = keep ? Math.min(now / x.target, 1) * 100 : Math.max(0, Math.min((now - x.base) / (x.target - x.base), 1)) * 100;
+    const prog = Math.min(now / x.target, 1) * 100, basePct = Math.min(Math.min(x.base, now) / x.target, 1) * 100;
     const expect = keep ? x.target : x.base + (x.target - x.base) * elapsed;
     const diff = now - expect, tol = x.target * 0.01;
     const status = keep ? (now >= x.target ? ["유지 중", "ok"] : ["부족", "bad"])
@@ -283,10 +283,10 @@ function renderGoals(d) {
     const sv = DATA.savings.find(s => s.name === x.key);
     const left = x.type === "saving" ? countDays(sv ? sv.day : 25, t, end) : countDays(1, t, end);
     const need = left ? Math.max(x.target - now, 0) / left : 0;
-    return { ...x, now, prog, expect, status, left, need, color: C[i % C.length], keep };
+    return { ...x, now, prog, basePct, expect, status, left, need, color: C[i % C.length], keep };
   });
   const baseSum = T.reduce((s, x) => s + x.base, 0), tgtSum = T.reduce((s, x) => s + x.target, 0), nowSum = T.reduce((s, x) => s + x.now, 0);
-  const allProg = Math.max(0, Math.min((nowSum - baseSum) / (tgtSum - baseSum), 1)) * 100;
+  const allProg = Math.min(nowSum / tgtSum, 1) * 100, allBase = Math.min(Math.min(baseSum, nowSum) / tgtSum, 1) * 100, allExp = Math.min((baseSum + (tgtSum - baseSum) * elapsed) / tgtSum, 1) * 100;
 
   const ring = (p, col) => { const R = 30, L = 2 * Math.PI * R, v = Math.min(p, 100) / 100 * L;
     return `<svg viewBox="0 0 76 76" class="ring"><circle r="${R}" cx="38" cy="38" fill="none" stroke="var(--soft)" stroke-width="8"/>`
@@ -296,7 +296,8 @@ function renderGoals(d) {
   const cards = T.map(x => `<section class="card goal">
     <div class="g-top">${ring(x.prog, x.color)}<div class="g-t"><div class="g-name"><b>${esc(x.key)}</b><span class="chip ${x.status[1]}">${x.status[0]}</span></div>
       <div class="g-num"><b>${man(x.now)}</b><span> / ${man(x.target)}</span></div></div></div>
-    <div class="track g-track"><div class="fill" style="width:${Math.min(x.prog, 100).toFixed(1)}%;background:${x.color}"></div>${x.keep ? "" : `<div class="tick" style="left:${(elapsed * 100).toFixed(1)}%" title="오늘 있어야 할 위치"></div>`}</div>
+    <div class="track g-track stack"><i style="width:${x.basePct.toFixed(1)}%;background:${x.color};opacity:.45"></i><i style="width:${Math.max(x.prog - x.basePct, 0).toFixed(1)}%;background:${x.color}"></i><div class="tick" style="left:${Math.min(x.expect / x.target * 100, 100).toFixed(1)}%"></div></div>
+    <div class="g-foot"><span></span><span>${x.now >= x.target ? "달성" : `남은 ${man(x.target - x.now)}`}</span></div>
 </section>`).join("");
 
   let nextShown = false;
@@ -314,9 +315,11 @@ function renderGoals(d) {
   document.getElementById("app").innerHTML = `<main>
 ${headerHTML(d)}
 <section class="card g-hero">
-  <div class="row"><b style="font-size:17px">${esc(M.name)}</b><span class="chip mid">D-${dday}</span></div>
+  <div class="row"><b style="font-size:17px">${esc(M.name)}</b></div>
   <div class="g-big"><b>${man(nowSum)}</b><span> / ${man(tgtSum)}</span></div>
-  <div class="track" style="margin-top:10px"><div class="fill" style="width:${allProg.toFixed(1)}%"></div><div class="tick" style="left:${(elapsed * 100).toFixed(1)}%"></div></div>
+  <div class="g-pct">${allProg.toFixed(1)}%</div>
+  <div class="track stack" style="margin-top:8px;height:12px"><i style="width:${allBase.toFixed(1)}%;background:var(--primary);opacity:.4"></i><i style="width:${Math.max(allProg - allBase, 0).toFixed(1)}%;background:var(--grad)"></i><div class="tick" style="left:${allExp.toFixed(1)}%"></div></div>
+  <div class="g-foot"><span>남은 ${man(Math.max(tgtSum - nowSum, 0))}</span><span>D-${dday}</span></div>
 </section>
 ${cards}
 <section class="card"><h2>매달</h2><div class="kpis k4">${routine}</div></section>
