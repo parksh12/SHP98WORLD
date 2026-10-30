@@ -5,9 +5,15 @@ on:
     - cron: "*/30 0-7 * * 1-5"    # 한국장 (KST 09~16시)
     - cron: "*/30 13-21 * * 1-5"  # 미국장 (KST 22~06시)
   workflow_dispatch:
+    inputs:
+      test_alert:
+        description: "알림 메일 테스트"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: prices
@@ -23,9 +29,19 @@ jobs:
           python-version: "3.12"
       - run: pip install yfinance requests
       - run: python scripts/fetch_prices.py
+      - id: alert
+        env:
+          TEST_ALERT: ${{ inputs.test_alert }}
+        run: python scripts/alert.py
       - name: commit
         run: |
           git config user.name "price-bot"
           git config user.email "price-bot@users.noreply.github.com"
-          git add prices.json
+          git add prices.json alerts.json
           git diff --cached --quiet || (git commit -m "시세 갱신" && git push)
+      - name: notify
+        if: steps.alert.outputs.level != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "S&P500 고점 대비 ${{ steps.alert.outputs.level }}% 도달" --body "현재 ${{ steps.alert.outputs.last }} / 사상 최고 ${{ steps.alert.outputs.ath }} (${{ steps.alert.outputs.dd }}%). 대기자금 SGOV → SPYM 검토 시점. 규칙: SGOV 대기자금으로 SPYM만."

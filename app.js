@@ -181,6 +181,9 @@ ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>`
 <section class="card"><div class="row"><h2 style="margin:0">${(g.target / 1e8).toFixed(0)}억 목표</h2><span class="chip mid">D-${Math.max(Math.round((end - t) / 864e5), 0)}</span></div>
 <div class="g-big"><b>${prog.toFixed(1)}%</b><span> · 남은 ${man(Math.max(g.target - total, 0))}</span></div>
 <div class="track" style="margin-top:10px;height:12px"><div class="fill" style="width:${prog.toFixed(2)}%"></div></div></section>
+${(() => { const x = PRICES.spx; if (!x) return ""; const lv = [-15, -25, -35];
+  return `<section class="card"><div class="row" style="margin:0"><h2 style="margin:0">S&amp;P500 고점 대비</h2><b class="${x.dd <= -15 ? "up" : ""}" style="font-size:20px">${x.dd.toFixed(1)}%</b></div>
+<div class="badges">${lv.map(l => `<span class="badge${x.dd <= l ? " on" : ""}">${l}%</span>`).join("")}</div></section>`; })()}
 <section class="card"><h2>자산 구성</h2>${catRows}</section>
 <section class="card"><h2>보유 종목</h2>${holds}${badges ? `<div class="badges">${badges}</div>` : ""}</section>
 ${budgetSection()}

@@ -39,9 +39,19 @@ for c in T["kr"]:
     prices[c] = kr(c) or prices.get(c)
 
 fx = us("KRW=X") or old.get("fx")
+
+# S&P500 사상 최고치 대비 하락률 (역사적 기회 알림용)
+spx = old.get("spx")
+try:
+    h = yf.Ticker("^GSPC").history(period="10y")["Close"].dropna()
+    spx = {"last": round(float(h.iloc[-1]), 2), "ath": round(float(h.max()), 2),
+           "dd": round(float(h.iloc[-1] / h.max() - 1) * 100, 2)}
+except Exception:
+    pass
 OUT.write_text(json.dumps({
     "updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     "fx": round(fx, 2) if fx else None,
     "prices": prices,
+    "spx": spx,
 }, ensure_ascii=False, indent=1), encoding="utf-8")
 print(OUT.read_text(encoding="utf-8"))
