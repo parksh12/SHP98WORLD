@@ -13,7 +13,6 @@ on:
 
 permissions:
   contents: write
-  issues: write
 
 concurrency:
   group: prices
@@ -39,9 +38,14 @@ jobs:
           git config user.email "price-bot@users.noreply.github.com"
           git add prices.json alerts.json
           git diff --cached --quiet || (git commit -m "시세 갱신" && git push)
-      - name: notify
+      - name: notify (telegram)
         if: steps.alert.outputs.level != ''
         env:
-          GH_TOKEN: ${{ github.token }}
+          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          gh issue create --title "S&P500 고점 대비 ${{ steps.alert.outputs.level }}% 도달" --body "현재 ${{ steps.alert.outputs.last }} / 사상 최고 ${{ steps.alert.outputs.ath }} (${{ steps.alert.outputs.dd }}%). 대기자금 SGOV → SPYM 검토 시점. 규칙: SGOV 대기자금으로 SPYM만."
+          [ -z "$TG_TOKEN" ] && { echo "TELEGRAM 시크릿 없음"; exit 0; }
+          TEXT="📉 S&P500 고점 대비 ${{ steps.alert.outputs.level }}% 도달
+          현재 ${{ steps.alert.outputs.last }} / 사상 최고 ${{ steps.alert.outputs.ath }} (${{ steps.alert.outputs.dd }}%)
+          → SGOV 대기자금으로 SPYM 검토 (규칙: SPYM만)"
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" --data-urlencode "chat_id=${TG_CHAT}" --data-urlencode "text=${TEXT}" > /dev/null
