@@ -4,12 +4,16 @@
   {"price": [{"t": "NVDA", "avg": 180, "qty": 30, "step": 5}], "rsi": ["TQQQ", "SOXL"]}
 - price: 평단 대비 ±step% 구간을 새로 넘을 때마다 알림
 - rsi:   주봉 RSI(14, Wilder)가 30 이하가 되면 알림, 35 위로 회복하면 다시 대기
+- session: 미장 시작·마감 알림 + 당일 시가 대비 ±intraday_step% 구간마다 알림 (구간별 하루 1번)
+  예) "session": ["NVDA", "TQQQ", "SOXL"], "intraday_step": 3
 상태(구간 번호·알림 여부)만 watch_state.json에 저장한다.
 """
 import json
 import os
 import sys
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import requests
 import yfinance as yf
@@ -81,7 +85,70 @@ def main():
         elif rs.get(t) and rsi >= RSI_RESET:
             rs[t] = False
 
+    check_session(cfg, st, test)
     STATE.write_text(json.dumps(st), encoding="utf-8")
+
+
+def check_session(cfg, st, test=False):
+    """미장 시작·마감 알림 + 당일 시가 대비 ±step% 구간 알림 (뉴욕 시간 기준, 서머타임 자동)."""
+    tickers = cfg.get("session", [])
+    if not tickers:
+        return
+    step = float(cfg.get("intraday_step", 3))
+    now = datetime.now(ZoneInfo("America/New_York"))
+    today = now.date().isoformat()
+    day = st.get("day", {})
+    if day.get("date") != today:
+        day = {"date": today, "open_sent": False, "close_sent": False, "bands": {}}
+    st["day"] = day
+
+    rows = {}
+    for t in tickers:
+        try:
+            h = yf.Ticker(t).history(period="5d", interval="1d").dropna(subset=["Open", "Close"])
+        except Exception as e:
+            print(f"{t} 일봉 실패: {e}", file=sys.stderr)
+            continue
+        if len(h) >= 2 and h.index[-1].date().isoformat() == today:  # 오늘 장이 열렸음 (휴장일이면 없음)
+            rows[t] = {"open": float(h["Open"].iloc[-1]), "last": float(h["Close"].iloc[-1]),
+                       "prev": float(h["Close"].iloc[-2])}
+    if not rows and not test:
+        return
+
+    def line(t, r, closing):
+        d = (r["last"] / r["prev"] - 1) * 100
+        if closing:
+            return f"{t} ${r['last']:,.2f}  전일 {d:+.1f}% · 시가 대비 {(r['last'] / r['open'] - 1) * 100:+.1f}%"
+        g = (r["open"] / r["prev"] - 1) * 100
+        return f"{t} 시가 ${r['open']:,.2f}  전일 종가 대비 {g:+.1f}%"
+
+    after_close = (now.hour, now.minute) >= (16, 0)
+    in_session = (now.hour, now.minute) >= (9, 30) and not after_close
+
+    if test and rows:
+        send("🧪 테스트 · 🔔 미장 시작 형식\n" + "\n".join(line(t, r, False) for t, r in rows.items()))
+        return
+
+    if after_close and not day["close_sent"]:
+        if send("🏁 미장 마감\n" + "\n".join(line(t, r, True) for t, r in rows.items())):
+            day["close_sent"] = day["open_sent"] = True
+        return
+    if not in_session:
+        return
+    if not day["open_sent"]:
+        if send("🔔 미장 시작\n" + "\n".join(line(t, r, False) for t, r in rows.items())):
+            day["open_sent"] = True
+
+    for t, r in rows.items():
+        pct = (r["last"] / r["open"] - 1) * 100
+        band = int(pct / step)  # 0을 향해 버림: +3.4% → 1, -6.2% → -2
+        done = day["bands"].setdefault(t, [])
+        hi, lo = max(done + [0]), min(done + [0])
+        if band > hi or band < lo:  # 그날 처음 닿는 더 높은(낮은) 구간일 때만
+            arrow = "📈" if band > 0 else "📉"
+            if send(f"{arrow} {t} 시가 대비 {pct:+.1f}% ({band * step:+.0f}% 돌파)\n"
+                    f"현재 ${r['last']:,.2f} · 시가 ${r['open']:,.2f} · 전일 {(r['last'] / r['prev'] - 1) * 100:+.1f}%"):
+                done.append(band)
 
 
 if __name__ == "__main__":
