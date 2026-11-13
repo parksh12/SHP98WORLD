@@ -1,1 +1,1 @@
-{"level": {"NVDA": -1}, "rsi": {}, "day": {"date": "2026-11-13", "open_sent": false, "close_sent": false, "bands": {}}}
+{"level": {"NVDA": -1}, "rsi": {}, "day": {"date": "2026-11-13", "open_sent": true, "close_sent": false, "bands": {"NVDA": [-1], "TQQQ": [-1], "SOXL": [-2]}}}
