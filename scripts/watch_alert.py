@@ -136,9 +136,6 @@ def check_session(cfg, st, test=False):
         if len(h) >= 2 and h.index[-1].date().isoformat() == today:  # 오늘 장이 열렸음 (휴장일이면 없음)
             rows[t] = {"open": float(h["Open"].iloc[-1]), "last": float(h["Close"].iloc[-1]),
                        "prev": float(h["Close"].iloc[-2])}
-    if not rows and not test:
-        return
-
     def line(t, r, closing):
         d = (r["last"] / r["prev"] - 1) * 100
         if closing:
@@ -149,9 +146,12 @@ def check_session(cfg, st, test=False):
     after_close = (now.hour, now.minute) >= (16, 0)
     in_session = (now.hour, now.minute) >= (9, 30) and not after_close
 
-    if test and rows:
-        send("🧪 테스트 · 🔔 미장 시작 형식\n" + "\n".join(line(t, r, False) for t, r in rows.items()))
+    if test:
+        if rows:
+            send("🧪 테스트 · 🔔 미장 시작 형식\n" + "\n".join(line(t, r, False) for t, r in rows.items()))
         rsi_report(cfg)
+        return
+    if not rows:
         return
 
     if after_close and not day["close_sent"]:
