@@ -41,6 +41,30 @@ def weekly_rsi(t, n=14):
     return float(c.iloc[-1]), float((100 - 100 / (1 + up / dn)).iloc[-1])
 
 
+REPORT_DEFAULT = ["TQQQ", "SOXL", "KORU"]  # 매일 마감 후 주봉 RSI(9) 보고 (설정의 rsi_report로 바꿀 수 있음)
+
+
+def rsi_report(cfg):
+    n = int(cfg.get("rsi_report_n", 9))
+    lines = []
+    for t in cfg.get("rsi_report", REPORT_DEFAULT):
+        try:
+            c = yf.Ticker(t).history(period="5y", interval="1wk")["Close"].dropna()
+        except Exception as e:
+            print(f"{t} 보고 실패: {e}", file=sys.stderr)
+            continue
+        d = c.diff()
+        up = d.clip(lower=0).ewm(alpha=1 / n, adjust=False).mean()
+        dn = (-d.clip(upper=0)).ewm(alpha=1 / n, adjust=False).mean()
+        r = 100 - 100 / (1 + up / dn)
+        now, prev = float(r.iloc[-1]), float(r.iloc[-2])
+        dot = "🔴" if now <= 30 else "🟡" if now <= 40 else "🟢" if now < 70 else "🔥"
+        lines.append(f"{dot} {t} {now:.1f} (지난주 {prev:.1f}, {now - prev:+.1f}) · ${float(c.iloc[-1]):,.2f}")
+    if lines:
+        send(f"📊 주봉 RSI({n}) 일일 보고\n" + "\n".join(lines) +
+             "\n🔴≤30 · 🟡30~40 · 🟢40~70 · 🔥≥70 (이번 주 봉은 진행 중 값)")
+
+
 def main():
     raw = os.environ.get("ALERT_CONFIG", "").strip()
     if not raw:
@@ -127,11 +151,13 @@ def check_session(cfg, st, test=False):
 
     if test and rows:
         send("🧪 테스트 · 🔔 미장 시작 형식\n" + "\n".join(line(t, r, False) for t, r in rows.items()))
+        rsi_report(cfg)
         return
 
     if after_close and not day["close_sent"]:
         if send("🏁 미장 마감\n" + "\n".join(line(t, r, True) for t, r in rows.items())):
             day["close_sent"] = day["open_sent"] = True
+            rsi_report(cfg)
         return
     if not in_session:
         return
