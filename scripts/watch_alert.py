@@ -65,6 +65,41 @@ def rsi_report(cfg):
              "\n🔴≤30 · 🟡30~40 · 🟢40~70 · 🔥≥70 (이번 주 봉은 진행 중 값)")
 
 
+def check_plans(cfg, st, test=False):
+    """보유 계획 점검: check 날짜(뉴욕 기준)가 되면 주봉 RSI(9)로 매도/연장을 알리고,
+    연장 중이면 RSI가 70 아래로 내려올 때 매도 신호를 보낸다.
+    설정 예) "plans": [{"t": "TQQQ", "avg": 42.44, "check": "2027-05-21"}]"""
+    ps = st.setdefault("plans", {})
+    today = datetime.now(ZoneInfo("America/New_York")).date().isoformat()
+    for p in cfg.get("plans", []):
+        t, key = p["t"], f'{p["t"]}@{p["check"]}'
+        s = ps.setdefault(key, {"stage": "wait"})
+        if s["stage"] == "done" or (today < p["check"] and not test):
+            continue
+        try:
+            price, r9 = weekly_rsi(t, 9)
+        except Exception as e:
+            print(f"{t} 계획 점검 실패: {e}", file=sys.stderr)
+            continue
+        gain = f" · 평단 ${p['avg']:,.2f} 대비 {(price / p['avg'] - 1) * 100:+.1f}%" if "avg" in p else ""
+        if test:
+            send(f"🧪 테스트 · 📅 {t} 매도 점검일 {p['check']}\n지금 주봉 RSI(9) {r9:.1f} · ${price:,.2f}{gain}")
+            continue
+        if s["stage"] == "wait":
+            if r9 >= 70:
+                msg = (f"📅 {t} 26주 매도 점검일\n주봉 RSI(9) {r9:.1f} → 과열 중이라 연장. "
+                       f"RSI가 70 아래로 내려오면 다시 알려줄게\n${price:,.2f}{gain}")
+                nxt = "extended"
+            else:
+                msg = f"📅 {t} 26주 매도 점검일\n주봉 RSI(9) {r9:.1f} (70 미만) → 규칙상 매도\n${price:,.2f}{gain}"
+                nxt = "done"
+            if send(msg):
+                s["stage"] = nxt
+        elif s["stage"] == "extended" and r9 < 70:
+            if send(f"🔔 {t} 주봉 RSI(9) {r9:.1f} — 70 아래로 내려옴 → 연장 끝, 규칙상 매도\n${price:,.2f}{gain}"):
+                s["stage"] = "done"
+
+
 def main():
     raw = os.environ.get("ALERT_CONFIG", "").strip()
     if not raw:
@@ -110,6 +145,7 @@ def main():
             rs[t] = False
 
     check_session(cfg, st, test)
+    check_plans(cfg, st, test)
     STATE.write_text(json.dumps(st), encoding="utf-8")
 
 
