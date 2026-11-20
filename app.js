@@ -88,15 +88,63 @@ function build() {
     });
     const cash = (a.cash_usd || 0) * fx + (a.cash_krw || 0);
     cats["단기채·현금"] = (cats["단기채·현금"] || 0) + cash;
-    return { name: a.name, rows, value, cost, cash };
+    const out = { name: a.name, rows, value, cost, cash, src: a, track: a.track || null };
+    if (a.track === "income") out.income = Policy.incomeMetrics(a, rows.map(r => ({ ticker: r.ticker, name: r.name, value: r.value, yield: r.yield })));
+    if (a.track === "aggressive") { // 공격 트랙 지표는 계좌 통화(USD) 기준
+      const isUSD = a.currency === "USD";
+      out.aggr = Policy.aggressiveMetrics(a, rows.map(r => ({ ticker: r.ticker, value: isUSD ? r.price * r.qty : r.value / fx })), isUSD ? (a.cash_usd || 0) : (a.cash_krw || 0) / fx);
+    }
+    return out;
   });
+  const byRaw = raw => accounts.find(x => x.src === raw) || {};
+  const audit = Policy.audit(DATA.accounts, { incomeOf: a => byRaw(a).income, aggressiveOf: a => byRaw(a).aggr, budget: DATA.budget });
   const savings = DATA.savings.map(s => {
     const n = depositsSince(D(s.as_of), s.day, t), now = s.balance + n * s.monthly;
     cats[s.category] += now; return { ...s, now, next: nextDeposit(s.day, t) };
   });
   DATA.cash.forEach(c => cats[c.category] += c.amount);
   const total = Object.values(cats).reduce((a, b) => a + b, 0);
-  return { fx, t, cats, accounts, savings, total, warn };
+  return { fx, t, cats, accounts, savings, total, warn, audit };
+}
+
+// ---------- 트랙 (ISA 배당 / 미국 공격) ----------
+const TRACK = { income: { tag: "배당 트랙", sub: "보너스 전용 · 7%+ 고배당", cls: "trk-inc" }, aggressive: { tag: "공격 트랙", sub: "신규 입금 0 · 초고위험", cls: "trk-agg" } };
+const usd = x => (x < 0 ? "-$" : "$") + Math.abs(x).toLocaleString("en-US", { maximumFractionDigits: 0 });
+
+function auditSection(list, compact) {
+  if (!list.length) return `<section class="card pol ok"><b>운용 규칙</b> <span class="mut">위반·경고 없음</span></section>`;
+  const bad = list.filter(x => x.level === "bad").length;
+  const rows = list.map(x => `<li class="${x.level}"><span class="pa">${esc(x.acct)}</span>${esc(x.text)}</li>`).join("");
+  return `<section class="card pol"><div class="row" style="margin:0"><h2 style="margin:0">운용 규칙 점검</h2><span class="chip ${bad ? "bad" : "mid"}">${bad ? `위반 ${bad}` : ""}${bad && list.length - bad ? " · " : ""}${list.length - bad ? `경고 ${list.length - bad}` : ""}</span></div>
+${compact ? `<details class="more"><summary>내용 보기</summary><ul class="pl">${rows}</ul></details>` : `<ul class="pl">${rows}</ul>`}</section>`;
+}
+
+function incomePanel(a) {
+  const m = a.income, p = m.policy;
+  const yc = x => x.flag === "ok" ? `<span class="ych ok">${x.yield}% ✓</span>` : x.flag === "low" ? `<span class="ych low">${x.yield}% · 원칙 외</span>` : `<span class="ych unk">배당률 미입력</span>`;
+  const items = m.items.map(x => `<div class="prow"><span>${esc(x.name)}</span><span>${yc(x)} <b>${x.annualNet ? man(x.annualNet) + "/년" : "-"}</b></span></div>`).join("");
+  const deps = (a.src.deposits || []).slice(-5).reverse().map(d => `<div class="prow"><span class="mut">${esc(d.date)}</span><span>${esc(d.source)} <b>${won(d.amount)}</b></span></div>`).join("");
+  return `<div class="kpis"><div class="kpi"><span>가중 배당률</span><b>${m.weightedYield == null ? "-" : m.weightedYield.toFixed(1) + "%"}</b></div>
+<div class="kpi"><span>예상 월 배당 (세후)</span><b>${man(m.monthlyNet)}</b></div><div class="kpi"><span>예상 연 배당 (세후)</span><b>${man(m.annualNet)}</b></div></div>
+<div class="kpis"><div class="kpi"><span>${p.min_yield}%+ 종목 비중</span><b class="${m.compliantPct < 100 ? "up" : ""}">${m.compliantPct.toFixed(0)}%</b></div>
+<div class="kpi"><span>보너스 입금 누적</span><b>${man(m.bonusTotal)}</b></div><div class="kpi"><span>받은 배당 (재투자/인출)</span><b>${man(m.reinvested)} / ${man(m.withdrawn)}</b></div></div>
+<div class="tsub">종목별 배당률 · 예상 연 배당</div>${items}
+<div class="tsub">보너스 입금 (${p.allowed_sources.map(s => `${s} ${man((m.bySource.find(b => b.source === s) || {}).amount || 0)}`).join(" · ")})</div>${deps || `<div class="mut tnone">기록 없음</div>`}
+<div class="mut tnote">세율 설정값 ${p.dividend_tax}% · 배당률은 입력값 기준 계산</div>`;
+}
+
+function aggressivePanel(a) {
+  const m = a.aggr, p = m.policy, lu = Math.min(m.limitUse, 100);
+  const pos = m.positions.map(x => `<div class="prow"><span>${esc(x.ticker)}</span><span class="${x.over ? "up" : ""}">${x.weight.toFixed(0)}%${x.over ? ` · 한도 ${p.max_position_pct}% 초과` : ""}</span></div>`).join("");
+  const tr = m.trades.slice(-5).reverse().map(t => `<div class="prow"><span>${esc(t.close || "")} ${esc(t.ticker)} ${t.qty}주</span><span class="${cls(t.ret)}">${usd(t.pnl)} (${sp(t.ret)})${t.r != null ? ` · ${t.r.toFixed(1)}R` : ""}</span></div>`).join("");
+  return `<div class="kpis"><div class="kpi"><span>원금 대비</span><b class="${cls(m.lossPct || 0)}">${m.lossPct == null ? "-" : sp(m.lossPct)}</b></div>
+<div class="kpi"><span>고점 대비 낙폭</span><b class="${cls(m.ddPct)}">${sp(m.ddPct)}</b></div><div class="kpi"><span>외부 입금</span><b class="${m.externalDeposits > p.external_deposit_limit ? "up" : ""}">${usd(m.externalDeposits)} / 한도 ${usd(p.external_deposit_limit)}</b></div></div>
+<div class="tsub">최대 손실 한도 -${p.max_loss_pct}% 사용률 ${m.limitUse.toFixed(0)}%${m.base ? ` · 원금 ${usd(m.base)} → 현재 ${usd(m.value)}` : ""}</div>
+<div class="track meter"><div class="fill ${lu >= 70 ? "hot" : ""}" style="width:${lu.toFixed(1)}%"></div></div>
+<div class="kpis"><div class="kpi"><span>승률</span><b>${m.winRate == null ? "-" : m.winRate.toFixed(0) + "%"}</b></div><div class="kpi"><span>손익비</span><b>${m.payoff == null ? "-" : m.payoff.toFixed(2)}</b></div>
+<div class="kpi"><span>실현 손익 (${m.tradeCount}건)</span><b class="${cls(m.realized)}">${usd(m.realized)}</b></div></div>
+<div class="tsub">종목 비중 (한도 ${p.max_position_pct}%)</div>${pos || `<div class="mut tnone">포지션 없음</div>`}
+<div class="tsub">최근 청산 매매</div>${tr || `<div class="mut tnone">기록 없음</div>`}`;
 }
 
 // ---------- 그리기 ----------
@@ -160,9 +208,9 @@ function render(d) {
     const p = v / total * 100;
     return `<div class="hrow"><span class="hn"><i style="background:var(--s${i + 1})"></i>${esc(c)}</span><div class="hb"><i style="width:${p.toFixed(1)}%;background:var(--s${i + 1})"></i></div><b>${man(v)}</b><em>${p.toFixed(0)}%</em></div>`; }).join("");
 
-  const holds = accounts.flatMap(a => a.rows.map(r => ({ ...r, acct: a.name.replace(/ \(.*\)/, "") }))).sort((x, y) => y.value - x.value).map(r => {
+  const holds = accounts.flatMap(a => a.rows.map(r => ({ ...r, acct: a.name.replace(/ \(.*\)/, ""), T: TRACK[a.track] }))).sort((x, y) => y.value - x.value).map(r => {
     const pc = pct(r.value, r.cost);
-    return `<div class="lrow"><div class="ll"><b>${esc(r.ticker.match(/^\d/) ? r.name.replace(" 미국", " ") : r.ticker)}</b><span>${esc(r.acct)} · ${r.qty}주</span></div>
+    return `<div class="lrow"><div class="ll"><b>${esc(r.ticker.match(/^\d/) ? r.name.replace(" 미국", " ") : r.ticker)}${r.T ? ` <span class="tpill ${r.T.cls}">${r.T.tag}</span>` : ""}</b><span>${esc(r.acct)} · ${r.qty}주</span></div>
       <div class="lr"><b>${man(r.value)}</b>${rchip(pc)}</div></div>`; }).join("");
 
   const M = DATA.milestones || {}, held = {};
@@ -178,6 +226,11 @@ ${headerHTML(d)}
   <div><span>예적금</span><b>${man(savNow)}</b></div><div><span>비상금</span><b>${man(cashTotal)}</b></div></div>
 </section>
 ${d.warn.length ? `<div class="warn">* 시세 없음: 평단가로 표시</div>` : ""}
+${(() => { const inc = accounts.find(a => a.income), agg = accounts.find(a => a.aggr); if (!inc && !agg) return "";
+  const tile = (a, T, lines) => `<a class="trk-tile ${T.cls}" href="accounts.html"><span class="tt">${T.tag}</span><b>${man(a.value + a.cash)}</b>${lines}<span class="ts">${T.sub}</span></a>`;
+  return `<section class="trk-row">${inc ? tile(inc, TRACK.income, `<em>월 배당 ${man(inc.income.monthlyNet)} · 7%+ ${inc.income.compliantPct.toFixed(0)}%</em>`) : ""}
+${agg ? tile(agg, TRACK.aggressive, `<em>원금 대비 ${agg.aggr.lossPct == null ? "-" : sp(agg.aggr.lossPct)} · 한도 ${agg.aggr.limitUse.toFixed(0)}% 사용</em>`) : ""}</section>`; })()}
+${auditSection(d.audit, true)}
 <section class="card"><div class="row"><h2 style="margin:0">${(g.target / 1e8).toFixed(0)}억 목표</h2><span class="chip mid">D-${Math.max(Math.round((end - t) / 864e5), 0)}</span></div>
 <div class="g-big"><b>${prog.toFixed(1)}%</b><span> · 남은 ${man(Math.max(g.target - total, 0))}</span></div>
 <div class="track" style="margin-top:10px;height:12px"><div class="fill" style="width:${prog.toFixed(2)}%"></div></div></section>
@@ -226,7 +279,10 @@ function renderAccounts(d) {
           <div class="wbar"><div><i style="width:${w.toFixed(1)}%;background:${x.color}"></i></div><span>${w.toFixed(1)}%</span></div></div>`; }).join("")
         + (a.cash > 0 ? `<div class="hold"><div class="hold-top"><span class="mut">예수금</span><span class="v mut">${won(a.cash)}</span></div>
           <div class="wbar"><div><i style="width:${(a.cash / x.value * 100).toFixed(1)}%;background:var(--mut)"></i></div><span>${(a.cash / x.value * 100).toFixed(1)}%</span></div></div>` : "");
-      return `<section class="card" id="${x.id}">${head(x, `<span class="${cls(pc)}" style="font-size:13px">${sw(pl)}</span> ${rchip(pc)}`)}${holds}</section>`;
+      const T = TRACK[a.track];
+      const tag = T ? `<div class="trk-tag ${T.cls}"><b>${T.tag}</b><span>${T.sub}</span></div>` : "";
+      const panel = a.income ? incomePanel(a) : a.aggr ? aggressivePanel(a) : "";
+      return `<section class="card ${T ? T.cls : ""}" id="${x.id}">${head(x, `<span class="${cls(pc)}" style="font-size:13px">${sw(pl)}</span> ${rchip(pc)}`)}${tag}${holds}${panel}</section>`;
     }
     if (x.kind === "sav") {
       const s = x.s, dday = Math.round((s.next - t) / 864e5), vals = Array.from({ length: 13 }, (_, i) => s.now + i * s.monthly), mx = vals[12];
@@ -247,6 +303,7 @@ ${headerHTML(d)}
 <div class="c"><small>총자산</small><b>${man(total)}</b></div></div><div class="alist">${alist}</div></div>
 <div class="kpis"><div class="kpi"><span>투자 손익</span><b class="${cls(invVal - invCost)}">${sp(pct(invVal, invCost))}</b></div>
 <div class="kpi"><span>예적금</span><b>${man(savNow)}</b></div><div class="kpi"><span>비상금</span><b>${man(cashTotal)}</b></div></div></section>
+${auditSection(d.audit, false)}
 ${list.map(card).join("")}
 </main>`;
   bindTips();

@@ -177,3 +177,29 @@ details.more{margin-top:8px}details.more summary{cursor:pointer;color:var(--mut)
 details.more summary::before{content:"▸ ";}details.more[open] summary::before{content:"▾ ";}
 @media (max-width:560px){.hrow{grid-template-columns:84px 1fr 64px 34px;gap:8px;font-size:13px}.hc-big{font-size:30px}}
 .hc-row em{display:block;margin:0}
+
+/* ---- 트랙 분리: ISA 배당(초록) / 미국 공격(빨강) ---- */
+.card.trk-inc{border-left:4px solid var(--good)} .card.trk-agg{border-left:4px solid var(--up)}
+.trk-tag{display:flex;align-items:center;gap:8px;margin:2px 0 8px;font-size:12px}
+.trk-tag b{border-radius:999px;padding:3px 9px;font-size:11.5px}
+.trk-tag span{color:var(--mut)}
+.trk-tag.trk-inc b,.tpill.trk-inc{background:rgba(46,158,91,.14);color:var(--good)}
+.trk-tag.trk-agg b,.tpill.trk-agg{background:rgba(226,75,75,.13);color:var(--up)}
+.tpill{font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 7px;margin-left:4px;vertical-align:middle}
+.trk-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.trk-tile{display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
+.trk-tile.trk-inc{border-top:4px solid var(--good)} .trk-tile.trk-agg{border-top:4px solid var(--up)}
+.trk-tile .tt{display:block;font-size:12px;font-weight:700}.trk-tile.trk-inc .tt{color:var(--good)}.trk-tile.trk-agg .tt{color:var(--up)}
+.trk-tile b{display:block;font-size:18px;margin:2px 0;font-variant-numeric:tabular-nums}
+.trk-tile em{display:block;font-style:normal;font-size:12px;color:var(--ink2)}.trk-tile .ts{display:block;font-size:11px;color:var(--mut);margin-top:4px}
+.tsub{font-size:12px;color:var(--mut);font-weight:600;margin:14px 0 2px}
+.tnone{font-size:12px;padding:6px 0}.tnote{font-size:11px;margin-top:10px}
+.ych{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;margin-right:6px}
+.ych.ok{background:rgba(46,158,91,.14);color:var(--good)}.ych.low{background:rgba(226,75,75,.13);color:var(--up)}.ych.unk{background:var(--soft);color:var(--mut)}
+.track.meter{height:10px;margin-top:6px}.fill.hot{background:var(--up)}
+.pol .pl{list-style:none;padding:0;margin:10px 0 0}
+.pol .pl li{font-size:13px;padding:7px 0 7px 10px;border-left:3px solid var(--primary);margin:4px 0;background:var(--bg);border-radius:0 10px 10px 0}
+.pol .pl li.bad{border-left-color:var(--up)}
+.pol .pa{display:inline-block;font-size:11px;font-weight:700;color:var(--mut);margin-right:6px}
+.pol.ok{font-size:13px}
+@media (max-width:560px){.trk-row{grid-template-columns:1fr}}
